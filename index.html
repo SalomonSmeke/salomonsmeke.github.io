@@ -4,41 +4,37 @@
 <header>
   <title>Salomon Smeke</title>
 
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.5-dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="css/octicons/octicons.css">
   <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 
   <script>
   function startTime() {
       var today=new Date();
-      var h=today.getHours();
-      var m=today.getMinutes();
-      var s=today.getSeconds();
-      h = checkTime(h);
-      m = checkTime(m);
-      s = checkTime(s);
+      var h=checkTime(today.getHours());
+      var m=checkTime(today.getMinutes());
+      var s=checkTime(today.getSeconds());
       if (s%2==0){
         document.getElementById('time').innerText = h + ':' + m + ':' + s;
       } else {
         document.getElementById('time').innerText = h + ':' + m + ' ' + s;
       }
-      var twentyFour = 255/24;
-      var sixty = 255/60;
-      var c1 = Math.round(twentyFour*today.getHours()).toString(16);
-      var c2 = Math.round(sixty*today.getMinutes()).toString(16);
-      var c3 = Math.round(sixty*today.getSeconds()).toString(16);
-      if (c1.length!=2){
+      var twentyFour = 10.625;
+      var sixty = 4.25;
+      var c1 = Math.round(twentyFour*h).toString(16);
+      var c2 = Math.round(sixty*m).toString(16);
+      var c3 = Math.round(sixty*s).toString(16);
+      while (c1.length!=2){
         c1 = "0"+c1;
       }
-      if (c2.length!=2){
-        c2 = "0"+c3;
+      while (c2.length!=2){
+        c2 = "0"+c2;
       }
-      if (c3.length!=2){
+      while (c3.length!=2){
         c3 = "0"+c3;
       }
       document.getElementById('center-container').style.backgroundColor = "#" + c1 + c2 + c3;
-
       var t = setTimeout(function(){startTime()},500);
   }
 
@@ -49,7 +45,7 @@
 
   function reFit(){
       document.getElementById('center-container').style.height = (document.getElementById('main-box').offsetHeight - document.getElementById('about-me').offsetHeight) + "px";
-      document.getElementById('top').style.height = document.getElementById('center-container').offsetHeight/2 - document.getElementById('middle').offsetHeight/2+ "px";
+      document.getElementById('top').style.height = (document.getElementById('center-container').offsetHeight/2 - document.getElementById('time').offsetHeight) + "px";
   }
   </script>
 
@@ -62,22 +58,29 @@
     <div id="about-me" class="about-me">
       <h1>
       I was born in Mexico City.<br>
-      I enjoy videogames&&art&&discovery.<br>
+      I enjoy videogames&&art&#8203;&&discovery.<br>
       I am currently a student in Chicago.<br>
       I study Software Engineering.
     </h1>
     </div>
     <div id="center-container" class="center-container">
-      <div id="top" class="top">
+      <div id="top" class="top"></div>
+      <div id="middle" class="middle">
+        <div class="main-pad"><h1>&nbsp;</h1></div>
+        <div class="main-side"><h1>&nbsp;</h1></div>
+        <div class="name">Salomon</div>
+        <div id="time" class="time"></div>
+        <div class="main-side"><h1>&nbsp;</h1></div>
+        <div class="main-pad"><h1>&nbsp;</h1></div>
       </div>
-    <div id="middle" class="middle">
-      <div class="main-pad"></div>
-      <div class="main-side"></div>
-      <div class="name"><h1>Salomon</h1></div>
-      <div id="time" class="time"></div>
-      <div class="main-side"></div>
-      <div class="main-pad"></div>
-    </div>
+      <div id="bottom" class="bottom">
+        <div class="main-pad"><h1>&nbsp;</h1></div>
+        <div class="main-pad"><h1>&nbsp;</h1></div>
+        <div class="git"><a href="https://github.com/SalomonSmeke/" target="_blank"><span class="mega-octicon octicon-repo-forked"></span></a>&nbsp;</div>
+        <div class="more">&nbsp;<span class="mega-octicon octicon-plus"></span></div>
+        <div class="main-pad"><h1>&nbsp;</h1></div>
+        <div class="main-pad"><h1>&nbsp;</h1></div>
+      </div>
   </div>
   </div>
 </body>
