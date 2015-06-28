@@ -18,11 +18,10 @@
       h = checkTime(h);
       m = checkTime(m);
       s = checkTime(s);
-      document.getElementById('hour').innerText = h;
-      document.getElementById('minute').innerText = ':' + m;
-      document.getElementById('second').innerText = s;
       if (s%2==0){
-        s = ':'+s;
+        document.getElementById('time').innerText = h + ':' + m + ':' + s;
+      } else {
+        document.getElementById('time').innerText = h + ':' + m + ' ' + s;
       }
       var twentyFour = 255/24;
       var sixty = 255/60;
@@ -38,9 +37,8 @@
       if (c3.length!=2){
         c3 = "0"+c3;
       }
-      document.getElementById('clock').style.backgroundColor = "#" + c1 + c2 + c3;
-      document.getElementById('clock').style.height = document.getElementById('main-box').style.height-document.getElementById('about-me').style.height;
-      document.getElementById('clock').style.top = ocument.getElementById('about-me').style.height+"px";
+      document.getElementById('center-container').style.backgroundColor = "#" + c1 + c2 + c3;
+
       var t = setTimeout(function(){startTime()},500);
   }
 
@@ -48,27 +46,39 @@
       if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
       return i;
   }
+
+  function reFit(){
+      document.getElementById('center-container').style.height = (document.getElementById('main-box').offsetHeight - document.getElementById('about-me').offsetHeight) + "px";
+      document.getElementById('top').style.height = document.getElementById('center-container').offsetHeight/2 - document.getElementById('middle').offsetHeight/2+ "px";
+  }
   </script>
+
 
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 </header>
-<body onload="startTime()">
+<body onload="startTime(),reFit()" onresize="reFit()" on>
 
   <div id="main-box" class="main-box">
-
     <div id="about-me" class="about-me">
       <h1>
       I was born in Mexico City.<br>
       I enjoy videogames&&art&&discovery.<br>
       I am currently a student in Chicago.<br>
       I study Software Engineering.
-      </h1>
+    </h1>
     </div>
-    <div id="clock" class="clock">
-      <div id="hour" class="hour"></div>
-      <div id="minute"></div>
-      <div id="second"></div>
+    <div id="center-container" class="center-container">
+      <div id="top" class="top">
+      </div>
+    <div id="middle" class="middle">
+      <div class="main-pad"></div>
+      <div class="main-side"></div>
+      <div class="name"><h1>Salomon</h1></div>
+      <div id="time" class="time"></div>
+      <div class="main-side"></div>
+      <div class="main-pad"></div>
     </div>
+  </div>
   </div>
 </body>
 </html>

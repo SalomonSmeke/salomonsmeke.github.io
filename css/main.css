@@ -1,6 +1,6 @@
 html, body {
   font-family: 'Montserrat', sans-serif;
-  color: #fffcfc;
+  color: #000000;
   padding: 0px;
   margin: 0px;
 }
@@ -39,8 +39,7 @@ h3{
   padding-right: 5%;
   padding-top: 2%;
   padding-bottom: 2%;
-  background-color: #b5e0ff;
-  border-bottom: 5px solid  #fffcfc;
+  background-color: #ffffff;
 }
 
 .about-me h1{
@@ -52,9 +51,25 @@ h3{
   background-color: #000;
 }
 
-.hour h1{
-  font-size: 200%;
-  color: #ff0000;
+.center-container{
+width:100%;
+height:100%
+}
+
+.main-pad{
+  width: 5%;
+  height: 100%
+  float: left;
+}
+
+.main-side{
+  width: 5%;
+  height: 100%
+  float: left;
+}
+
+.top{
+  width: 100%;
 }
 
 /* Smartphones (portrait and landscape) ----------- */
