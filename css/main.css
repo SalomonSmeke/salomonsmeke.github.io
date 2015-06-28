@@ -1,13 +1,28 @@
 html, body {
-  font-family: 'Dosis', sans-serif;
-  height:100%;
-  width:100%;
+  font-family: 'Montserrat', sans-serif;
+  color: #fffcfc;
   padding: 0px;
   margin: 0px;
 }
 
+h1{
+  font-weight: 700;
+  margin: 0px;
+}
+
+h2{
+  font-weight: 400;
+  margin: 0px;
+}
+
+h3{
+  font-weight: 400;
+  margin: 0px;
+}
+
 .main-box{
-  background-color: #fff8f8;
+  height: 100%;
+  width: 100%;
 }
 
 .center{
@@ -18,184 +33,28 @@ html, body {
   color: @inverseText;
 }
 
-/*Top*/
-
 .about-me{
-  min-height: 70px;
   text-align: right;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  background-color: #b5e0ff;
+  border-bottom: 5px solid  #fffcfc;
 }
 
-/*End Top*/
-
-/*Name Bar*/
-.name-bar, .name-bar-xs{
-  height: 70px;
-  text-align: left;
-  border-top: 6px solid #444;
-  border-bottom: 6px solid #444;
-  margin: 0;
-  padding: 0;
+.about-me h1{
+  font-size: 200%;
 }
 
-.name-bar h1{
-  padding-top: 10px;
-  padding-left: 10px;
+.clock{
+  height: 60%;
+  background-color: #000;
 }
 
-.name-bar-xs{
-  border: 6px solid #444;
-}
-
-.name-bar-xs h3{
-  padding-top: 15px;
-  padding-left: 15px;
-}
-
-.name-bar-pad{
-  height: 70px;
-}
-
-.name-bar-side{
-  height: 70px;
-  border: 6px solid #444;
-}
-/*End Name Bar*/
-
-/*Profile Bar*/
-.profile-bar-l0,.profile-bar-r0, .profile-bar-xs-l0, .profile-bar-xs-r0, .profile-bar-l1,.profile-bar-r1, .profile-bar-xs-l1, .profile-bar-xs-r1{
-  height: 140px;
-  margin: 0;
-  padding: 0;
-}
-
-.profile-bar-l0 h1, .profile-bar-r0 h1, .profile-bar-l1 h1, .profile-bar-r1 h1{
-  padding-top: 44px;
-  padding-left: 20.8%;
-}
-
-.profile-bar-xs-l0 h3, .profile-bar-xs-r0 h3, .profile-bar-xs-l1 h3, .profile-bar-xs-r1 h3{
-  padding-top: 19px;
-  align-items: center;
-}
-
-.profile-bar-xs-l0, .profile-bar-l0, .profile-bar-xs-l1, .profile-bar-l1{
-  border-left: 6px solid #444;
-  border-right: 3px solid #444;
-  border-bottom: 6px solid #444;
-}
-
-.profile-bar-xs-r0, .profile-bar-r0, .profile-bar-xs-r1, .profile-bar-r1{
-  border-left: 3px solid #444;
-  border-right: 6px solid #444;
-  border-bottom: 6px solid #444;
-}
-
-.profile-bar-pad{
-  height: 140px;
-}
-
-.profile-bar-l0:hover, .profile-bar-xs-l0:hover{
-  transition-duration: .5s;
-  background-color: #ff0000;
-  transition-delay: .05s;
-}
-
-.profile-bar-r0:hover, .profile-bar-xs-r0:hover{
-  transition-duration: .5s;
-  background-color: #0000ff;
-  transition-delay: .05s;
-}
-
-.profile-bar-l1:hover, .profile-bar-xs-l1:hover{
-  transition-duration: .5s;
-  background-color: #00ff00;
-  transition-delay: .05s;
-}
-
-.profile-bar-r1:hover, .profile-bar-xs-r1:hover{
-  transition-duration: .5s;
-  background-color: #ffff00;
-  transition-delay: .05s;
-}
-/*End Profile Bar*/
-
-/*Bottom Bar*/
-.bottom-bar, .name-bar-xs{
-  height: 64px;
-  text-align: left;
-  border-bottom: 6px solid #444;
-  margin: 0;
-  padding: 0;
-}
-
-.bottom-bar h1{
-  padding-top: 10px;
-  padding-left: 10px;
-}
-
-.bottom-bar-xs{
-  border-bottom: 6px solid #444;
-  border-right: 6px solid #444;
-  border-left: 6px solid #444;
-  height: 64px;
-}
-
-.bottom-bar-xs h3{
-  padding-top: 16px;
-  padding-left: 16px;
-}
-
-.bottom-bar-pad{
-  height: 64px;
-}
-
-.bottom-bar-side{
-  height: 64px;
-  border-bottom: 6px solid #444;
-  border-right: 6px solid #444;
-  border-left: 6px solid #444;
-}
-
-.bottom-bar-side:hover{
-  transition-duration: .5s;
-  background-color: #bbddff;
-  transition-delay: .05s;
-}
-/*End bottom Bar*/
-
-html, body, ng-scope, ng-view {
-  font-size: 100%;
-  font-family: 'Dosis', sans-serif;
-}
-
-h1{
-  font-weight: 200;
-  margin: 0px;
-}
-
-h2{
-  font-weight: 200;
-  margin: 0px;
-}
-
-h3{
-  font-weight: 100;
-  margin: 0px;
-}
-
-.box{
-  height:150px;
-  width:200px;
-  margin:20px;
-  float:left;
-  display: inline-block;
-}
-
-.bow-row{
-  width:800px;
-  height:100%;
+.hour h1{
+  font-size: 200%;
+  color: #ff0000;
 }
 
 /* Smartphones (portrait and landscape) ----------- */
