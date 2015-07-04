@@ -1,0 +1,19 @@
+.background-box, .overlay, .interactions-container, .links{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.links{
+  width: 100%;
+}
+
+.less, .more{
+  width: 50%;
+  float: left;
+  background-color: #fff;
+}
+
+.less{
+  text-align: right;
+}
