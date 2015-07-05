@@ -8,8 +8,14 @@ var pivot = 0;
 
 function LWGenPallete() {
 }
-
 LWGenPallete.prototype.setBase = function(hex) {
+  if (hex.length == 6){
+    base = colorToInts(hex);
+    return true;
+  }
+  return false;
+};
+LWGenPallete.prototype.setBaseS = function(hex) {
   if (hex.length == 6){
     var big = 0;
     base = colorToInts(hex);
@@ -38,8 +44,8 @@ LWGenPallete.prototype.setStrength = function(s) {
   return false;
 };
 LWGenPallete.prototype.setPivot = function(p) {
-  if (p <= 3 && p >= 1){
-    pivot = p-1;
+  if (p <= 2 && p >= 0){
+    pivot = p;
     return true;
   }
   return false;

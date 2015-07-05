@@ -1,3 +1,20 @@
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  color: #000000;
+  padding: 0px;
+  margin: 0px;
+}
+
+h1{
+  font-weight: 700;
+  margin: 0px;
+}
+
+h2, h3{
+  font-weight: 400;
+  margin: 0px;
+}
+
 .background-box, .overlay, .interactions-container, .links{
   position: absolute;
   top: 0;
@@ -16,4 +33,18 @@
 
 .less{
   text-align: right;
+}
+
+.interactions-l0, .interactions-r0{
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 0;
+  /* Fallback for web browsers that doesn't support RGBa */
+  background: rgb(255, 255, 255) transparent;
+  /* RGBa with 0.6 opacity */
+  background: rgba(255, 255, 255, 0.2);
+  /* For IE 5.5 - 7*/
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20FFFFFF, endColorstr=#20FFFFFF);
+  /* For IE 8*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20FFFFFF, endColorstr=#20FFFFFF)";
 }
