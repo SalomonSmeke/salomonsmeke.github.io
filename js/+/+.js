@@ -67,6 +67,15 @@ function setV(value){
   while (value.length != 2){
     value =  "0"+value;
   }
+  while (v1.length != 2){
+    v1 = "0"+v1;
+  }
+  while (v2.length != 2){
+    v2 = "0"+v2;
+  }
+  while (v3.length != 2){
+    v3 = "0"+v3;
+  }
   if (pivot == 0){
     return ""+value+v2+v3;
   }
