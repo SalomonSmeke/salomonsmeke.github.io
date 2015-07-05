@@ -64,6 +64,9 @@ function setV(value){
   var v2 = base[1].toString(16);
   var v3 = base[2].toString(16);
   value = value.toString(16);
+  while (value.length != 2){
+    value =  "0"+value;
+  }
   if (pivot == 0){
     return ""+value+v2+v3;
   }
