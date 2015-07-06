@@ -35,10 +35,16 @@ h2, h3{
   text-align: right;
 }
 
+.interactions-container{
+  float: right;
+  width: 100%;
+}
+
 .interactions-l0, .interactions-r0{
   padding-left: 1em;
   padding-right: 1em;
   margin: 0;
+  float: left;
   /* Fallback for web browsers that doesn't support RGBa */
   background: rgb(255, 255, 255) transparent;
   /* RGBa with 0.6 opacity */
@@ -47,4 +53,7 @@ h2, h3{
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20FFFFFF, endColorstr=#20FFFFFF);
   /* For IE 8*/
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20FFFFFF, endColorstr=#20FFFFFF)";
+}
+.interactions-r0{
+  float:right;
 }

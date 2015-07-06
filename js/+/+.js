@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
   $('#more').click(function(){ moreV(); return false; });
   $('#less').click(function(){ lessV(); return false; });
 
+  $('#morePerc').click(function(){ morePerc(); return false; });
+  $('#lessPerc').click(function(){ lessPerc(); return false; });
+
+  $('#moreNumber').click(function(){ moreC(); return false; });
+  $('#lessNumber').click(function(){ lessC(); return false; });
+
   topOffset = document.getElementById('links').offsetHeight;
   initialize();
   elem = document.getElementById('background-box');
@@ -33,6 +39,36 @@ document.addEventListener("DOMContentLoaded", function() {
     //The browser does not support Javascript event binding
   }
 });
+
+function morePerc(){
+  str += 5;
+  if (str>100){
+    str = 100;
+  }
+  runMe();
+}
+
+function lessPerc(){
+  str -= 5;
+  if (str<0){
+    str = 0;
+  }
+  runMe();
+}
+
+function moreC(){
+  if (steps<window.innerHeight/35){
+    steps++;
+  }
+  runMe();
+}
+
+function lessC(){
+  if (steps>2){
+    steps--;
+  }
+  runMe();
+}
 
 function moreV(){
   var value = getV();
@@ -99,20 +135,6 @@ function G(){
 
 function B(){
   pivot = 2;
-  runMe();
-}
-
-function moreC(){
-  if (steps<window.innerHeight/35){
-    steps++;
-  }
-  runMe();
-}
-
-function lessC(){
-  if (steps>2){
-    steps--;
-  }
   runMe();
 }
 
