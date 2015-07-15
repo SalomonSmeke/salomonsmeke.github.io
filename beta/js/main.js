@@ -5,8 +5,10 @@ var bodyHeight, bodyWidth;
 
 // LOADED FUNCTIONS
 document.addEventListener("DOMContentLoaded", function() {
-  $('#down').click(function(){ scrollStub(); return false; });
-  $('#clock').click(function(){clockToggle(); return false;});
+  $('#down').click(function(){ scrollClrs(); return false; });
+  $('#clock').click(function(){ clockToggle(); return false; });
+  $('#clrslinear').click(function(){ clrsToggle(); return false; });
+  $('#clrslinearR').click(function(){ clrsRToggle(); return false; });
 
   var bw = document.getElementById('biowrapper');
 
@@ -64,22 +66,21 @@ function resizeAttach(){
     } else {
           cw.style.top = 34 + "px";
     }
-
 }
 
 // SCROLL MANAGEMENT
 
-//lock scroll position, but retain settings for later
-// var scrollPosition = [
-// 0,0
-// ];
-// var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
-// html.data('scroll-position', scrollPosition);
-// html.data('previous-overflow', html.css('overflow'));
-// html.css('overflow', 'hidden');
+// lock scroll position, but retain settings for later
+var scrollPosition = [
+0,0
+];
+var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+html.data('scroll-position', scrollPosition);
+html.data('previous-overflow', html.css('overflow'));
+html.css('overflow', 'hidden');
 
-//SCROLL POSITIONS *currently a stub, just one position anyways*
-function scrollStub(){
+//SCROLL CLRS
+function scrollClrs(){
   var cw = document.getElementById('clrswrapper');
   cw.style.opacity = "100";
   cw.style.filter  = 'alpha(opacity=100)'; // IE fallback
@@ -106,8 +107,45 @@ function clockToggle(){
   }
 }
 
-//OLD CLRS GENERATOR
+// CLRS EXPANDER
+function clrsToggle(){
+  onlyL = !onlyL;
+  var e = document.getElementById('clrslinear');
+  if (onlyL){
+    e.style.width = bodyWidth + "px";
+    $("#clrslinearR").hide();
+  } else {
+    e.style.width = bodyWidth/2 + "px";
+    $("#clrslinearR").show();
+  }
+  two.renderer.setSize(bodyWidth, bodyHeight);
+  two.width = two.renderer.width;
+  two.height = two.renderer.height;
+  twoR.renderer.setSize(bodyWidth, bodyHeight);
+  twoR.width = twoR.renderer.width;
+  twoR.height = twoR.renderer.height;
+  runMe();
+}
+function clrsRToggle(){
+  onlyLR = !onlyLR;
+  var e = document.getElementById('clrslinearR');
+  if (onlyLR){
+    $("#clrslinear").hide();
+    e.style.width = bodyWidth + "px";
+  } else {
+    e.style.width = bodyWidth/2 + "px";
+    $("#clrslinear").show();
+  }
+  two.renderer.setSize(bodyWidth, bodyHeight);
+  two.width = two.renderer.width;
+  two.height = two.renderer.height;
+  twoR.renderer.setSize(bodyWidth, bodyHeight);
+  twoR.width = twoR.renderer.width;
+  twoR.height = twoR.renderer.height;
+  runMe();
+}
 
+//OLD CLRS GENERATOR
 function morePerc(){
   str += 5;
   if (str>100){
@@ -342,7 +380,7 @@ function runMe() {
   if (onlyL){
     rects = [];
     for (var i = 0; i < steps; i++) {
-      rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), bodyWidth, ehovers);
+      rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), bodyWidth*2, ehovers);
       rects[i].fill = '#' + gene[i];
       rects[i].opacity = 1;
       rects[i].stroke = '#' + gene[i];
@@ -353,7 +391,7 @@ function runMe() {
   if (onlyLR){
     rectsR = [];
     for (var i = 0; i < steps; i++) {
-      rectsR[i] = twoR.makeRectangle(0, (ehovers * (i+.5)), bodyWidth, ehovers);
+      rectsR[i] = twoR.makeRectangle(0, (ehovers * (i+.5)), bodyWidth*2, ehovers);
       rectsR[i].fill = '#' + geneR[i];
       rectsR[i].opacity = 1;
       rectsR[i].stroke = '#' + geneR[i];
