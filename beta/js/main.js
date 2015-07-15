@@ -1,65 +1,71 @@
 var elem, elemR, two, twoR, gen, height, width, params, gene, geneR, rects, rectsR, topOffset, pivot;
 var steps, base, str, type;
-var onlyL, onlyLR, timeRunning;
+var onlyL, onlyLR, timeRunning, clrsUp;
+var bodyHeight, bodyWidth;
 
 // LOADED FUNCTIONS
 document.addEventListener("DOMContentLoaded", function() {
   $('#down').click(function(){ scrollStub(); return false; });
   $('#clock').click(function(){clockToggle(); return false;});
 
-  topOffset = (document.getElementById('header').offsetHeight*2)+document.getElementById('biowrapper').offsetHeight;
+  var bw = document.getElementById('biowrapper');
+
+  topOffset = (document.getElementById('header').offsetHeight*2)+bw.offsetHeight;
+
   initialize();
+
   elem = document.getElementById('clrslinear');
   elemR = document.getElementById('clrslinearR');
   params = {
-    width: document.getElementById('biowrapper').offsetWidth/2, height: document.getElementById('biowrapper').offsetHeight
+    width: bw.offsetWidth/2, height: bw.offsetHeight
   };
   two = new Two(params).appendTo(elem);
   twoR = new Two(params).appendTo(elemR);
   runMe();
+
   if (window.attachEvent) {
     window.attachEvent('onresize', function() {
-      while (elem.hasChildNodes()) {
-        elem.removeChild(elem.firstChild);
-      }
-      while (elemR.hasChildNodes()) {
-        elemR.removeChild(elemR.firstChild);
-      }
-      document.getElementById('clrslinear').clear;
-      params = {
-        width: document.getElementById('biowrapper').offsetWidth/2, height: document.getElementById('biowrapper').offsetHeight
-      };
-      two = new Two(params).appendTo(elem);
-      twoR = new Two(params).appendTo(elemR);
-      runMe(top);
+      resizeAttach();
     });
   }
   else if (window.addEventListener) {
     window.addEventListener('resize', function() {
-      while (elem.hasChildNodes()) {
-        elem.removeChild(elem.firstChild);
-      }
-      while (elemR.hasChildNodes()) {
-        elemR.removeChild(elemR.firstChild);
-      }
-      document.getElementById('clrslinear').clear;
-      params = {
-        width: document.getElementById('biowrapper').offsetWidth/2, height: document.getElementById('biowrapper').offsetHeight
-      };
-      two = new Two(params).appendTo(elem);
-      twoR = new Two(params).appendTo(elemR);
-      runMe(top);
+      resizeAttach();
     }, true);
   }
   else {
     //The browser does not support Javascript event binding
   }
 
-  document.getElementById('clrswrapper').style.opacity = "0";
-  document.getElementById('clrswrapper').style.filter  = 'alpha(opacity=0)'; // IE fallback
+  var cw = document.getElementById('clrswrapper');
+
+  cw.style.opacity = "0";
+  cw.style.filter  = 'alpha(opacity=0)'; // IE fallback
   var div = $("#clrswrapper");
-  div.animate({top: document.getElementById('biowrapper').offsetHeight+34+"px"});
+  div.animate({top: bw.offsetHeight+34+"px"});
 });
+
+function resizeAttach(){
+    var bw = document.getElementById('biowrapper');
+    var cw = document.getElementById('clrswrapper');
+    bodyHeight = bw.offsetHeight;
+    bodyWidth = bw.offsetWidth;
+
+    two.renderer.setSize(bodyWidth, bodyHeight);
+    two.width = two.renderer.width;
+    two.height = two.renderer.height;
+
+    twoR.renderer.setSize(bodyWidth, bodyHeight);
+    twoR.width = twoR.renderer.width;
+    twoR.height = twoR.renderer.height;
+    runMe(top);
+    if(!clrsUp){
+          cw.style.top = bodyHeight + 34 + "px";
+    } else {
+          cw.style.top = 34 + "px";
+    }
+
+}
 
 // SCROLL MANAGEMENT
 
@@ -74,10 +80,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //SCROLL POSITIONS *currently a stub, just one position anyways*
 function scrollStub(){
-  document.getElementById('clrswrapper').style.opacity = "100";
-  document.getElementById('clrswrapper').style.filter  = 'alpha(opacity=100)'; // IE fallback
+  var cw = document.getElementById('clrswrapper');
+  cw.style.opacity = "100";
+  cw.style.filter  = 'alpha(opacity=100)'; // IE fallback
   var doc = document.documentElement;
-  if (document.getElementById('clrswrapper').offsetTop!=34){
+  clrsUp = !clrsUp;
+  if (clrsUp){
     $('#down').toggleClass('up');
     var div = $("#clrswrapper");
     div.animate({top: "34px"});
@@ -91,7 +99,6 @@ function scrollStub(){
 // CLOCK TOGGLE
 function clockToggle(){
   timeRunning = !timeRunning;
-  clockElem = document.getElementById('clock');
   if (!timeRunning){
     $('#clock').toggleClass('toggledClock');
   } else {
@@ -200,14 +207,16 @@ function B(){
 }
 
 function initialize(){
+  clrsUp=false;
+  var ic = document.getElementById('innerclock');
   var today=new Date();
   var h=checkTime(today.getHours());
   var m=checkTime(today.getMinutes());
   var s=checkTime(today.getSeconds());
   if (s%2==0){
-    document.getElementById('innerclock').innerHTML = h + ':' + m + ':' + s;
+    ic.innerHTML = h + ':' + m + ':' + s;
   } else {
-    document.getElementById('innerclock').innerHTML = h + ':' + m + ' ' + s;
+    ic.innerHTML = h + ':' + m + ' ' + s;
   }
   var twentyFour = 10.625;
   var sixty = 4.25;
@@ -269,19 +278,20 @@ function generate(){
 }
 
 function runMe() {
-  height = document.getElementById('biowrapper').offsetHeight;
-  width = document.body.scrollWidth/2;
+  var ic = document.getElementById('innerclock');
+  var bw = document.getElementById('biowrapper');
   //document.getElementById('interactions-container').style.top = window.innerHeight/2 - (document.getElementById('interactions-container').offsetHeight/2) + topOffset/2 + 'px';
-
+  bodyHeight = bw.offsetHeight;
+  bodyWidth = bw.offsetWidth;
   var today=new Date();
   var h=checkTime(today.getHours());
   var m=checkTime(today.getMinutes());
   var s=checkTime(today.getSeconds());
   if (timeRunning){
     if (s%2==0){
-      document.getElementById('innerclock').innerHTML = h + ':' + m + ':' + s;
+      ic.innerHTML = h + ':' + m + ':' + s;
     } else {
-      document.getElementById('innerclock').innerHTML = h + ':' + m + '   ' + s;
+      ic.innerHTML = h + ':' + m + '   ' + s;
     }
   }
   var twentyFour = 10.625;
@@ -308,11 +318,11 @@ function runMe() {
   gen.setSteps(steps);
   gen.setStrength(str);
 
-  two.appendTo(elem);
-  twoR.appendTo(elemR);
   two.clear();
   twoR.clear();
+
   generate();
+
   if (timeRunning){
     gene = gen.getGenerated();
   }
@@ -326,13 +336,13 @@ function runMe() {
   gen.setPivot(tempPivot);
   type = 0;
 
-  var ehovers = height / steps
-  var edoublew = width *4;
+  var ehovers = bodyHeight / steps;
+  var whalf = bodyWidth /2;
 
   if (onlyL){
     rects = [];
     for (var i = 0; i < steps; i++) {
-      rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), edoublew, ehovers);
+      rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), bodyWidth, ehovers);
       rects[i].fill = '#' + gene[i];
       rects[i].opacity = 1;
       rects[i].stroke = '#' + gene[i];
@@ -343,7 +353,7 @@ function runMe() {
   if (onlyLR){
     rectsR = [];
     for (var i = 0; i < steps; i++) {
-      rectsR[i] = twoR.makeRectangle(width, (ehovers * (i+.5)), edoublew, ehovers);
+      rectsR[i] = twoR.makeRectangle(0, (ehovers * (i+.5)), bodyWidth, ehovers);
       rectsR[i].fill = '#' + geneR[i];
       rectsR[i].opacity = 1;
       rectsR[i].stroke = '#' + geneR[i];
@@ -354,7 +364,7 @@ function runMe() {
   if (!onlyL && !onlyLR){
     rects = [];
     for (var i = 0; i < steps; i++) {
-      rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), edoublew, ehovers);
+      rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), bodyWidth, ehovers);
       rects[i].fill = '#' + gene[i];
       rects[i].opacity = 1;
       rects[i].stroke = '#' + gene[i];
@@ -363,7 +373,7 @@ function runMe() {
     two.update();
     rectsR = [];
     for (var i = 0; i < steps; i++) {
-      rectsR[i] = twoR.makeRectangle(width, (ehovers * (i+.5)), edoublew, ehovers);
+      rectsR[i] = twoR.makeRectangle(whalf, (ehovers * (i+.5)), bodyWidth, ehovers);
       rectsR[i].fill = '#' + geneR[i];
       rectsR[i].opacity = 1;
       rectsR[i].stroke = '#' + geneR[i];
