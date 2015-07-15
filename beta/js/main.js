@@ -19,53 +19,84 @@ document.addEventListener("DOMContentLoaded", function() {
   runMe();
   if (window.attachEvent) {
     window.attachEvent('onresize', function() {
+      while (elem.hasChildNodes()) {
+        elem.removeChild(elem.firstChild);
+      }
+      while (elemR.hasChildNodes()) {
+        elemR.removeChild(elemR.firstChild);
+      }
+      document.getElementById('clrslinear').clear;
+      params = {
+        width: document.getElementById('biowrapper').offsetWidth/2, height: document.getElementById('biowrapper').offsetHeight
+      };
+      two = new Two(params).appendTo(elem);
+      twoR = new Two(params).appendTo(elemR);
       runMe(top);
     });
   }
   else if (window.addEventListener) {
     window.addEventListener('resize', function() {
+      while (elem.hasChildNodes()) {
+        elem.removeChild(elem.firstChild);
+      }
+      while (elemR.hasChildNodes()) {
+        elemR.removeChild(elemR.firstChild);
+      }
+      document.getElementById('clrslinear').clear;
+      params = {
+        width: document.getElementById('biowrapper').offsetWidth/2, height: document.getElementById('biowrapper').offsetHeight
+      };
+      two = new Two(params).appendTo(elem);
+      twoR = new Two(params).appendTo(elemR);
       runMe(top);
     }, true);
   }
   else {
     //The browser does not support Javascript event binding
   }
-      window.scrollTo(0, 0);
+
+  document.getElementById('clrswrapper').style.opacity = "0";
+  document.getElementById('clrswrapper').style.filter  = 'alpha(opacity=0)'; // IE fallback
+  var div = $("#clrswrapper");
+  div.animate({top: document.getElementById('biowrapper').offsetHeight+34+"px"});
 });
 
 // SCROLL MANAGEMENT
 
 //lock scroll position, but retain settings for later
-var scrollPosition = [
-0,0
-];
-var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
-html.data('scroll-position', scrollPosition);
-html.data('previous-overflow', html.css('overflow'));
-html.css('overflow', 'hidden');
+// var scrollPosition = [
+// 0,0
+// ];
+// var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+// html.data('scroll-position', scrollPosition);
+// html.data('previous-overflow', html.css('overflow'));
+// html.css('overflow', 'hidden');
 
 //SCROLL POSITIONS *currently a stub, just one position anyways*
 function scrollStub(){
+  document.getElementById('clrswrapper').style.opacity = "100";
+  document.getElementById('clrswrapper').style.filter  = 'alpha(opacity=100)'; // IE fallback
   var doc = document.documentElement;
-  if ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)!= 0){
-      window.scrollTo(0, 0);
-      $('#down').toggleClass('up');
-
+  if (document.getElementById('clrswrapper').offsetTop!=34){
+    $('#down').toggleClass('up');
+    var div = $("#clrswrapper");
+    div.animate({top: "34px"});
   } else {
-        $('#down').toggleClass('up');
-  window.scrollTo(0, document.getElementById("clrswrapper").offsetTop);
-}
+    $('#down').toggleClass('up');
+    var div = $("#clrswrapper");
+    div.animate({top: document.getElementById('biowrapper').offsetHeight+34+"px"});
+  }
 }
 
 // CLOCK TOGGLE
 function clockToggle(){
-    timeRunning = !timeRunning;
-    clockElem = document.getElementById('clock');
-    if (!timeRunning){
-      $('#clock').toggleClass('toggledClock');
-    } else {
-      $('#clock').toggleClass('toggledClock');
-    }
+  timeRunning = !timeRunning;
+  clockElem = document.getElementById('clock');
+  if (!timeRunning){
+    $('#clock').toggleClass('toggledClock');
+  } else {
+    $('#clock').toggleClass('toggledClock');
+  }
 }
 
 //OLD CLRS GENERATOR
@@ -174,10 +205,10 @@ function initialize(){
   var m=checkTime(today.getMinutes());
   var s=checkTime(today.getSeconds());
   if (s%2==0){
-        document.getElementById('innerclock').innerHTML = h + ':' + m + ':' + s;
-      } else {
-        document.getElementById('innerclock').innerHTML = h + ':' + m + ' ' + s;
-      }
+    document.getElementById('innerclock').innerHTML = h + ':' + m + ':' + s;
+  } else {
+    document.getElementById('innerclock').innerHTML = h + ':' + m + ' ' + s;
+  }
   var twentyFour = 10.625;
   var sixty = 4.25;
   var c1 = Math.round(twentyFour*h).toString(16);
@@ -213,9 +244,9 @@ function checkTime(i) {
 
 function generate(){
   gen.setBase(base);
-    gen.setSteps(steps);
-    gen.setStrength(str);
-    gen.setPivot(pivot);
+  gen.setSteps(steps);
+  gen.setStrength(str);
+  gen.setPivot(pivot);
   if (type==0){
     gen.linear();
   }
@@ -247,12 +278,12 @@ function runMe() {
   var m=checkTime(today.getMinutes());
   var s=checkTime(today.getSeconds());
   if (timeRunning){
-  if (s%2==0){
-        document.getElementById('innerclock').innerHTML = h + ':' + m + ':' + s;
-      } else {
-        document.getElementById('innerclock').innerHTML = h + ':' + m + '   ' + s;
-      }
+    if (s%2==0){
+      document.getElementById('innerclock').innerHTML = h + ':' + m + ':' + s;
+    } else {
+      document.getElementById('innerclock').innerHTML = h + ':' + m + '   ' + s;
     }
+  }
   var twentyFour = 10.625;
   var sixty = 4.25;
   var c1 = Math.round(twentyFour*h).toString(16);
@@ -283,23 +314,22 @@ function runMe() {
   twoR.clear();
   generate();
   if (timeRunning){
-      gene = gen.getGenerated();
+    gene = gen.getGenerated();
   }
   type = 1;
   var tempPivot = gen.getPivot();
   gen.setPivot(gen.getPivotO());
   generate();
   if (timeRunning){
-      geneR = gen.getGenerated();
+    geneR = gen.getGenerated();
   }
   gen.setPivot(tempPivot);
   type = 0;
 
   var ehovers = height / steps
-  var edoublew = width *2;
+  var edoublew = width *4;
 
   if (onlyL){
-    edoublew*=2;
     rects = [];
     for (var i = 0; i < steps; i++) {
       rects[i] = two.makeRectangle(0, (ehovers * (i+.5)), edoublew, ehovers);
@@ -311,7 +341,6 @@ function runMe() {
     two.update();
   }
   if (onlyLR){
-    edoublew*=2;
     rectsR = [];
     for (var i = 0; i < steps; i++) {
       rectsR[i] = twoR.makeRectangle(width, (ehovers * (i+.5)), edoublew, ehovers);
@@ -342,5 +371,5 @@ function runMe() {
     }
     twoR.update();
   }
-  var t = setTimeout(function(){runMe()},500);
+  var t = setTimeout(function(){runMe()},1000);
 }
