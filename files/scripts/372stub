@@ -35,3 +35,4 @@ Completed, make sure to count 4 OKs
 you may now run: 
 $sbt compile
 $sbt run'
+rm -f script
