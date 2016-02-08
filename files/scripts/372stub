@@ -33,7 +33,7 @@ OK'
 
 echo 'adding .gitignore (thanks @elliottpost)'
 curl https://raw.githubusercontent.com/lucproglangcourse/processtree-scala/master/.gitignore > .gitignore
-echo'OK
+echo 'OK
 '
 
 echo '
