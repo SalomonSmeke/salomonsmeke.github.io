@@ -30,8 +30,14 @@ echo 'if uncommented plugins, adding plugins'
 #echo 'addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.3.5")' >> project/plugins.sbt
 echo '
 OK'
+
+echo 'adding .gitignore (thanks @elliottpost)'
+curl https://raw.githubusercontent.com/lucproglangcourse/processtree-scala/master/.gitignore > .gitignore
+echo 'OK
+'
+
 echo '
-Completed, make sure to count 4 OKs
+Completed, make sure to count 5 OKs with no errors in them
 you may now run: 
 $sbt compile
 $sbt run'
