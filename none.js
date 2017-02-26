@@ -1,1 +1,1 @@
-print("not a server-side application");
+console.log("not a server-side application");

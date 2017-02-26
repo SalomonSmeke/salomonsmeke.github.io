@@ -18,6 +18,7 @@
   "homepage": "https://github.com/SalomonSmeke/salomonsmeke.github.io#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.3",
     "gulp-imagemin": "^3.1.1",
     "imagemin-zopfli": "^5.0.0"
   }
