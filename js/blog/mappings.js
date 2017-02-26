@@ -1,5 +1,5 @@
 map = [
-  'index'
+  'index',
   'about'
-]
-default = 1
+];
+var d = 1;
