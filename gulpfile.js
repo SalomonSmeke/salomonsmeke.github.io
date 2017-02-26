@@ -75,7 +75,7 @@ gulp.task('build', [
   console.log("done building");
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', function() {
   gulp.watch([
     'CNAME',
     'humans.txt',
