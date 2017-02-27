@@ -93,6 +93,7 @@ textarea {
     top: 30px;
     left: 40px;
     opacity: .2;
+    z-index: 88;
 }
 
 .bar {  flex-grow: 1; }
