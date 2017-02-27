@@ -67,6 +67,7 @@ textarea {
     align-items: center;
 }
 
+.ngon-container { background: rgba(0, 0, 0, 0); }
 .nav-pagination-wrapper { align-items: center;  }
 .nav-pagination { background-color: #fff; }
 .nav-icon-width { width: 70px;  }
