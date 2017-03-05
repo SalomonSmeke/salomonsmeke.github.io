@@ -67,10 +67,43 @@ textarea {
     align-items: center;
 }
 
-.ngon-container { background: rgba(0, 0, 0, 0); }
-.nav-pagination-wrapper { align-items: center;  }
-.nav-pagination { background-color: #fff; }
+@keyframes rotateRight{
+    0%{ transform:rotate(0deg); transform-origin:50% 50%; }
+    100%{ transform:rotate(360deg); }
+}
+@keyframes rotateLeft{
+    0%{ transform:rotate(0deg); transform-origin:50% 50%; }
+    100%{ transform:rotate(-360deg); }
+}
+#previous-top,
+#previous-middle,
+#previous-bottom,
+#next-top,
+#next-middle,
+#next-bottom { animation: 12s rotateRight infinite linear; }
+
+#previous-top,
+#next-top { z-index: 88; }
+#previous-middle,
+#next-middle { z-index: 87; }
+#previous-bottom,
+#next-bottom { z-index: 86; }
+
+.ngon-container {
+  background: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 70px;
+}
+.nav-pagination-wrapper { align-items: center; }
+.nav-pagination {
+  background-color: #fff;
+  position: relative;
+}
 .nav-icon-width { width: 70px;  }
+.nav-icon-height { height: 70px; }
 
 #help-popup svg {
   width: 380px;
