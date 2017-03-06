@@ -1,11 +1,11 @@
 "use strict";
-var loader = document.getElementById("loader-wrapper");
-loader.parentNode.removeChild(loader);
 
+//Global context
 var ctx = {
   listeners: {}
 };
 
+//Funky fresh listener stuff
 function registerListeners(listeners, owner) {
   listeners.forEach(function (l) {
     var id = l.id;
@@ -42,6 +42,7 @@ function buildListener(id, f, type) {
   return {id: id, f: _f, type: type};
 };
 
+//Dom helpers
 function removeNodeClass(node, c) {
   node.className = node.className.replace(c, '');
 };
@@ -51,19 +52,7 @@ function addNodeClass(node, c) {
   node.className += c;
 };
 
-function navHover(_ctx) {
-  if (_ctx.props.hovered) return;
-  _ctx.props.hovered = true;
-  var id = _ctx.id;
-  var speed = 12*6;
-  ['bottom', 'middle'].forEach(function(v) {
-    document.getElementById('rotation-hack-' + id + '-' + v).style.animation = (
-      speed + 's rotateLeft linear'
-    );
-    speed*=2;
-  });
-};
-
+//SVG building
 function buildngon(n, parent_id) {
   const xmlns = "http://www.w3.org/2000/svg";
   const boxWidth = 70;
@@ -81,9 +70,7 @@ function buildngon(n, parent_id) {
   }
   function patos(pa) {
     var s = ""
-    pa.forEach(function(pvs){
-      s += pvs[0] + ", " + pvs[1] + " ";
-    });
+    pa.forEach(function(pvs){ s += pvs[0] + ", " + pvs[1] + " "; });
     return s.trim();
   }
   switch(n) {
@@ -100,7 +87,7 @@ function buildngon(n, parent_id) {
     ['top', '#ff3232', .88],
     ['middle', '#ff8250', .88],
     ['bottom', '#ffaa28', .9]
-  ].forEach((props) => {
+  ].forEach(function(props) {
     var id = parent_id + '-' + props[0];
     var color = props[1];
     var opacity = props[2];
@@ -131,6 +118,22 @@ function buildngon(n, parent_id) {
   });
 };
 
+//Listener functions
+function navHover(_ctx) {
+  if (_ctx.props.hovered) return;
+  _ctx.props.hovered = true;
+  var id = _ctx.id;
+  var speed = 12*6;
+  ['bottom', 'middle'].forEach(function(v) {
+    document.getElementById('rotation-hack-' + id + '-' + v).style.animation = (
+      speed + 's rotateLeft linear'
+    );
+    speed*=2;
+  });
+};
+
+
+//Execution
 registerListeners([
   buildListener('help-nav', function(_ctx) {
     var toggle = _ctx.props.toggle;
@@ -153,8 +156,13 @@ registerListeners([
 buildngon(1, 'previous');
 buildngon(3, 'next');
 
+//No-js banner removal
+document
+.getElementById("loader-wrapper")
+.parentNode
+.removeChild(document.getElementById("loader-wrapper"));
+
 //unregister listeners
 //unregister owner
 
 //Load bars
-//Load svg's
