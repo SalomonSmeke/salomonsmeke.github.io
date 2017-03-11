@@ -145,10 +145,7 @@ textarea {
 #logo { align-self: center; }
 #loader-header,
 #loader-message { margin: 10px; }
-#loader-message pre {
-    margin: 0;
-    display: inline;
-}
+#loader-message pre { display: inline; }
 
 .main-wrapper {
     width: 100vw;

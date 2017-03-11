@@ -1,0 +1,5 @@
+{
+  "strict": "global",
+  "browser": "true",
+  "devel": "true"
+}

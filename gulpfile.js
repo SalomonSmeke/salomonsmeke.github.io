@@ -1,3 +1,4 @@
+"use strict";
 var gulp = require('gulp');
 var imagemin = require('gulp-imagemin');
 var zopfli = require('imagemin-zopfli');
@@ -70,8 +71,7 @@ gulp.task('build', [
 	'minify-html',
 	'lint-js',
 	'minify-js'
-	]
-	, function() {
+	], function() {
   console.log("done building");
 });
 

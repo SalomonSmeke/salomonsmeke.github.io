@@ -1,4 +1,6 @@
-map = [
+"use strict";
+
+var map = [
   'index',
   'about'
 ];
