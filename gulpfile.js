@@ -14,7 +14,13 @@ var babel = require('babelify');
 		* Build task for development.
 */
 gulp.task('build-dev',
-	['copy-root', 'copy-images', 'copy-vendor', 'copy-styles', 'compile-source'],
+	[
+		'copy-root',
+		'copy-images',
+		'copy-vendor',
+		'copy-styles',
+		'compile-source'
+	],
 	() => { console.log('Built for development.'); }
 );
 
@@ -114,7 +120,7 @@ gulp.task('produce-styles', () => {
 		* Source compilation task.
 */
 gulp.task('compile-source', () => {
-  browserify('js/main.js')
+  browserify('js/main.js', {debug: true})
 	.transform(babel.configure({
         presets : ["es2015"]
     })

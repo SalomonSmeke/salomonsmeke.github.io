@@ -56,6 +56,6 @@ function build (n, parent_id) {
     svgContainer.style.opacity = opacity;
     node.parentNode.replaceChild(svgContainer, node);
   });
-} 
+}
 
-export { getVertices, vtos, build };
+export {getVertices, vtos, build};

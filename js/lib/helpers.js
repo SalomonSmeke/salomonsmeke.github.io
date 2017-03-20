@@ -15,4 +15,4 @@ function addNodeClass(node, c) {
   node.className += c;
 }
 
-export { dasherize, removeNodeClass, addNodeClass };
+export {dasherize, removeNodeClass, addNodeClass};
