@@ -35,7 +35,10 @@ gulp.task('build-deploy',
 		'produce-styles',
 		'produce-source'
 	],
-	() => { console.log('Built for deployment.'); }
+	() => {
+		console.log('Built for deployment.');
+		return 0;
+	}
 );
 
 /* copy-root:
@@ -52,6 +55,7 @@ gulp.task('copy-root', () => {
 		'.gitignore'
   ]).pipe(gulp.dest('build/'));
 	console.log('Copied root files.');
+	return 0;
 });
 
 /* produce-root:
@@ -67,53 +71,66 @@ gulp.task('produce-root', () => {
 		'.gitignore'
   ]).pipe(gulp.dest('build/'));
 	gulp.src('index.html')
-	.pipe(htmlmin({collapseWhitespace: true}))
+	.pipe(htmlmin({
+		collapseWhitespace: true
+	}))
 	.pipe(gulp.dest('build/'));
 	console.log('Produced root files.');
+	return 0;
 });
 
 /* copy-images:
 		* Root copy task.
 */
 gulp.task('copy-images', () => {
-  return gulp.src('img/**/*.{png,jpg}')
+  gulp.src('img/**/*.{png,jpg}')
   .pipe(gulp.dest('build/img/'));
+	console.log('Images copied.');
+	return 0;
 });
 
 /* produce-images:
 		* Image optimization task.
 */
 gulp.task('produce-images', () => {
-	return gulp.src('img/**/*.{png,jpg}')
-		.pipe(imagemin({
-			use: [zopfli()]
-		}))
-		.pipe(gulp.dest('build/img/'));
+	gulp.src('img/**/*.{png,jpg}')
+	.pipe(imagemin({
+		use: [zopfli()]
+	}))
+	.pipe(gulp.dest('build/img/'));
+	console.log('Images compressed.');
+	return 0;
 });
 
 /* copy-vendor:
 		* Vendor copy task.
 */
 gulp.task('copy-vendor', () => {
-  return gulp.src('js/vendor/**/*.js')
+  gulp.src('js/vendor/**/*.js')
   .pipe(gulp.dest('build/js/vendor/'));
+	console.log('Vendor js copied.');
+	return 0;
 });
 
 /* copy-styles:
 		* CSS copy task.
 */
 gulp.task('copy-styles', () => {
-  return gulp.src('styles/**/*.css')
+  gulp.src('styles/**/*.css')
   .pipe(gulp.dest('build/styles/'));
+	console.log('CSS copied.');
+	return 0;
 });
 
 /* produce-styles:
 		* CSS production task.
 */
 gulp.task('produce-styles', () => {
-  return gulp.src('styles/**/*.css')
+  gulp.src('styles/**/*.css')
 	.pipe(cleanCSS())
   .pipe(gulp.dest('build/styles/'));
+	console.log('CSS composed.');
+	return 0;
 });
 
 /* compile-source:
@@ -122,14 +139,16 @@ gulp.task('produce-styles', () => {
 gulp.task('compile-source', () => {
   browserify('js/main.js', {debug: true})
 	.transform(babel.configure({
-        presets : ["es2015"]
-    })
-	)
+      	presets : ["es2015"]
+    	})
+		)
 	.bundle()
 	.pipe(source('bundle.js'))
 	.pipe(gulp.dest('build/js'));
-	return gulp.src('js/plugins.js')
+	gulp.src('js/plugins.js')
 	.pipe(gulp.dest('build/js'));
+	console.log('Source compiled.');
+	return 0;
 });
 
 /* produce-source:
@@ -138,20 +157,23 @@ gulp.task('compile-source', () => {
 gulp.task('produce-source', () => {
   browserify('js/main.js')
 	.transform(babel.configure({
-        presets : ["es2015"]
-    })
-	)
+				presets : ["es2015"]
+			})
+		)
 	.bundle()
 	.pipe(source('bundle.js'))
 	.pipe(buffer())
 	.pipe(uglify())
 	.pipe(gulp.dest('build/js'));
-	return gulp.src('js/plugins.js')
+	gulp.src('js/plugins.js')
 	.pipe(buffer())
 	.pipe(gulp.dest('build/js'));
+	console.log('Source composed.');
+	return 0;
 });
 
 gulp.task('default', ['build-dev'], () => {
 	//gulp.watch('!build/**', ['build-dev']);
 	console.log('Watch nonfunctional. Blob goofy.');
+	return 0;
 });
