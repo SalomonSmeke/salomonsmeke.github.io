@@ -1,10 +1,6 @@
 'use strict';
 
-var ctx;
-
-function init(externalCtx) {
-  ctx = externalCtx;
-}
+import {context as ctx} from "./globals.js";
 
 //Funky fresh listener stuff
 function hatchListeners(listeners, owner) {
@@ -45,4 +41,4 @@ function incubateListener(id, f, type) {
   return {id: id, f: _f, type: type};
 }
 
-export {init, hatchListeners, incubateListener};
+export {hatchListeners, incubateListener};

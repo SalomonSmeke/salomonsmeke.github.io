@@ -1,21 +1,15 @@
 "use strict";
 
+import {context as ctx} from "./lib/globals.js";
 import {
   hatchListeners as hatchListeners,
-  incubateListener as incubateListener,
-  init as coreinit} from "./lib/core.js";
+  incubateListener as incubateListener} from "./lib/core.js";
 import * as helpers from "./lib/helpers.js";
 import * as commonListeners from "./lib/commonListeners.js";
 import {build as buildngon} from "./lib/ngon.js";
 
-//Global context
-let ctx = {
-  listeners: {}
-};
 
 //Execution. Nothing here is final.
-coreinit(ctx);
-
 hatchListeners([
   incubateListener('help-nav', (_ctx) => {
     let toggle = _ctx.props.toggle;
