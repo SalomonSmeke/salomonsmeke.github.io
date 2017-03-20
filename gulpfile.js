@@ -21,7 +21,10 @@ gulp.task('build-dev',
 		'copy-styles',
 		'compile-source'
 	],
-	() => { console.log('Built for development.'); }
+	() => {
+		console.log('Built for development.');
+		return 0;
+	}
 );
 
 /* build-deploy:
