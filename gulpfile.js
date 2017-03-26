@@ -170,6 +170,7 @@ gulp.task('produce-source', () => {
 	.pipe(gulp.dest('build/js'));
 	gulp.src('js/plugins.js')
 	.pipe(buffer())
+	.pipe(uglify())
 	.pipe(gulp.dest('build/js'));
 	console.log('Source composed.');
 	return 0;
