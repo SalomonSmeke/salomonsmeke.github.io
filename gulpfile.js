@@ -35,7 +35,7 @@ gulp.task('build-deploy',
 	[
 		'produce-root',
 		'produce-images',
-		'copy-vendor',
+		'produce-vendor',
 		'produce-styles',
 		'produce-source'
 	],
@@ -113,6 +113,17 @@ gulp.task('copy-vendor', () => {
   gulp.src('js/vendor/**/*.js')
   .pipe(gulp.dest('build/js/vendor/'));
 	console.log('Vendor js copied.');
+	return 0;
+});
+
+/* produce-vendor:
+		* Vendor production task.
+*/
+gulp.task('produce-vendor', () => {
+  gulp.src('js/vendor/**/*.js')
+	.pipe(uglify())
+  .pipe(gulp.dest('build/js/vendor/'));
+	console.log('Vendor js produced.');
 	return 0;
 });
 
