@@ -2,12 +2,13 @@
 
 import {context as ctx} from "./lib/globals.js";
 import {
-  hatchListeners as hatchListeners,
-  incubateListener as incubateListener} from "./lib/core.js";
+    hatchListeners as hatchListeners,
+    incubateListener as incubateListener} from "./lib/core.js";
 import * as helpers from "./lib/helpers.js";
 import * as commonListeners from "./lib/commonListeners.js";
 import {build as buildngon} from "./lib/ngon.js";
 
+window.context = ctx;
 
 //Execution. Nothing here is final.
 hatchListeners([
@@ -17,17 +18,17 @@ hatchListeners([
     if (toggle) { helpers.addNodeClass(node, 'hidden'); }
     else { helpers.removeNodeClass(node, 'hidden'); }
     _ctx.props.toggle = !toggle;
-  }, 'onclick'),
+  }, 'click'),
   incubateListener('previous',
-    commonListeners.navHover, 'onmouseover'),
+    commonListeners.navHover, 'mouseover'),
   incubateListener('next',
-    commonListeners.navHover, 'onmouseover'),
+    commonListeners.navHover, 'mouseover'),
   incubateListener('previous', (_ctx) => {
     print('previous');
-  }, 'onclick'),
+  }, 'click'),
   incubateListener('next', (_ctx) => {
     print('next');
-  }, 'onclick'),
+  }, 'click'),
 ], 'root');
 
 buildngon(2, 'previous');

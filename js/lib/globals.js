@@ -4,4 +4,4 @@ let context = {
   listeners: {}
 };
 
-export {context};
+export{ context }; 
