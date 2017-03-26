@@ -5,6 +5,7 @@ var zopfli = require('imagemin-zopfli');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
+var concat = require('gulp-concat');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
@@ -129,8 +130,9 @@ gulp.task('copy-styles', () => {
 		* CSS production task.
 */
 gulp.task('produce-styles', () => {
-  gulp.src('styles/**/*.css')
-	.pipe(cleanCSS())
+  gulp.src(['styles/normalize.css', 'styles/global.css'])
+	.pipe(concat('bundle.css'))
+	.pipe(cleanCSS({'level': 2})) //TODO: Verify syntax
   .pipe(gulp.dest('build/styles/'));
 	console.log('CSS composed.');
 	return 0;
