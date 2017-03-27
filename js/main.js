@@ -8,8 +8,6 @@ import * as helpers from "./lib/helpers.js";
 import * as commonListeners from "./lib/commonListeners.js";
 import {build as buildngon} from "./lib/ngon.js";
 
-window.context = ctx;
-
 //Execution. Nothing here is final.
 hatchListeners([
   incubateListener('help-nav', (_ctx) => {

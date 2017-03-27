@@ -1,10 +1,10 @@
 'use strict';
 
+import {context as ctx} from "./globals.js";
 import * as helpers from "./helpers";
 
 //Funky fresh listener stuff
 function hatchListeners(listeners, owner) {
-  let ctx = window.context;
   listeners.forEach((egg) => {
     const id = egg.id;
     const f = egg.f;
@@ -33,7 +33,6 @@ function hatchListeners(listeners, owner) {
 }
 
 function incubateListener(id, f, type) {
-  let ctx = window.context;
   const _f = (() => {
     return () => { f(ctx.listeners[id]); };
   })(id, f, type);
@@ -41,7 +40,6 @@ function incubateListener(id, f, type) {
 }
 
 function removeListener(id, type) {
-  let ctx = window.context;
   if (ctx.listeners[id]) {
     if (ctx.listeners[id][type]) {
       let node = document.getElementById(id);
@@ -57,7 +55,6 @@ function removeListener(id, type) {
 }
 
 function removeNodeListeners(id) {
-  let ctx = window.context;
   const BASEKEYS = ['id', 'owner', 'props'];
   if (ctx.listeners[id]) {
     let node = document.getElementById(id);
@@ -80,7 +77,6 @@ function removeNodeListeners(id) {
 }
 
 function removeOwnerListeners(owner) {
-  let ctx = window.context;
   let unwrapped_listeners = [];
   Object.keys(ctx.listeners).forEach((k) => {
     unwrapped_listeners.push(ctx.listeners[k]);
