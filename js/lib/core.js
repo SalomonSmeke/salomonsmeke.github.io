@@ -5,7 +5,7 @@ import * as helpers from "./helpers";
 //Funky fresh listener stuff
 function hatchListeners(listeners, owner) {
   let ctx = window.context;
-  listeners.forEach(function (egg) {
+  listeners.forEach((egg) => {
     const id = egg.id;
     const f = egg.f;
     const type = egg.type;
@@ -65,12 +65,12 @@ function removeNodeListeners(id) {
       console.warn(`Discarding listener on dead node Id: ${id}.`);
     } else {
       let keys = [];
-      for (const k in ctx.listeners[id]) {
+      Object.keys(ctx.listeners[id]).forEach((k) => {
         if (!helpers.contains(BASEKEYS, k)) keys.push(k);
-      }
-      for (let i = 0; i < keys.length; i++) {
-        node.removeEventListener(keys[i], ctx.listeners[id][keys[i]], false);
-      }
+      });
+      keys.forEach((k) => {
+        node.removeEventListener(k, ctx.listeners[id][k], false);
+      });
     }
     delete ctx.listeners[id];
     return;
@@ -82,13 +82,13 @@ function removeNodeListeners(id) {
 function removeOwnerListeners(owner) {
   let ctx = window.context;
   let unwrapped_listeners = [];
-  for (const k in ctx.listeners) unwrapped_listeners.push(ctx.listeners[k]);
+  Object.keys(ctx.listeners).forEach((k) => {
+    unwrapped_listeners.push(ctx.listeners[k]);
+  });
   const listeners = helpers.find(unwrapped_listeners,
     (ul) => { return (() => {return ul.owner === owner;})(owner); });
   if (listeners.length) {
-    for (let i = 0; i < listeners.length; i++) {
-      removeNodeListeners(listeners[i].id);
-    }
+    listeners.forEach((l) => {removeNodeListeners(l.id);});
     return;
   } else {
     console.error(`No listeners to remove for owner: ${owner}.`);

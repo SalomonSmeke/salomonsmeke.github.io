@@ -27,7 +27,7 @@ function build (n, parent_id) {
     ['top', '#ff3232', 0.88],
     ['middle', '#ff8250', 0.88],
     ['bottom', '#ffaa28', 0.9]
-  ].forEach(function(props) {
+  ].forEach((props) => {
     const id = helpers.dasherize([parent_id, props[0]]);
     const color = props[1];
     const opacity = props[2];

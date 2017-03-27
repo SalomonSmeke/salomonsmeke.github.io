@@ -1,5 +1,9 @@
 "use strict";
 
+/*
+ * Prefer .forEach over anything else. Prefer of over in. Prefer Object.keys over in.
+ */
+
 function dasherize (elements) {
   let out = "";
   elements.forEach((el) => { out += el + '-'; });
@@ -16,17 +20,17 @@ function addNodeClass(node, c) {
 }
 
 function contains(arr, tv) {
-  for (let i = 0; i < arr.length; i++) if (arr[i] === tv) return true;
+  for (const v of arr) if (v === tv) return true;
   return false;
 }
 
 function findOne(arr, f) {
-  for (let i = 0; i < arr.length; i++) if (f(arr[i])) return arr[i];
+  for (const v of arr) if (f(v)) return v;
 }
 
 function find(arr, f) {
   let acc = [];
-  for (let i = 0; i < arr.length; i++) if (f(arr[i])) acc.push(arr[i]);
+  arr.forEach((v) => {if (f(v)) acc.push(v);});
   return acc;
 }
 
