@@ -5,7 +5,7 @@ import {
     hatchListeners as hatchListeners,
     incubateListener as incubateListener} from "./lib/core.js";
 import * as helpers from "./lib/helpers.js";
-import * as commonListeners from "./lib/commonListeners.js";
+import * as libListeners from "./lib/listeners.js";
 import {build as buildngon} from "./lib/ngon.js";
 
 //Execution. Nothing here is final.
@@ -28,9 +28,9 @@ hatchListeners([
     ctx.listeners['help-nav'].props.toggle = !toggle;
   }, 'click'),
   incubateListener('previous',
-    commonListeners.navHover, 'mouseover'),
+    libListeners.navHover, 'mouseover'),
   incubateListener('next',
-    commonListeners.navHover, 'mouseover'),
+    libListeners.navHover, 'mouseover'),
   incubateListener('previous', () => {
     print('previous');
   }, 'click'),
