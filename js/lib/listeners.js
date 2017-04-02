@@ -21,7 +21,7 @@ function navHover(_ctx) {
   });
   setTimeout(() => {
     nodes.forEach((n) => {
-      n.style = '';
+      n.style.animation = '';
       void n.offsetWidth;
     });
     _ctx.props.hovered = false;
