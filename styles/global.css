@@ -63,17 +63,17 @@ textarea {
 
 #content {  padding: 10px 30px; }
 #page-body-wrapper {
-    flex-flow: column;
-    align-items: center;
+  flex-flow: column;
+  align-items: center;
 }
 
 @keyframes rotateRight{
-    0%{ transform:rotate(0deg); transform-origin:50% 50%; }
-    100%{ transform:rotate(360deg); }
+  0%{ transform:rotate(0deg); transform-origin:50% 50%; }
+  100%{ transform:rotate(360deg); }
 }
 @keyframes rotateLeft{
-    0%{ transform:rotate(0deg); transform-origin:50% 50%; }
-    100%{ transform:rotate(-360deg); }
+  0%{ transform:rotate(0deg); transform-origin:50% 50%; }
+  100%{ transform:rotate(-360deg); }
 }
 #previous-top,
 #previous-middle,
@@ -90,6 +90,7 @@ textarea {
 #next-bottom { z-index: 86; }
 
 .ngon-container {
+  background: #fff;
   background: rgba(0, 0, 0, 0);
   position: absolute;
   top: 0;
@@ -112,35 +113,36 @@ textarea {
   opacity: .5;
 }
 #help-popup {
-    justify-content: center;
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 2em;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 2em;
+  cursor: pointer;
 }
 
 #help-nav {
-    font-size: 2em;
-    color: white;
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    opacity: .2;
-    z-index: 88;
+  font-size: 2em;
+  color: white;
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  opacity: .2;
+  cursor: pointer;
 }
 
 .bar {  flex-grow: 1; }
 #bar-container {  flex-flow: column;  }
 
 #loader-wrapper {
-    z-index: 99;
-    position: fixed;
-    flex-flow: column;
-    justify-content: center;
-    min-width: 100%;
-    min-width: 100vw;
-    min-height: 100%;
-    min-height: 100vh;
+  z-index: 99;
+  position: fixed;
+  flex-flow: column;
+  justify-content: center;
+  min-width: 100%;
+  min-width: 100vw;
+  min-height: 100%;
+  min-height: 100vh;
 }
 #logo { align-self: center; }
 #loader-header,
@@ -148,10 +150,10 @@ textarea {
 #loader-message pre { display: inline; }
 
 .main-wrapper {
-    width: 100vw;
-    min-width: 640px;
-    height: 100vh;
-    min-height: 400px;
+  width: 100vw;
+  min-width: 640px;
+  height: 100vh;
+  min-height: 400px;
 }
 
 .centered-text {  text-align: center; }

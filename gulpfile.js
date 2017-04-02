@@ -131,7 +131,8 @@ gulp.task('produce-vendor', () => {
 		* CSS copy task.
 */
 gulp.task('copy-styles', () => {
-  gulp.src('styles/**/*.css')
+	gulp.src(['styles/normalize.css', 'styles/global.css'])
+	.pipe(concat('bundle.css'))
   .pipe(gulp.dest('build/styles/'));
 	console.log('CSS copied.');
 	return 0;
@@ -143,7 +144,7 @@ gulp.task('copy-styles', () => {
 gulp.task('produce-styles', () => {
   gulp.src(['styles/normalize.css', 'styles/global.css'])
 	.pipe(concat('bundle.css'))
-	.pipe(cleanCSS({'level': 2})) //TODO: Verify syntax
+	.pipe(cleanCSS({'level': 2}))
   .pipe(gulp.dest('build/styles/'));
 	console.log('CSS composed.');
 	return 0;

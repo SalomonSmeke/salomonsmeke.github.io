@@ -9,6 +9,9 @@ import * as commonListeners from "./lib/commonListeners.js";
 import {build as buildngon} from "./lib/ngon.js";
 
 //Execution. Nothing here is final.
+buildngon(2, 'previous');
+buildngon(5, 'next');
+
 hatchListeners([
   incubateListener('help-nav', (_ctx) => {
     let toggle = _ctx.props.toggle;
@@ -17,20 +20,24 @@ hatchListeners([
     else { helpers.removeNodeClass(node, 'hidden'); }
     _ctx.props.toggle = !toggle;
   }, 'click'),
+  incubateListener('help-popup', (_ctx, ctx) => {
+    let toggle = ctx.listeners['help-nav'].props.toggle;
+    let node = document.getElementById(_ctx.id);
+    if (toggle) { helpers.addNodeClass(node, 'hidden'); }
+    else { helpers.removeNodeClass(node, 'hidden'); }
+    ctx.listeners['help-nav'].props.toggle = !toggle;
+  }, 'click'),
   incubateListener('previous',
     commonListeners.navHover, 'mouseover'),
   incubateListener('next',
     commonListeners.navHover, 'mouseover'),
-  incubateListener('previous', (_ctx) => {
+  incubateListener('previous', () => {
     print('previous');
   }, 'click'),
-  incubateListener('next', (_ctx) => {
+  incubateListener('next', () => {
     print('next');
-  }, 'click'),
+  }, 'click')
 ], 'root');
-
-buildngon(2, 'previous');
-buildngon(5, 'next');
 
 //No-js banner removal
 document
