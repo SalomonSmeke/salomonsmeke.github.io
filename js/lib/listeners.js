@@ -2,6 +2,11 @@
 
 import * as helpers from "./helpers.js";
 
+/*
+ * Listener for the navigational elements for pagination.
+ * Intended as an 'onHover'.
+ * Animates the ngons.
+ */
 function navHover(_ctx) {
   if (_ctx.props.hovered) return;
   _ctx.props.hovered = true;

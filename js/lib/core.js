@@ -3,7 +3,10 @@
 import {context as ctx} from "./globals.js";
 import * as helpers from "./helpers";
 
-//Funky fresh listener stuff
+/*
+ * hatchListeners(listener, str)
+ * Applying a listener to a node.
+ */
 function hatchListeners(listeners, owner) {
   listeners.forEach((egg) => {
     const id = egg.id;
@@ -32,6 +35,11 @@ function hatchListeners(listeners, owner) {
   });
 }
 
+/*
+ * incubateListener(str, f, str)
+ * Helper for formatting a function into a clojure that our listener structure
+ * accepts.
+ */
 function incubateListener(id, f, type) {
   const _f = (() => {
     return () => { f(ctx.listeners[id], ctx); };
@@ -39,6 +47,10 @@ function incubateListener(id, f, type) {
   return {id: id, f: _f, type: type};
 }
 
+/*
+ * removeListener(str, str)
+ * Removes one listener from one node, by type.
+ */
 function removeListener(id, type) {
   if (ctx.listeners[id]) {
     if (ctx.listeners[id][type]) {
@@ -54,6 +66,10 @@ function removeListener(id, type) {
   return -1;
 }
 
+/*
+ * removeNodeListeners(str)
+ * Removes all listeners from one node.
+ */
 function removeNodeListeners(id) {
   const BASEKEYS = ['id', 'owner', 'props'];
   if (ctx.listeners[id]) {
@@ -76,6 +92,10 @@ function removeNodeListeners(id) {
   return -1;
 }
 
+/*
+ * removeOwnerListeners(str)
+ * Removes all listeners attributed to an owner.
+ */
 function removeOwnerListeners(owner) {
   let unwrapped_listeners = [];
   Object.keys(ctx.listeners).forEach((k) => {
