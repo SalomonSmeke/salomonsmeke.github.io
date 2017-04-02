@@ -1,20 +1,20 @@
-Setting up for a re-work. So far nothing but bones.
+## ssmeke.io
+
+Just a personal website where I mess around.
+
+Currently under construction. Once this is done, my old website will be available at:
+
+[ssmeke.io](http://ssmeke.io)
 
 TO-DOs:
 
-* Create deploy script. Deploy script should: <- Meta
-  * Make a subdirectory for output.
-  * Run any transpile, minify, whatever task(s).
-  * Push to master
-
-* Figure out the standalone structure. <- Meta
-  * Any pages/code examples should be, during build, modularized and placed in
-  build/standalone.
-  * html wrappers take the modules and give them their css via adapters.
-
-* Create the interactive navigation things. <- Functionality
-
-* More. Theres a ton to do.
+* Create deploy script.
+* Figure out the standalone pages structure.
+* Write the bars functionality.
+* Draw the final nav-functionality.
+* Optimize for mobile (though i've kept this in the back of my head).
+* Zork.
+* Bars-UI.
 
 Guidelines:
 
