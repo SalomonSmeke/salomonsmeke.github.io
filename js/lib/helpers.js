@@ -34,4 +34,10 @@ function find(arr, f) {
   return acc;
 }
 
-export {dasherize, removeNodeClass, addNodeClass, contains, findOne, find};
+function filter(arr, f) {
+  let acc = [];
+  arr.forEach((v) => {if (!f(v)) acc.push(v);});
+  return acc;
+}
+
+export {dasherize, removeNodeClass, addNodeClass, contains, findOne, find, filter};

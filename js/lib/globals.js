@@ -5,7 +5,8 @@ let context = {
   bar_vals: {
     x: null,
     p: 0,
-    s: 0
+    s: 0,
+    c: 0
   }
 };
 

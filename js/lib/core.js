@@ -3,6 +3,10 @@
 import {context as ctx} from "./globals.js";
 import * as helpers from "./helpers";
 
+//TODO: Either abstract this and get rid of core, or put these in subobjects.
+
+//******* LISTENERS *******
+
 /*
  * hatchListeners(listener, str)
  * Applying a listener to a node.
@@ -112,10 +116,43 @@ function removeOwnerListeners(owner) {
   }
 }
 
+//******* CONSOLE *******
+
+let exposureRegistrar = [];
+
+function exposeObject(object) {
+  const id = object.id;
+  const vals = object.vals;
+  if (id === undefined || vals === undefined) {
+    console.error(`Incomplete exposure object: ${object}`);
+    return -1;
+  }
+  if (window[id]) {
+    console.error(`Cannot register object: ${key}
+      , would overwrite previous object.`);
+    return -1;
+  }
+  window[id] = vals;
+  exposureRegistrar.push(id);
+}
+
+function revokeObject(id){
+  const index = exposureRegistrar.indexOf(id);
+  if (index !== -1) {
+    delete window[id];
+    exposureRegistrar = helpers.filter(exposureRegistrar, ((v) => {
+      v === id;
+    })(id));
+  }
+  console.error(`Cannot revoke non-existent object: ${id}.`);
+  return -1
+}
+
 export {
   hatchListeners,
   incubateListener,
   removeListener,
   removeNodeListeners,
-  removeOwnerListeners
+  removeOwnerListeners,
+  exposeObject
 };
