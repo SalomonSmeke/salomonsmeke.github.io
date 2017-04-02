@@ -23,6 +23,7 @@ function build (n, parent_id) {
   const xmlns = "http://www.w3.org/2000/svg";
   const boxDim = 70;
   const type = n === 1 ? "circle" : n === 2 ? "polyline" : "polygon";
+  const strokeWidth = n === 1 ? 4 : 3.4;
   [
     ['top', '#ff3232', 0.88],
     ['middle', '#ff8250', 0.88],
@@ -38,14 +39,14 @@ function build (n, parent_id) {
     svgElem.setAttributeNS(null, "height", boxDim);
 
     let g = document.createElementNS(xmlns, type);
-    const vertices = getVertices(boxDim / 3 - 3.5, boxDim / 2, n);
+    const vertices = getVertices(boxDim / 3 - strokeWidth, boxDim / 2, n);
     if (n === 1) {
       g.setAttributeNS(null, 'cx', vertices[0][0]);
       g.setAttributeNS(null, 'cy', vertices[0][1]);
-      g.setAttributeNS(null, 'r', 3.5/2);
+      g.setAttributeNS(null, 'r', strokeWidth/2);
     } else g.setAttributeNS(null, 'points', vtos(vertices));
 
-    g.setAttributeNS(null, 'stroke-width', 3.5);
+    g.setAttributeNS(null, 'stroke-width', strokeWidth);
     g.setAttributeNS(null, 'fill', 'none');
     g.setAttributeNS(null, 'stroke', color);
     svgElem.appendChild(g);
