@@ -10,15 +10,15 @@ import {
 function base_module() {
   return {
     id: '',
-    DOM_MANIPULATION: [],
-    DOM_UNLOAD: [],
+    LOAD: [],
+    UNLOAD: [],
     LISTENERS: [],
     WINDOW_EXPOSE: []
   };
 }
 
 function load(module_def) {
-  subRoutines(module_def.DOM_MANIPULATION, module_def.id);
+  subRoutines(module_def.LOAD, module_def.id);
   addListeners(module_def.LISTENERS, module_def.id);
   if (Object.keys(module_def.WINDOW_EXPOSE).length) {
     expose(module_def.WINDOW_EXPOSE, module_def.id);
@@ -26,7 +26,7 @@ function load(module_def) {
 }
 
 function unload(module_def) {
-  subRoutines(module_def.DOM_UNLOAD, module_def.id);
+  subRoutines(module_def.UNLOAD, module_def.id);
   if (module_def.LISTENERS.length) {
     removeListeners(module_def.id);
   }

@@ -1,7 +1,6 @@
 'use strict';
 
 import {base_module as base_module} from "./_module.js";
-import {context as ctx} from "../lib/globals.js";
 import {common as libListeners} from "../lib/listeners.js";
 import * as _ from "../lib/minidash.js";
 import {build as buildngon} from "../lib/ngon.js";
@@ -14,9 +13,9 @@ import {build as buildngon} from "../lib/ngon.js";
  */
 
 let module_def = base_module();
-module_def.DOM_MANIPULATION = [
-  () => {buildngon(2, 'previous');},
-  () => {buildngon(5, 'next');}
+module_def.LOAD = [
+  () => {buildngon(1, 'previous');},
+  () => {buildngon(3, 'next');}
 ];
 module_def.LISTENERS = [
   {
