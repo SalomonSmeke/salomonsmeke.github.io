@@ -1,26 +1,47 @@
 'use strict';
 
 import * as window from "../lib/window.js";
+import {
+  hatchListeners as hatchListeners,
+  incubateListener as incubateListener,
+  removeOwnerListeners as removeOwnerListeners
+} from "../lib/listeners.js";
 
 function base_module() {
   return {
+    id: '',
     DOM_MANIPULATION: [],
+    DOM_UNLOAD: [],
     LISTENERS: [],
     WINDOW_EXPOSE: []
   };
 }
 
 function load(module_def) {
-  //TODO: DOM_MANIPULATION
-  //TODO: LISTENERS
-  expose(module_def.WINDOW_EXPOSE);
+  subRoutines(module_def.DOM_MANIPULATION, module_def.id);
+  addListeners(module_def.LISTENERS, module_def.id);
+  if (Object.keys(module_def.WINDOW_EXPOSE).length) {
+    expose(module_def.WINDOW_EXPOSE, module_def.id);
+  }
 }
 
-function unload() {
-
+function unload(module_def) {
+  subRoutines(module_def.DOM_UNLOAD, module_def.id);
+  if (module_def.LISTENERS.length) {
+    removeListeners(module_def.id);
+  }
+  if (Object.keys(module_def.WINDOW_EXPOSE).length) {
+    obscure(module_def.id);
+  }
 }
 
-function expose(o) { window.exposeObject(o); }
-function obscure(o) { window.obscureObject(o); }
+function subRoutines(sr, caller) { sr.forEach((r) => { r(caller); }); }
+function addListeners(e, id) {
+  let eggs = e.map((l) => { return incubateListener(l.id, l.f, l.type); });
+  hatchListeners(eggs, id);
+}
+function removeListeners(id) { removeOwnerListeners(id); }
+function expose(o, id) { window.exposeObject(o, id); }
+function obscure(id) { window.obscureObject(id); }
 
-export {base_module, load};
+export {base_module, load, unload};

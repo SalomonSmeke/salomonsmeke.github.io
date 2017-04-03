@@ -3,7 +3,7 @@
 let context = {
   exposureRegistrar: [],
   listeners: {},
-  bar_vals: {
+  bar_vals: { //TODO: mode these to their exposure registrar.
     x: null,
     p: 0,
     s: 0,

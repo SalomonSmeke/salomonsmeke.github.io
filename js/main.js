@@ -7,7 +7,7 @@ import {
   common as libListeners
 } from "./lib/listeners.js";
 import * as helpers from "./lib/helpers.js";
-import {load as loadModule} from "./modules/_module.js";
+import {load as loadModule, unload as unloadModule} from "./modules/_module.js";
 import {build as buildngon} from "./lib/ngon.js";
 import {module_def as bars} from "./modules/bars.js";
 

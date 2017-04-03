@@ -37,12 +37,7 @@ function help() { console.table(HELP_OPTIONS); }
 
 let module_def = base_module();
 
-module_def.WINDOW_EXPOSE = {
-  id: 'bars',
-  vals: {
-    help: help
-  }
-};
+module_def.WINDOW_EXPOSE = { help: help };
 module_def.id = 'bars';
 
 export { module_def };

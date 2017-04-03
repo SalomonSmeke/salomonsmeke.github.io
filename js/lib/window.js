@@ -5,11 +5,8 @@ import * as helpers from "./helpers";
 
 let exposureRegistrar = ctx.exposureRegistrar;
 
-function exposeObject(object) {
-  debugger
-  const id = object.id;
-  const vals = object.vals;
-  if (id === undefined || vals === undefined) {
+function exposeObject(object, id) {
+  if (id === undefined || object === undefined) {
     console.error(`Incomplete exposure object: ${object}`);
     return -1;
   }
@@ -18,7 +15,7 @@ function exposeObject(object) {
       , would overwrite previous object.`);
     return -1;
   }
-  window[id] = vals;
+  window[id] = object;
   exposureRegistrar.push(id);
 }
 
@@ -26,9 +23,10 @@ function obscureObject(id){
   const index = exposureRegistrar.indexOf(id);
   if (index !== -1) {
     delete window[id];
-    exposureRegistrar = helpers.filter(exposureRegistrar, ((v) => {
-      return v === id;
-    })(id));
+    exposureRegistrar = helpers.filter(exposureRegistrar,
+      (v) => { (() => { return v === id; })(id); } //TODO: Clojure builder. this is gross.
+    );
+    return;
   }
   console.error(`Cannot obscure non-existent object: ${id}.`);
   return -1;
