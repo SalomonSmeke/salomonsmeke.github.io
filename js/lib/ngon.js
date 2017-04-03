@@ -55,6 +55,7 @@ function build (n, parent_id) {
     let svgContainer = node.cloneNode(false);
     svgContainer.appendChild(svgElem);
     svgContainer.style.opacity = opacity;
+    node.parentNode.parentNode.title = `Go-to page: ${n}`;
     node.parentNode.replaceChild(svgContainer, node);
   });
 }
