@@ -2,12 +2,12 @@
 
 import {context as ctx} from "./lib/globals.js";
 import {
-    hatchListeners as hatchListeners,
-    incubateListener as incubateListener} from "./lib/core.js";
+  hatchListeners as hatchListeners,
+  incubateListener as incubateListener,
+  common as libListeners
+} from "./lib/listeners.js";
 import * as helpers from "./lib/helpers.js";
-import * as libListeners from "./lib/listeners.js";
 import {build as buildngon} from "./lib/ngon.js";
-import {_init as initBars} from "./lib/bars.js";
 
 //Execution. Nothing here is final.
 buildngon(2, 'previous');
@@ -45,10 +45,3 @@ document
 .getElementById("loader-wrapper")
 .parentNode
 .removeChild(document.getElementById("loader-wrapper"));
-
-initBars();
-
-//unregister listeners
-//unregister owner
-
-//Load bars
