@@ -1,7 +1,7 @@
 'use strict';
 
 import {context as ctx} from "./globals.js";
-import * as helpers from "./helpers";
+import * as _ from "./minidash";
 
 let exposureRegistrar = ctx.exposureRegistrar;
 
@@ -23,7 +23,7 @@ function obscureObject(id){
   const index = exposureRegistrar.indexOf(id);
   if (index !== -1) {
     delete window[id];
-    exposureRegistrar = helpers.filter(exposureRegistrar,
+    exposureRegistrar = _.filter(exposureRegistrar,
       (v) => { (() => { return v === id; })(id); } //TODO: Clojure builder. this is gross.
     );
     return;

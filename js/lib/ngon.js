@@ -1,6 +1,6 @@
 "use strict";
 
-import * as helpers from "./helpers.js";
+import * as _ from "./minidash.js";
 
 function getVertices(radius, pos, n) {
   const angle = Math.PI * 2 / n;
@@ -29,7 +29,7 @@ function build (n, parent_id) {
     ['middle', '#ff8250', 0.88],
     ['bottom', '#ffaa28', 0.9]
   ].forEach((props) => {
-    const id = helpers.dasherize([parent_id, props[0]]);
+    const id = _.dasherize([parent_id, props[0]]);
     const color = props[1];
     const opacity = props[2];
 

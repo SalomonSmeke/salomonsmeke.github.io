@@ -1,7 +1,7 @@
 'use strict';
 
 import {context as ctx} from "./globals.js";
-import * as helpers from "./helpers.js";
+import * as _ from "./minidash.js";
 
 /*
  * hatchListeners(listener, str)
@@ -79,7 +79,7 @@ function removeNodeListeners(id) {
     } else {
       let keys = [];
       Object.keys(ctx.listeners[id]).forEach((k) => {
-        if (!helpers.contains(BASEKEYS, k)) keys.push(k);
+        if (!_.contains(BASEKEYS, k)) keys.push(k);
       });
       keys.forEach((k) => {
         node.removeEventListener(k, ctx.listeners[id][k], false);
@@ -101,7 +101,7 @@ function removeOwnerListeners(owner) {
   Object.keys(ctx.listeners).forEach((k) => {
     unwrapped_listeners.push(ctx.listeners[k]);
   });
-  const listeners = helpers.find(unwrapped_listeners,
+  const listeners = _.find(unwrapped_listeners,
     (ul) => { return (() => {return ul.owner === owner;})(owner); });
   if (listeners.length) {
     listeners.forEach((l) => {removeNodeListeners(l.id);});
@@ -125,7 +125,7 @@ let common = {
     const id = _ctx.id;
     let speed = 12*2; // 12 is the base speed.
     let nodes = keys.map((v) => {
-      let node = document.getElementById(helpers.dasherize(['rotation-hack', id, v]));
+      let node = document.getElementById(_.dasherize(['rotation-hack', id, v]));
       node.style.animation = speed + 's rotateLeft linear';
       speed*=2;
       return node;

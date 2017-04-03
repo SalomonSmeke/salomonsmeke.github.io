@@ -3,7 +3,7 @@
 import {base_module as base_module} from "./_module.js";
 import {context as ctx} from "../lib/globals.js";
 import {common as libListeners} from "../lib/listeners.js";
-import * as helpers from "../lib/helpers.js";
+import * as _ from "../lib/minidash.js";
 import {build as buildngon} from "../lib/ngon.js";
 
 /*
@@ -24,8 +24,8 @@ module_def.LISTENERS = [
     f: (_ctx) => {
       const toggle = _ctx.props.toggle;
       let node = document.getElementById('help-popup');
-      if (toggle) { helpers.addNodeClass(node, 'hidden'); }
-      else { helpers.removeNodeClass(node, 'hidden'); }
+      if (toggle) { _.addNodeClass(node, 'hidden'); }
+      else { _.removeNodeClass(node, 'hidden'); }
       _ctx.props.toggle = !toggle;
     },
     type: 'click'
@@ -35,8 +35,8 @@ module_def.LISTENERS = [
     f: (_ctx, ctx) => {
       const toggle = ctx.listeners['help-nav'].props.toggle;
       let node = document.getElementById(_ctx.id);
-      if (toggle) { helpers.addNodeClass(node, 'hidden'); }
-      else { helpers.removeNodeClass(node, 'hidden'); }
+      if (toggle) { _.addNodeClass(node, 'hidden'); }
+      else { _.removeNodeClass(node, 'hidden'); }
       ctx.listeners['help-nav'].props.toggle = !toggle;
     },
     type: 'click'
