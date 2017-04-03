@@ -7,7 +7,7 @@ import {
 } from "../lib/globals.js";
 
 /*
- * Bars.js
+ * bars.js
  * Controls the main color display on the base site, and provides an interface
  * to interact with them.
  *

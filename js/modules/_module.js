@@ -37,7 +37,7 @@ function unload(module_def) {
 
 function subRoutines(sr, caller) { sr.forEach((r) => { r(caller); }); }
 function addListeners(e, id) {
-  let eggs = e.map((l) => { return incubateListener(l.id, l.f, l.type); });
+  const eggs = e.map((l) => { return incubateListener(l.id, l.f, l.type); });
   hatchListeners(eggs, id);
 }
 function removeListeners(id) { removeOwnerListeners(id); }
