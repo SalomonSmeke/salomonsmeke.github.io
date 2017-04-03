@@ -6,6 +6,7 @@ import * as helpers from "./helpers";
 let exposureRegistrar = ctx.exposureRegistrar;
 
 function exposeObject(object) {
+  debugger
   const id = object.id;
   const vals = object.vals;
   if (id === undefined || vals === undefined) {

@@ -5,7 +5,6 @@ import {
   INIT_BAR_VALS_OPTIONS as INIT_BAR_VALS_OPTIONS,
   context as ctx
 } from "../lib/globals.js";
-import {exposeObject as expose} from "../lib/window.js";
 
 /*
  * Bars.js
@@ -26,18 +25,20 @@ import {exposeObject as expose} from "../lib/window.js";
  * help() -> Displays help.
  */
 
-const HELP_OPTIONS = [
-    {
+const HELP_OPTIONS = {
+    help: {
       'Command': 'help()',
       'Description': 'Displays this message.',
       'Args': 'None.'
     }
-];
+};
 
 function help() { console.table(HELP_OPTIONS); }
 
 let module_def = base_module();
+
 module_def.WINDOW_EXPOSE = {
+  id: 'bars',
   vals: {
     help: help
   }
