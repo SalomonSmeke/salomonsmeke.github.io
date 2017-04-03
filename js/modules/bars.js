@@ -1,10 +1,10 @@
 'use strict';
 
+import {base_module as base_module} from "./_module.js";
 import {
   INIT_BAR_VALS_OPTIONS as INIT_BAR_VALS_OPTIONS,
   context as ctx
-} from "./globals.js";
-import {exposeObject as expose} from "./core.js"
+} from "../lib/globals.js";
 
 /*
  * Bars.js
@@ -25,23 +25,24 @@ import {exposeObject as expose} from "./core.js"
  * help() -> Displays help.
  */
 
-const HELP_OPTIONS = [
-    {
+const HELP_OPTIONS = {
+    help: {
       'Command': 'help()',
       'Description': 'Displays this message.',
       'Args': 'None.'
     }
-]
+};
 
 function help() { console.table(HELP_OPTIONS); }
 
-let EXPOSE = {
+let module_def = base_module();
+
+module_def.WINDOW_EXPOSE = {
   id: 'bars',
   vals: {
     help: help
   }
-}
+};
+module_def.id = 'bars';
 
-function _init() { expose(EXPOSE); }
-
-export { _init }
+export { module_def };

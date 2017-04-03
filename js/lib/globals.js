@@ -1,6 +1,7 @@
 'use strict';
 
 let context = {
+  exposureRegistrar: [],
   listeners: {},
   bar_vals: {
     x: null,
