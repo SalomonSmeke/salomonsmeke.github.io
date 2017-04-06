@@ -42,6 +42,11 @@ const INIT_BAR_VALS_OPTIONS = [
     x: 'ff8519',
     p: 1,
     s: 0.7
+  },
+  {
+    x: 'ffff88',
+    p: 1,
+    s: 0.4
   }
 ];
 
