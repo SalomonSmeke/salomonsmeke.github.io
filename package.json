@@ -26,6 +26,7 @@
     "gulp-htmlmin": "^3.0.0",
     "gulp-imagemin": "^3.2.0",
     "gulp-uglify": "^2.1.2",
+    "gulp-uncss": "^1.0.6",
     "imagemin-zopfli": "^5.1.0",
     "jshint": "^2.9.4",
     "vinyl-buffer": "^1.0.0",

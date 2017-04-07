@@ -164,10 +164,7 @@ const HELP_OPTIONS = {
     }
 };
 
-function help() {
-  console.table(HELP_OPTIONS);
-  return HELP_OPTIONS;
-}
+function help() { console.table(HELP_OPTIONS); }
 
 let module_def = base_module();
 module_def.LOAD = [

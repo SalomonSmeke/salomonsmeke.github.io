@@ -5,6 +5,7 @@ var zopfli = require('imagemin-zopfli');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
+var unCSS = require('gulp-uncss');
 var concat = require('gulp-concat');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -130,24 +131,40 @@ gulp.task('produce-vendor', () => {
 /* copy-styles:
 		* CSS copy task.
 */
-gulp.task('copy-styles', () => {
-	gulp.src(['styles/normalize.css', 'styles/global.css'])
-	.pipe(concat('bundle.css'))
-  .pipe(gulp.dest('build/styles/'));
-	console.log('CSS copied.');
-	return 0;
+gulp.task('copy-styles',
+	[
+		'copy-root',
+		'compile-source'
+	],
+	() => {
+		gulp.src(['styles/normalize.css', 'styles/global.css'])
+		.pipe(concat('bundle.css'))
+		.pipe(unCSS({
+			html: ['./build/index.html']
+		}))
+	  .pipe(gulp.dest('build/styles/'));
+		console.log('CSS copied.');
+		return 0;
 });
 
 /* produce-styles:
 		* CSS production task.
 */
-gulp.task('produce-styles', () => {
-  gulp.src(['styles/normalize.css', 'styles/global.css'])
-	.pipe(concat('bundle.css'))
-	.pipe(cleanCSS({'level': 2}))
-  .pipe(gulp.dest('build/styles/'));
-	console.log('CSS composed.');
-	return 0;
+gulp.task('produce-styles',
+	[
+		'produce-root',
+		'produce-source'
+	],
+	() => {
+	  gulp.src(['styles/normalize.css', 'styles/global.css'])
+		.pipe(concat('bundle.css'))
+		.pipe(unCSS({
+			html: ['./build/index.html']
+		}))
+		.pipe(cleanCSS({'level': 2}))
+	  .pipe(gulp.dest('build/styles/'));
+		console.log('CSS composed.');
+		return 0;
 });
 
 /* compile-source:

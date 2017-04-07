@@ -46,11 +46,22 @@ textarea {
     resize: vertical;
 }
 
+/* uncss:ignore */
 .browserupgrade {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   UnCSS ignore shenanigans
+   ========================================================================== */
+
+/* uncss:ignore */
+.uncss {
+  animation: rotateLeft 12s infinite linear;
+  animation: rotateRight 12s infinite linear;
 }
 
 /* ==========================================================================
