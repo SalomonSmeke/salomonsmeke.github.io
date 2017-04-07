@@ -7,14 +7,17 @@ import {
   removeOwnerListeners as removeOwnerListeners
 } from "../lib/listeners.js";
 
-function base_module() {
-  return {
+function spawn_module(init) {
+  var out = {
     id: '',
     LOAD: [],
     UNLOAD: [],
     LISTENERS: [],
     WINDOW_EXPOSE: []
   };
+  const keys = init ? Object.keys(init) : [];
+  keys.forEach((k) => { out[k] = init[k]; });
+  return out;
 }
 
 function load(module_def) {
@@ -44,4 +47,4 @@ function removeListeners(id) { removeOwnerListeners(id); }
 function expose(o, id) { window.exposeObject(o, id); }
 function obscure(id) { window.obscureObject(id); }
 
-export {base_module, load, unload};
+export {spawn_module, load, unload};

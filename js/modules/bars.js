@@ -1,7 +1,7 @@
 /*jshint loopfunc: true */
 'use strict';
 
-import {base_module as base_module} from "./_module.js";
+import {spawn_module as spawn_module} from "./_module.js";
 import * as _ from "../lib/minidash.js";
 
 /*
@@ -166,17 +166,16 @@ const HELP_OPTIONS = {
 
 function help() { console.table(HELP_OPTIONS); }
 
-let module_def = base_module();
-module_def.LOAD = [
-  init
-];
-module_def.WINDOW_EXPOSE = {
-  help: help,
-  set: set,
-  get: get,
-  reload: reload,
-  pprint: pprint
-};
-module_def.id = 'bars';
+let module_def = spawn_module({
+  id: 'bars',
+  LOAD: [init],
+  WINDOW_EXPOSE: {
+    help: help,
+    set: set,
+    get: get,
+    reload: reload,
+    pprint: pprint
+  }
+});
 
 export { module_def };
