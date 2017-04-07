@@ -40,4 +40,17 @@ function filter(arr, f) {
   return acc;
 }
 
-export {dasherize, removeNodeClass, addNodeClass, contains, findOne, find, filter};
+function intInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export {
+  dasherize,
+  removeNodeClass,
+  addNodeClass,
+  contains,
+  findOne,
+  find,
+  filter,
+  intInRange
+};

@@ -1,7 +1,9 @@
+/*jshint loopfunc: true */
 'use strict';
 
 import {base_module as base_module} from "./_module.js";
 import {context as globalctx} from "../lib/globals.js";
+import * as _ from "../lib/minidash.js";
 
 /*
  * bars.js
@@ -22,6 +24,7 @@ import {context as globalctx} from "../lib/globals.js";
  * help() -> Displays help.
  */
 
+const MAX_C = 255;
 const INIT_BAR_VALS_OPTIONS = [
   {
     x: 'fe4365',
@@ -56,11 +59,50 @@ let ctx = {
     p: 0,
     s: 0,
     c: 0
-  }
+  },
+  colors: []
 };
 
+function makeColors() {
+  // Named these just to make the code less obscure.
+  // Its pretty obscure.
+  // Oh well.
+  const hex = ctx.bar_vals.x;
+  const strength = ctx.bar_vals.s;
+  const pivot = ctx.bar_vals.p;
+  const count = ctx.bar_vals.c;
+  const base = hex.match(/.{2}/g);
+  const pivot_int = parseInt(base[pivot], 16);
+  const delta = Math.floor(strength * pivot_int / (count - 1));
+  var colors = [];
+  colors.push(hex);
+  for (var i = 1; i < count; i++) colors.push(
+    base.map(
+      (v, p) => {
+        if (p === pivot) {
+          var str = Number(pivot_int - delta * i).toString(16);
+          return str.length === 1 ? "0" + str : str;
+        } else return v;
+      }
+  ).join(''));
+  ctx.colors = colors;
+}
+function draw() {
+  var node = document.getElementById('bar-container');
+  var swap = node.cloneNode(false);
+  var bar_template = document.createElement('div');
+  bar_template.setAttribute('class', 'bar');
+  ctx.colors.forEach((c) => {
+    var clone = bar_template.cloneNode(false);
+    clone.style.backgroundColor = `#${c}`;
+    swap.append(clone);
+  });
+  node.parentNode.replaceChild(swap, node);
+  window.ctx=ctx;
+}
 function reload() {
-
+  makeColors();
+  draw();
 }
 function set(type, val) {
 
@@ -76,6 +118,14 @@ function rngesus() {
 }
 function time() {
 
+}
+function init() {
+  const vals = INIT_BAR_VALS_OPTIONS[
+    _.intInRange(0, INIT_BAR_VALS_OPTIONS.length-1)
+  ];
+  Object.keys(vals).forEach((v) => {ctx.bar_vals[v] = vals[v];});
+  ctx.bar_vals.c = _.intInRange(2, 7);
+  reload();
 }
 
 const HELP_OPTIONS = {
@@ -123,7 +173,7 @@ function help() {
 
 let module_def = base_module();
 module_def.LOAD = [
-
+  init
 ];
 module_def.WINDOW_EXPOSE = {
   help: help,
