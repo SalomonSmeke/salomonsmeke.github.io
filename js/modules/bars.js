@@ -2,7 +2,6 @@
 'use strict';
 
 import {base_module as base_module} from "./_module.js";
-import {context as globalctx} from "../lib/globals.js";
 import * as _ from "../lib/minidash.js";
 
 /*
@@ -98,7 +97,6 @@ function draw() {
     swap.append(clone);
   });
   node.parentNode.replaceChild(swap, node);
-  window.ctx=ctx;
 }
 function reload() {
   makeColors();
