@@ -61,7 +61,6 @@ textarea {
 /* uncss:ignore */
 .uncss {
   animation: rotateLeft 12s infinite linear;
-  animation: rotateRight 12s infinite linear;
 }
 
 /* ==========================================================================
@@ -69,6 +68,17 @@ textarea {
    ========================================================================== */
 
 .test { background-color: #ff0000; }
+
+#content-wrapper { position: relative; }
+
+#scroll-nav {
+  position: absolute;
+  right: 35px;
+  top: -105px;
+  width: 70px;
+  height: 210px;
+  background-color: #fff;
+}
 
 #content {  padding: 10px 30px; }
 #page-body-wrapper {
@@ -89,7 +99,7 @@ textarea {
 #previous-bottom,
 #next-top,
 #next-middle,
-#next-bottom { animation: 12s rotateRight infinite linear; }
+#next-bottom { animation: rotateRight 12s infinite linear; }
 
 #previous-top,
 #next-top { z-index: 88; }
