@@ -1,6 +1,6 @@
 "use strict";
 
-import * as _ from "./minidash.js";
+import * as _ from "../minidash.js";
 
 function getVertices(radius, pos, n) {
   const angle = Math.PI * 2 / n;

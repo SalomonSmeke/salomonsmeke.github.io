@@ -2,7 +2,7 @@
 
 import {spawn_module as spawn_module} from "./_module.js";
 import {common as libListeners} from "../lib/listeners.js";
-import {build as buildngon} from "../lib/ngon.js";
+import {build as buildngon} from "../lib/nav/ngon.js";
 
 /*
  * nav.js
