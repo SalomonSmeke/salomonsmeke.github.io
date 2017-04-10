@@ -3,6 +3,7 @@
 import {spawn_module as spawn_module} from "./_module.js";
 import {common as libListeners} from "../lib/listeners.js";
 import {build as buildngon} from "../lib/nav/ngon.js";
+import {draw as scroll_nav_frame} from "../lib/nav/scrollNav.js";
 
 /*
  * nav.js
@@ -13,7 +14,8 @@ let module_def = spawn_module({
   id: 'nav',
   LOAD: [
     () => {buildngon(1, 'previous');},
-    () => {buildngon(3, 'next');}
+    () => {buildngon(3, 'next');},
+    () => {window.requestAnimationFrame(scroll_nav_frame);}
   ],
   LISTENERS: [
     {
