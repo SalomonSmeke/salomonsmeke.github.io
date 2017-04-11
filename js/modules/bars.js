@@ -122,7 +122,7 @@ function init() {
     _.intInRange(0, INIT_BAR_VALS_OPTIONS.length-1)
   ];
   Object.keys(vals).forEach((v) => {ctx.bar_vals[v] = vals[v];});
-  ctx.bar_vals.c = _.intInRange(2, 7);
+  ctx.bar_vals.c = _.intInRange(2, 10);
   reload();
 }
 
