@@ -12,71 +12,64 @@ const COLORS = [
 ];
 const COLOR_MODE = 'difference';
 const ELEMENT_ID = 'scroll-nav';
-const DATE = new Date(0);
 var DIMS = {
-  height: 210,
-  width: 70,
+  height: 420,
+  width: 140,
 };
+var raf;
 
 function start() {
-  var pdim = DIMS.height * 2 / 7;
-  var sep = pdim / 7;
-  DIMS.stroke = pdim / 5; //TODO: Replace with stroke width of nav buttons?
-  DIMS.diameter = pdim - DIMS.stroke / 2;
+  var pdim = DIMS.height / 5;
+  var sep = pdim / 8;
+  DIMS.stroke = pdim / 5;
+  DIMS.radius = (pdim - DIMS.stroke) / 2;
   DIMS.x = DIMS.width / 2;
+  DIMS.y_offset = DIMS.height / 2;
   DIMS.range = {
-    min: sep + pdim / 2,
+    min: sep + pdim,
     max: DIMS.height - (sep + pdim / 2)
   };
-  DIMS.motion = (DIMS.range[1] - DIMS.range[0]) / 2;
-  window.requestAnimationFrame(draw);
+  DIMS.motion = (DIMS.range.max - DIMS.range.min) / 2;
+  raf = window.requestAnimationFrame(draw);
 }
 
-function draw() {
+function draw(ts) {
+  //TODO: Smooth by scaling this up
+  ts /= 10;
   var canvas_ctx = document.getElementById(ELEMENT_ID).getContext(
     '2d',
     {alpha: false}
   );
-  canvas_ctx.clearRect(0, 0, DIMS.width, DIMS.height); // TODO: Is this canvas clear necessary?
+  canvas_ctx.lineWidth = DIMS.stroke;
+  canvas_ctx.clearRect(0, 0, DIMS.width, DIMS.height);
   canvas_ctx.globalCompositeOperation = COLOR_MODE;
   canvas_ctx.fillStyle = WHITE;
   canvas_ctx.fillRect(0, 0, DIMS.width, DIMS.height);
-  const TIME = DATE.getTime();
   [
     {
-      magnitude: 0.04,
+      magnitude: 0.019,
       color: COLORS[0]
     },
     {
-      magnitude: 0.03975,
+      magnitude: 0.0189,
       color: COLORS[1]
     },
     {
-      magnitude: 0.0395,
+      magnitude: 0.0188,
       color: COLORS[2]
     }
   ].forEach((props) => {
     canvas_ctx.strokeStyle = props.color;
-    var y = Math.floor(
-      DIMS.motion * Math.sin(TIME * props.magnitude) + DIMS.motion
-    );
+    canvas_ctx.beginPath();
+    canvas_ctx.arc(
+      DIMS.x,
+      (DIMS.motion * Math.cos(ts * props.magnitude) + DIMS.y_offset),
+      DIMS.radius,
+      0,
+      Math.PI * 2);
+    canvas_ctx.stroke();
   });
-  /* Draw the three circles following this processing script:
-
-    void draw()
-    {
-      background(255);
-      blendMode(SUBTRACT);
-      noFill();
-      strokeWeight(str);
-      stroke(cs[0]);
-      ellipse(x, motion * sin(frameCount*.04) + motion, dim, dim);
-      stroke(cs[1]);
-      ellipse(x, motion * sin(frameCount*.0397) + (range[0]+range[1])/2, dim, dim);
-      stroke(cs[2]);
-      ellipse(x, motion * sin(frameCount*.0395) + (range[0]+range[1])/2, dim, dim);
-    }
-  */
+  raf = window.requestAnimationFrame(draw);
 }
 
 export {start};
