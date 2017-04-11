@@ -60,4 +60,4 @@ function build (n, parent_id) {
   });
 }
 
-export {getVertices, vtos, build};
+export {build};
