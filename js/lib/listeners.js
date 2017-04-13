@@ -108,6 +108,7 @@ function removeOwnerListeners(owner) {
 }
 
 let common = {
+  //TODO: this has no business here, put them in the fucking module.
   /*
    * Listener for the navigational elements for pagination.
    * Intended as an 'onHover'.

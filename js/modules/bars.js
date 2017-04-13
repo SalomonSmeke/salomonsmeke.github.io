@@ -32,9 +32,15 @@ let ctx = {
     s: 0,
     c: 0
   },
-  colors: []
+  colors: [],
+  time_interval: false
 };
 
+function clear_time_interval() {
+  ctx.date = null;
+  if (ctx.time_interval) clearInterval(ctx.time_interval);
+  ctx.time_interval = false;
+}
 function makeColors() {
   // Named these just to make the code less obscure.
   // Its pretty obscure.
@@ -108,6 +114,7 @@ function set(type, val) {
       break;
     default: return _.err(`Invalid type: ${type}.`);
   }
+  clear_time_interval();
   reload();
 }
 function get(type) {
@@ -117,11 +124,10 @@ function get(type) {
   return false;
 }
 function pprint() {
-
+  //TODO: this. So close to being done with das bars.
 }
 function rngesus() {
   let largest = 0;
-  let pivot = 0;
   const x_max = _.intInRange(0, MAX_C * 3);
   let x_ratios = [];
   let x_total = 0;
@@ -131,25 +137,43 @@ function rngesus() {
     x_ratios.push(s);
   }
   let x_values = x_ratios.map((r, i) => {
-    const value = Math.floor(
+    const v = Math.floor(
       Math.min(r / x_total * x_max, MAX_C)
     );
-    if (value > largest) { pivot = i; largest = value; }
-    const str = value.toString(16);
+    if (v > largest) { ctx.bar_vals.p = i; largest = v; }
+    const str = v.toString(16);
     return str.length === 1 ? "0" + str : str;
   });
   ctx.bar_vals.x = x_values.join('');
-  ctx.bar_vals.p = pivot;
   ctx.bar_vals.s = _.intInRange(30,100) / 100.0;
   ctx.bar_vals.c = _.intInRange(1, 10);
+  clear_time_interval();
+  reload();
+}
+function update_time() {
+  let date = new Date();
+  var largest = 0;
+  ctx.bar_vals.x = [
+    date.getHours()*10.625,
+    date.getMinutes()*4.25,
+    date.getSeconds()*4.25
+  ].map((v, i) => {
+    //TODO: something is wrong in the pivoting.
+    if (v > largest) { ctx.bar_vals.p = i; largest = v; }
+    v = Math.round(v).toString(16);
+    return v.length === 1 ? "0" + v : v;
+  }).join('');
+  reload();
 }
 function time() {
-  //TODO: refreshes by the second, makes bars based on the time.
+  if (ctx.time_interval) return _.err('Time already active.');
+  update_time();
+  ctx.time_interval = setInterval(() => {update_time();}, 1000);
 }
 function init() {
-  //TODO: Lets make this time, not rngesus. It tends to not be interesting.
-  rngesus();
-  reload();
+  ctx.bar_vals.s = _.intInRange(30,100) / 100.0;
+  ctx.bar_vals.c = _.intInRange(1, 10);
+  time();
 }
 
 const HELP_OPTIONS = {
@@ -200,7 +224,9 @@ let module_def = spawn_module({
     set: set,
     get: get,
     reload: reload,
-    pprint: pprint
+    pprint: pprint,
+    rngesus: rngesus,
+    time: time
   }
 });
 

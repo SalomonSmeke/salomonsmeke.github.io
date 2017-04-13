@@ -50,6 +50,7 @@ function intInRange(min, max) {
 }
 
 export {
+  err,
   dasherize,
   removeNodeClass,
   addNodeClass,
