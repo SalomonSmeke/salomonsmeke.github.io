@@ -7,13 +7,11 @@ let exposureRegistrar = ctx.exposureRegistrar;
 
 function exposeObject(object, id) {
   if (id === undefined || object === undefined) {
-    console.error(`Incomplete exposure object: ${object}`);
-    return -1;
+    return _.err(`Incomplete exposure object: ${object}`, -1);
   }
   if (window[id]) {
-    console.error(`Cannot register object: ${id}
-      , would overwrite previous object.`);
-    return -1;
+    return _.err(`Cannot register object: ${id}
+      , would overwrite previous object.`, -1);
   }
   window[id] = object;
   exposureRegistrar.push(id);
@@ -24,12 +22,11 @@ function obscureObject(id){
   if (index !== -1) {
     delete window[id];
     exposureRegistrar = _.filter(exposureRegistrar,
-      (v) => { (() => { return v === id; })(id); } //TODO: Clojure builder. this is gross.
+      (v) => { (() => { return v === id; })(id); }
     );
     return;
   }
-  console.error(`Cannot obscure non-existent object: ${id}.`);
-  return -1;
+  return _.err(`Cannot obscure non-existent object: ${id}.`, -1);
 }
 
 export {

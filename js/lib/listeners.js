@@ -13,8 +13,7 @@ function hatchListeners(listeners, owner) {
     const f = egg.f;
     const type = egg.type;
     if ((id === undefined || f === undefined) || type === undefined) {
-      console.error(`Incomplete listener data. Id: ${id} Owner: ${owner}.`);
-      return -1;
+      return _.err(`Incomplete listener data. Id: ${id} Owner: ${owner}.`, -1);
     }
     if (ctx.listeners[id] !== undefined) {
       if (ctx.listeners[id][type] !== undefined) {
@@ -24,10 +23,9 @@ function hatchListeners(listeners, owner) {
     } else ctx.listeners[id] = {id: id, owner: owner, props: {}};
     let node = document.getElementById(id);
     if (node === null) { //Undefined nodes are null. Not undefined.
-      console.error(`Attempted listener registration on invalid node Id:
-        ${id}.`);
       delete ctx.listeners[id];
-      return -1;
+      return _.err(`Attempted listener registration on invalid node Id:
+        ${id}.`, -1);
     }
     ctx.listeners[id][type] = f;
     node.addEventListener(type, f, false);
@@ -56,14 +54,13 @@ function removeListener(id, type) {
     if (ctx.listeners[id][type]) {
       let node = document.getElementById(id);
       if (node === null) {
-        console.error(`Discarding listener on dead node Id: ${id}.`);
+        console.warn(`Discarding listener on dead node Id: ${id}.`);
       } else node.removeEventListener(type, ctx.listeners[id][type], false);
       delete ctx.listeners[id][type];
       return;
     }
   }
-  console.error(`Attempted to discard non-existent listener Id: ${id}.`);
-  return -1;
+  return _.err(`Attempted to discard non-existent listener Id: ${id}.`, -1);
 }
 
 /*
@@ -88,8 +85,7 @@ function removeNodeListeners(id) {
     delete ctx.listeners[id];
     return;
   }
-  console.error(`Attempted to discard non-existent listener Id: ${id}.`);
-  return -1;
+  _.err(`Attempted to discard non-existent listener Id: ${id}.`, -1);
 }
 
 /*
@@ -107,8 +103,7 @@ function removeOwnerListeners(owner) {
     listeners.forEach((l) => {removeNodeListeners(l.id);});
     return;
   } else {
-    console.error(`No listeners to remove for owner: ${owner}.`);
-    return -1;
+    _.err(`No listeners to remove for owner: ${owner}.`, -1);
   }
 }
 

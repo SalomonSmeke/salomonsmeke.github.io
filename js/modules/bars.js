@@ -79,44 +79,34 @@ function set(type, val) {
   switch (type) {
     case 'base':
       if (typeof val !== "string") {
-        console.error(`Invalid value: ${val} for type: not a string`);
-        return false;
+        return _.err(`Invalid value: ${val} for type: not a string`);
       }
       val.replace('#', '');
       if (val.length !== 6) {
-        console.error(`Invalid value: ${val} for type: not 6 long`);
-        return false;
+        return _.err(`Invalid value: ${val} for type: not 6 long`);
       }
       if (!/^[0-9A-Fa-f]{6}$/i.test(val)) {
-        console.error(`Invalid value: ${val} for type: not hexadecimal`);
-        return false;
+        return _.err(`Invalid value: ${val} for type: not hexadecimal`);
       }
       ctx.bar_vals.x = val;
       break;
     case 'pivot':
       if (!_.contains([0,1,2], parseInt(val))) {
-        console.error(`Invalid value: ${val} for type: not in range [0|1|2]`);
-        return false;
+        return _.err(`Invalid value: ${val} for type: not in range [0|1|2]`);
       }
       ctx.bar_vals.p = val;
       break;
     case 'strength':
       if (val < 0 || val > 1) {
-        console.error(`Invalid value: ${val} for type: not 0 <= val <= 1`);
-        return false;
+        return _.err(`Invalid value: ${val} for type: not 0 <= val <= 1`);
       }
       ctx.bar_vals.s = val;
       break;
     case 'intervals':
-      if (!parseInt(val)) {
-        console.error(`Invalid value: ${val} for type.`);
-        return false;
-      }
+      if (!parseInt(val)) return _.err(`Invalid value: ${val} for type.`);
       ctx.bar_vals.c = val;
       break;
-    default:
-      console.error(`Invalid type: ${type}.`);
-      return false;
+    default: return _.err(`Invalid type: ${type}.`);
   }
   reload();
 }

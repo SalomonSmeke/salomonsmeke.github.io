@@ -4,6 +4,11 @@
  * Prefer .forEach over anything else. Prefer of over in. Prefer Object.keys over in.
  */
 
+ function err(message, ret) {
+   console.error(message);
+   return ret ? ret : !!ret ;
+ }
+
 function dasherize (elements) {
   let out = "";
   elements.forEach((el) => { out += el + '-'; });
