@@ -24,33 +24,6 @@ import * as _ from "../lib/minidash.js";
  */
 
 const MAX_C = 255;
-const INIT_BAR_VALS_OPTIONS = [
-  {
-    x: 'fe4365',
-    p: 0,
-    s: 0.9
-  },
-  {
-    x: '30fd9f',
-    p: 1,
-    s: 1
-  },
-  {
-    x: 'ff5555',
-    p: 0,
-    s: 0.85
-  },
-  {
-    x: 'ff8519',
-    p: 1,
-    s: 0.7
-  },
-  {
-    x: 'ffff88',
-    p: 1,
-    s: 0.4
-  }
-];
 
 let ctx = {
   bar_vals: {
@@ -103,26 +76,89 @@ function reload() {
   draw();
 }
 function set(type, val) {
-
+  switch (type) {
+    case 'base':
+      if (typeof val !== "string") {
+        console.error(`Invalid value: ${val} for type: not a string`);
+        return false;
+      }
+      val.replace('#', '');
+      if (val.length !== 6) {
+        console.error(`Invalid value: ${val} for type: not 6 long`);
+        return false;
+      }
+      if (!/^[0-9A-Fa-f]{6}$/i.test(val)) {
+        console.error(`Invalid value: ${val} for type: not hexadecimal`);
+        return false;
+      }
+      ctx.bar_vals.x = val;
+      break;
+    case 'pivot':
+      if (!_.contains([0,1,2], parseInt(val))) {
+        console.error(`Invalid value: ${val} for type: not in range [0|1|2]`);
+        return false;
+      }
+      ctx.bar_vals.p = val;
+      break;
+    case 'strength':
+      if (val < 0 || val > 1) {
+        console.error(`Invalid value: ${val} for type: not 0 <= val <= 1`);
+        return false;
+      }
+      ctx.bar_vals.s = val;
+      break;
+    case 'intervals':
+      if (!parseInt(val)) {
+        console.error(`Invalid value: ${val} for type.`);
+        return false;
+      }
+      ctx.bar_vals.c = val;
+      break;
+    default:
+      console.error(`Invalid type: ${type}.`);
+      return false;
+  }
+  reload();
 }
 function get(type) {
-
+  if (type === 'generated') return ctx.generated;
+  if (ctx.bar_vals.hasOwnProperty(type)) return ctx.bar_vals[type];
+  console.error(`Invalid type: ${type}.`);
+  return false;
 }
 function pprint() {
 
 }
 function rngesus() {
-
+  let largest = 0;
+  let pivot = 0;
+  const x_max = _.intInRange(0, MAX_C * 3);
+  let x_ratios = [];
+  let x_total = 0;
+  for (let i = 0; i < 3; i++) {
+    const s = Math.random();
+    x_total += s;
+    x_ratios.push(s);
+  }
+  let x_values = x_ratios.map((r, i) => {
+    const value = Math.floor(
+      Math.min(r / x_total * x_max, MAX_C)
+    );
+    if (value > largest) { pivot = i; largest = value; }
+    const str = value.toString(16);
+    return str.length === 1 ? "0" + str : str;
+  });
+  ctx.bar_vals.x = x_values.join('');
+  ctx.bar_vals.p = pivot;
+  ctx.bar_vals.s = _.intInRange(30,100) / 100.0;
+  ctx.bar_vals.c = _.intInRange(1, 10);
 }
 function time() {
-
+  //TODO: refreshes by the second, makes bars based on the time.
 }
 function init() {
-  const vals = INIT_BAR_VALS_OPTIONS[
-    _.intInRange(0, INIT_BAR_VALS_OPTIONS.length-1)
-  ];
-  Object.keys(vals).forEach((v) => {ctx.bar_vals[v] = vals[v];});
-  ctx.bar_vals.c = _.intInRange(2, 10);
+  //TODO: Lets make this time, not rngesus. It tends to not be interesting.
+  rngesus();
   reload();
 }
 
