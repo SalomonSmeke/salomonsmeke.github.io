@@ -150,7 +150,7 @@ function rngesus() {
   clear_time_interval();
   reload();
 }
-function update_time() {
+function update_time(should_pivot) {
   let date = new Date();
   var largest = 0;
   ctx.bar_vals.x = [
@@ -159,7 +159,7 @@ function update_time() {
     date.getSeconds()*4.25
   ].map((v, i) => {
     //TODO: something is wrong in the pivoting.
-    if (v > largest) { ctx.bar_vals.p = i; largest = v; }
+    if (should_pivot && v > largest) { ctx.bar_vals.p = i; largest = v; }
     v = Math.round(v).toString(16);
     return v.length === 1 ? "0" + v : v;
   }).join('');
@@ -167,7 +167,7 @@ function update_time() {
 }
 function time() {
   if (ctx.time_interval) return _.err('Time already active.');
-  update_time();
+  update_time(true);
   ctx.time_interval = setInterval(() => {update_time();}, 1000);
 }
 function init() {
