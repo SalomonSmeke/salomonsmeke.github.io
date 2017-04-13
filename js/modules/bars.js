@@ -159,7 +159,7 @@ function update_time(should_pivot) {
     date.getSeconds()*4.25
   ].map((v, i) => {
     //TODO: something is wrong in the pivoting.
-    if (should_pivot && v > largest) { ctx.bar_vals.p = i; largest = v; }
+    if (should_pivot && v >= largest) { ctx.bar_vals.p = i; largest = v; }
     v = Math.round(v).toString(16);
     return v.length === 1 ? "0" + v : v;
   }).join('');
