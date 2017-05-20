@@ -1,8 +1,5 @@
-/*jshint loopfunc: true */
-'use strict';
-
-import {spawn_module as spawn_module} from "./_module.js";
-import * as _ from "../lib/minidash.js";
+import { spawn_module } from './_module';
+import * as _ from '../lib/minidash';
 
 /*
  * bars.js
@@ -17,7 +14,7 @@ import * as _ from "../lib/minidash.js";
  *
  * bars object exposes the following:
  * set(str, val) -> sets base, pivot, strength or count. Reloads bars.
- * get(str) -> Displays all inner vars, or just the specified one.
+ * get(str) -> Displays all inner lets, or just the specified one.
  * reload() -> Reloads bars.
  * pprint() -> Pretty prints bars.
  * help() -> Displays help.
@@ -25,7 +22,7 @@ import * as _ from "../lib/minidash.js";
 
 const MAX_C = 255;
 
-let ctx = {
+const ctx = {
   bar_vals: {
     x: null,
     p: 0,
@@ -51,27 +48,31 @@ function makeColors() {
   const count = ctx.bar_vals.c;
   const base = hex.match(/.{2}/g);
   const pivot_int = parseInt(base[pivot], 16);
-  const delta = Math.floor(strength * pivot_int / (count - 1));
-  var colors = [];
+  const delta = Math.floor((strength * pivot_int) / (count - 1));
+  const colors = [];
   colors.push(hex);
-  for (var i = 1; i < count; i++) colors.push(
-    base.map(
-      (v, p) => {
-        if (p === pivot) {
-          var str = Number(pivot_int - delta * i).toString(16);
-          return str.length === 1 ? "0" + str : str;
-        } else return v;
-      }
-  ).join(''));
+  for (let i = 1; i < count; i += 1) {
+    colors.push(
+      base.map(
+        (v, p) => {
+          if (p === pivot) {
+            const str = Number(pivot_int - (delta * i)).toString(16);
+            return str.length === 1 ? `0${str}` : str;
+          }
+          return v;
+        }
+      ).join('')
+    );
+  }
   ctx.colors = colors;
 }
 function draw() {
-  var node = document.getElementById('bar-container');
-  var swap = node.cloneNode(false);
-  var bar_template = document.createElement('div');
+  const node = document.getElementById('bar-container');
+  const swap = node.cloneNode(false);
+  const bar_template = document.createElement('div');
   bar_template.setAttribute('class', 'bar');
   ctx.colors.forEach((c) => {
-    var clone = bar_template.cloneNode(false);
+    const clone = bar_template.cloneNode(false);
     clone.style.backgroundColor = `#${c}`;
     swap.append(clone);
   });
@@ -84,7 +85,7 @@ function reload() {
 function set(type, val) {
   switch (type) {
     case 'base':
-      if (typeof val !== "string") {
+      if (typeof val !== 'string') {
         return _.err(`Invalid value: ${val} for type: not a string`);
       }
       val.replace('#', '');
@@ -97,7 +98,7 @@ function set(type, val) {
       ctx.bar_vals.x = val;
       break;
     case 'pivot':
-      if (!_.contains([0,1,2], parseInt(val))) {
+      if (!_.contains([0, 1, 2], parseInt(val, 10))) {
         return _.err(`Invalid value: ${val} for type: not in range [0|1|2]`);
       }
       ctx.bar_vals.p = val;
@@ -109,13 +110,13 @@ function set(type, val) {
       ctx.bar_vals.s = val;
       break;
     case 'intervals':
-      if (!parseInt(val)) return _.err(`Invalid value: ${val} for type.`);
+      if (!parseInt(val, 10)) return _.err(`Invalid value: ${val} for type.`);
       ctx.bar_vals.c = val;
       break;
     default: return _.err(`Invalid type: ${type}.`);
   }
   clear_time_interval();
-  reload();
+  return reload();
 }
 function get(type) {
   if (type === 'generated') return ctx.generated;
@@ -124,110 +125,111 @@ function get(type) {
   return false;
 }
 function pprint() {
-  //TODO: this. So close to being done with das bars.
+  // TODO: this. So close to being done with das bars.
 }
 function rngesus() {
   let largest = 0;
   const x_max = _.intInRange(0, MAX_C * 3);
-  let x_ratios = [];
+  const x_ratios = [];
   let x_total = 0;
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i += 1) {
     const s = Math.random();
     x_total += s;
     x_ratios.push(s);
   }
-  let x_values = x_ratios.map((r, i) => {
+  const x_values = x_ratios.map((r, i) => {
     const v = Math.floor(
-      Math.min(r / x_total * x_max, MAX_C)
+      Math.min((r / x_total) * x_max, MAX_C)
     );
     if (v > largest) { ctx.bar_vals.p = i; largest = v; }
     const str = v.toString(16);
-    return str.length === 1 ? "0" + str : str;
+    return str.length === 1 ? `0${str}` : str;
   });
   ctx.bar_vals.x = x_values.join('');
-  ctx.bar_vals.s = _.intInRange(30,100) / 100.0;
+  ctx.bar_vals.s = _.intInRange(30, 100) / 100.0;
   ctx.bar_vals.c = _.intInRange(1, 10);
   clear_time_interval();
   reload();
 }
 function update_time(should_pivot) {
-  let date = new Date();
-  var largest = 0;
+  const date = new Date();
+  let largest = 0;
   ctx.bar_vals.x = [
-    date.getHours()*10.625,
-    date.getMinutes()*4.25,
-    date.getSeconds()*4.25
+    date.getHours() * 10.625,
+    date.getMinutes() * 4.25,
+    date.getSeconds() * 4.25
   ].map((v, i) => {
-    //TODO: something is wrong in the pivoting.
+    // TODO: something is wrong in the pivoting.
     if (should_pivot && v >= largest) { ctx.bar_vals.p = i; largest = v; }
     v = Math.round(v).toString(16);
-    return v.length === 1 ? "0" + v : v;
+    return v.length === 1 ? `0${v}` : v;
   }).join('');
   reload();
 }
 function time() {
   if (ctx.time_interval) return _.err('Time already active.');
   update_time(true);
-  ctx.time_interval = setInterval(() => {update_time();}, 1000);
+  ctx.time_interval = setInterval(() => update_time(), 1000);
+  return true;
 }
 function init() {
-  ctx.bar_vals.s = _.intInRange(30,100) / 100.0;
+  ctx.bar_vals.s = _.intInRange(30, 100) / 100.0;
   ctx.bar_vals.c = _.intInRange(1, 10);
   time();
 }
 
 const HELP_OPTIONS = {
-    help: {
-      'Command': 'help()',
-      'Description': 'Displays this message.',
-      'Args': 'None.'
-    },
-    set: {
-      'Command': 'set(type, val)',
-      'Description': 'Set a parameter for the algorithm.',
-      'Args': 'type (base|pivot|strength|intervals), val(str|int|float|int).'
-    },
-    get: {
-      'Command': 'get(type)',
-      'Description': 'Get a value from the algorithm.',
-      'Args': 'type (base|pivot|strength|intervals|generated).'
-    },
-    reload: {
-      'Command': 'reload()',
-      'Description': 'Reload the bars. Normally unnecessary.',
-      'Args': 'None.'
-    },
-    pprint: {
-      'Command': 'pprint()',
-      'Description': 'Pretty print var values.',
-      'Args': 'None.'
-    },
-    rngesus: {
-      'Command': 'rngesus()',
-      'Description': 'Jesus take the wheel!',
-      'Args': 'None.'
-    },
-    time: {
-      'Command': 'time()',
-      'Description': 'Find out!',
-      'Args': 'None.'
-    }
+  help: {
+    Command: 'help()',
+    Description: 'Displays this message.',
+    Args: 'None.'
+  },
+  set: {
+    Command: 'set(type, val)',
+    Description: 'Set a parameter for the algorithm.',
+    Args: 'type (base|pivot|strength|intervals), val(str|int|float|int).'
+  },
+  get: {
+    Command: 'get(type)',
+    Description: 'Get a value from the algorithm.',
+    Args: 'type (base|pivot|strength|intervals|generated).'
+  },
+  reload: {
+    Command: 'reload()',
+    Description: 'Reload the bars. Normally unnecessary.',
+    Args: 'None.'
+  },
+  pprint: {
+    Command: 'pprint()',
+    Description: 'Pretty print let values.',
+    Args: 'None.'
+  },
+  rngesus: {
+    Command: 'rngesus()',
+    Description: 'Jesus take the wheel!',
+    Args: 'None.'
+  },
+  time: {
+    Command: 'time()',
+    Description: 'Find out!',
+    Args: 'None.'
+  }
 };
 
 function help() { console.table(HELP_OPTIONS); }
 
-let module_def = spawn_module({
+const module_def = spawn_module({
   id: 'bars',
   LOAD: [init],
   WINDOW_EXPOSE: {
-    help: help,
-    set: set,
-    get: get,
-    reload: reload,
-    pprint: pprint,
-    rngesus: rngesus,
-    time: time
+    help,
+    set,
+    get,
+    reload,
+    pprint,
+    rngesus,
+    time
   }
 });
 
-export { module_def };
+export { module_def as default };

@@ -1,9 +1,7 @@
-"use strict";
-
-var map = [
+const map = [
   'index',
   'about'
 ];
-var d = 1;
+const d = 1;
 
-export {map, d};
+export { map, d };

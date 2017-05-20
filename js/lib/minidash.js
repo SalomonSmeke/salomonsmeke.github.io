@@ -1,18 +1,14 @@
-"use strict";
-
 /*
  * Prefer .forEach over anything else. Prefer of over in. Prefer Object.keys over in.
  */
 
- function err(message, ret) {
-   console.error(message);
-   return ret ? ret : !!ret ;
- }
+function err(message, ret) {
+  console.error(message);
+  return Boolean(ret);
+}
 
 function dasherize (elements) {
-  let out = "";
-  elements.forEach((el) => { out += el + '-'; });
-  return out.slice(0, -1);
+  return elements.join('-');
 }
 
 function removeNodeClass(node, c) {
@@ -31,22 +27,23 @@ function contains(arr, tv) {
 
 function findOne(arr, f) {
   for (const v of arr) if (f(v)) return v;
+  return null;
 }
 
 function find(arr, f) {
-  let acc = [];
-  arr.forEach((v) => {if (f(v)) acc.push(v);});
+  const acc = [];
+  arr.forEach((v) => { if (f(v)) acc.push(v); });
   return acc;
 }
 
 function filter(arr, f) {
-  let acc = [];
-  arr.forEach((v) => {if (!f(v)) acc.push(v);});
+  const acc = [];
+  arr.forEach((v) => { if (!f(v)) acc.push(v); });
   return acc;
 }
 
 function intInRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * ((max - min) + 1)) + min;
 }
 
 export {

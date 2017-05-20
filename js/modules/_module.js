@@ -1,14 +1,12 @@
-'use strict';
-
-import * as window from "../lib/window.js";
+import * as window from '../lib/window';
 import {
-  hatchListeners as hatchListeners,
-  incubateListener as incubateListener,
-  removeOwnerListeners as removeOwnerListeners
-} from "../lib/listeners.js";
+  hatchListeners,
+  incubateListener,
+  removeOwnerListeners
+} from '../lib/listeners';
 
 function spawn_module(init) {
-  var out = {
+  const out = {
     id: '',
     LOAD: [],
     UNLOAD: [],
@@ -19,6 +17,15 @@ function spawn_module(init) {
   keys.forEach((k) => { out[k] = init[k]; });
   return out;
 }
+
+function subRoutines(sr, caller) { sr.forEach(r => r(caller)); }
+function addListeners(e, id) {
+  const eggs = e.map(l => incubateListener(l.id, l.f, l.type));
+  hatchListeners(eggs, id);
+}
+function removeListeners(id) { removeOwnerListeners(id); }
+function expose(o, id) { window.exposeObject(o, id); }
+function obscure(id) { window.obscureObject(id); }
 
 function load(module_def) {
   subRoutines(module_def.LOAD, module_def.id);
@@ -38,13 +45,4 @@ function unload(module_def) {
   }
 }
 
-function subRoutines(sr, caller) { sr.forEach((r) => { r(caller); }); }
-function addListeners(e, id) {
-  const eggs = e.map((l) => { return incubateListener(l.id, l.f, l.type); });
-  hatchListeners(eggs, id);
-}
-function removeListeners(id) { removeOwnerListeners(id); }
-function expose(o, id) { window.exposeObject(o, id); }
-function obscure(id) { window.obscureObject(id); }
-
-export {spawn_module, load, unload};
+export { spawn_module, load, unload };

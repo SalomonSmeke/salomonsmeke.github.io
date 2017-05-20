@@ -1,7 +1,5 @@
-'use strict';
-
-import {context as ctx} from "./globals.js";
-import * as _ from "./minidash.js";
+import { context as ctx } from './globals';
+import * as _ from './minidash';
 
 /*
  * hatchListeners(listener, str)
@@ -20,9 +18,9 @@ function hatchListeners(listeners, owner) {
         console.warn(`Replaced outdated ${type} listener on Id: ${id} Owner:
           ${owner}. Please ensure listeners are properly unloaded.`);
       }
-    } else ctx.listeners[id] = {id: id, owner: owner, props: {}};
-    let node = document.getElementById(id);
-    if (node === null) { //Undefined nodes are null. Not undefined.
+    } else ctx.listeners[id] = { id, owner, props: {} };
+    const node = document.getElementById(id);
+    if (node === null) { // Undefined nodes are null. Not undefined.
       delete ctx.listeners[id];
       return _.err(`Attempted listener registration on invalid node Id:
         ${id}.`, -1);
@@ -30,6 +28,7 @@ function hatchListeners(listeners, owner) {
     ctx.listeners[id][type] = f;
     node.addEventListener(type, f, false);
     console.log(`Registered listener ${type} Id: ${id} Owner: ${owner}.`);
+    return true;
   });
 }
 
@@ -39,10 +38,8 @@ function hatchListeners(listeners, owner) {
  * accepts.
  */
 function incubateListener(id, f, type) {
-  const _f = (() => {
-    return () => { f(ctx.listeners[id], ctx); };
-  })(id, f, type);
-  return {id: id, f: _f, type: type};
+  const _f = (() => () => f(ctx.listeners[id], ctx))(id, f, type);
+  return { id, f: _f, type };
 }
 
 /*
@@ -52,12 +49,12 @@ function incubateListener(id, f, type) {
 function removeListener(id, type) {
   if (ctx.listeners[id]) {
     if (ctx.listeners[id][type]) {
-      let node = document.getElementById(id);
+      const node = document.getElementById(id);
       if (node === null) {
         console.warn(`Discarding listener on dead node Id: ${id}.`);
       } else node.removeEventListener(type, ctx.listeners[id][type], false);
       delete ctx.listeners[id][type];
-      return;
+      return true;
     }
   }
   return _.err(`Attempted to discard non-existent listener Id: ${id}.`, -1);
@@ -70,11 +67,11 @@ function removeListener(id, type) {
 function removeNodeListeners(id) {
   const BASEKEYS = ['id', 'owner', 'props'];
   if (ctx.listeners[id]) {
-    let node = document.getElementById(id);
+    const node = document.getElementById(id);
     if (node === null) {
       console.warn(`Discarding listener on dead node Id: ${id}.`);
     } else {
-      let keys = [];
+      const keys = [];
       Object.keys(ctx.listeners[id]).forEach((k) => {
         if (!_.contains(BASEKEYS, k)) keys.push(k);
       });
@@ -93,22 +90,21 @@ function removeNodeListeners(id) {
  * Removes all listeners attributed to an owner.
  */
 function removeOwnerListeners(owner) {
-  let unwrapped_listeners = [];
+  const unwrapped_listeners = [];
   Object.keys(ctx.listeners).forEach((k) => {
     unwrapped_listeners.push(ctx.listeners[k]);
   });
   const listeners = _.find(unwrapped_listeners,
-    (ul) => { return (() => {return ul.owner === owner;})(owner); });
+    ul => (() => ul.owner === owner)(owner));
   if (listeners.length) {
-    listeners.forEach((l) => {removeNodeListeners(l.id);});
-    return;
-  } else {
-    _.err(`No listeners to remove for owner: ${owner}.`, -1);
+    listeners.forEach(l => removeNodeListeners(l.id));
+    return true;
   }
+  return _.err(`No listeners to remove for owner: ${owner}.`, -1);
 }
 
-let common = {
-  //TODO: this has no business here, put them in the fucking module.
+const common = {
+  // TODO: this has no business here, put them in the fucking module.
   /*
    * Listener for the navigational elements for pagination.
    * Intended as an 'onHover'.
@@ -119,17 +115,20 @@ let common = {
     _ctx.props.hovered = true;
     const keys = ['middle', 'bottom'];
     const id = _ctx.id;
-    let speed = 12*2; // 12 is the base speed.
-    let nodes = keys.map((v) => {
-      let node = document.getElementById(_.dasherize(['rotation-hack', id, v]));
-      node.style.animation = speed + 's rotateLeft linear';
-      speed*=2;
+    let speed = 12 * 2; // 12 is the base speed.
+    const nodes = keys.map((v) => {
+      const node = document.getElementById(_.dasherize(['rotation-hack', id, v]));
+      node.style.animation = `${speed}s rotateLeft linear`;
+      speed *= 2;
       return node;
     });
     setTimeout(() => {
       nodes.forEach((n) => {
         n.style.animation = '';
+        // This is a hack. But we need it to reset the animation.
+        /* eslint-disable */
         void n.offsetWidth;
+        /* eslint-enable */
       });
       _ctx.props.hovered = false;
     }, 48 * 1000); // Coalescence: ∆t = 12 * elems

@@ -1,8 +1,6 @@
-'use strict';
-
-let context = {
+const context = {
   exposureRegistrar: [],
   listeners: {},
 };
 
-export{ context };
+export { context };

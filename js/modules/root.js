@@ -1,13 +1,10 @@
-'use strict';
-
 import {
-  spawn_module as spawn_module,
-  load as load
-} from "./_module.js";
-import {common as libListeners} from "../lib/listeners.js";
-import {module_def as helpPopup} from "./helpPopup.js";
-import {module_def as nav} from "./nav.js";
-import {module_def as bars} from "./bars.js";
+  spawn_module,
+  load
+} from './_module';
+import helpPopup from './helpPopup';
+import nav from './nav';
+import bars from './bars';
 
 /*
  * root.js
@@ -15,13 +12,13 @@ import {module_def as bars} from "./bars.js";
  * Saves me some imports in the entry point.
  */
 
-let module_def = spawn_module({
+const module_def = spawn_module({
   id: 'root',
   LOAD: [
-    () => {load(helpPopup);},
-    () => {load(nav);},
-    () => {load(bars);}
+    () => { load(helpPopup); },
+    () => { load(nav); },
+    () => { load(bars); }
   ]
 });
 
-export { module_def };
+export { module_def as default };

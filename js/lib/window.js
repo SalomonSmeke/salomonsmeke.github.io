@@ -1,7 +1,5 @@
-'use strict';
-
-import {context as ctx} from "./globals.js";
-import * as _ from "./minidash";
+import { context as ctx } from './globals';
+import * as _ from './minidash';
 
 let exposureRegistrar = ctx.exposureRegistrar;
 
@@ -15,21 +13,19 @@ function exposeObject(object, id) {
   }
   window[id] = object;
   exposureRegistrar.push(id);
+  return true;
 }
 
-function obscureObject(id){
+function obscureObject(id) {
   const index = exposureRegistrar.indexOf(id);
   if (index !== -1) {
     delete window[id];
     exposureRegistrar = _.filter(exposureRegistrar,
-      (v) => { (() => { return v === id; })(id); }
+      (v) => { (() => v === id)(id); }
     );
-    return;
+    return true;
   }
   return _.err(`Cannot obscure non-existent object: ${id}.`, -1);
 }
 
-export {
-  exposeObject,
-  obscureObject
-};
+export { exposeObject, obscureObject };

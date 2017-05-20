@@ -1,8 +1,4 @@
-"use strict";
-
-import * as _ from "../minidash.js";
-
-//TODO: Scroll-lock. Listener for scrolling.
+// TODO: Scroll-lock. Listener for scrolling.
 
 const WHITE = '#fff';
 const COLORS = [
@@ -12,40 +8,17 @@ const COLORS = [
 ];
 const COLOR_MODE = 'difference';
 const ELEMENT_ID = 'scroll-nav';
-var DIMS = {
+const DIMS = {
   height: 420,
   width: 140,
 };
-var raf;
-
-function start() {
-  var pdim = DIMS.height / 5;
-  var sep = pdim / 8;
-  DIMS.stroke = pdim / 5;
-  DIMS.radius = (pdim - DIMS.stroke) / 2;
-  DIMS.x = DIMS.width / 2;
-  DIMS.y_offset = DIMS.height / 2;
-  DIMS.range = {
-    min: sep + pdim,
-    max: DIMS.height - (sep + pdim / 2)
-  };
-  DIMS.motion = (DIMS.range.max - DIMS.range.min) / 2;
-  var canvas_ctx = document.getElementById(ELEMENT_ID).getContext(
-    '2d',
-    {alpha: false}
-  );
-  canvas_ctx.lineWidth = DIMS.stroke;
-  canvas_ctx.globalCompositeOperation = COLOR_MODE;
-  canvas_ctx.fillStyle = WHITE;
-  canvas_ctx.save();
-  raf = window.requestAnimationFrame(draw);
-}
+let raf;
 
 function draw(ts) {
   ts /= 10;
-  var canvas_ctx = document.getElementById(ELEMENT_ID).getContext(
+  const canvas_ctx = document.getElementById(ELEMENT_ID).getContext(
     '2d',
-    {alpha: false}
+    { alpha: false }
   );
   canvas_ctx.clearRect(0, 0, DIMS.width, DIMS.height);
   canvas_ctx.restore();
@@ -68,7 +41,7 @@ function draw(ts) {
     canvas_ctx.beginPath();
     canvas_ctx.arc(
       DIMS.x,
-      Math.floor(DIMS.motion * Math.cos(ts * props.magnitude) + DIMS.y_offset),
+      Math.floor((DIMS.motion * Math.cos(ts * props.magnitude)) + DIMS.y_offset),
       DIMS.radius,
       0,
       Math.PI * 2);
@@ -78,4 +51,27 @@ function draw(ts) {
   raf = window.requestAnimationFrame(draw);
 }
 
-export {start};
+function start() {
+  const pdim = DIMS.height / 5;
+  const sep = pdim / 8;
+  DIMS.stroke = pdim / 5;
+  DIMS.radius = (pdim - DIMS.stroke) / 2;
+  DIMS.x = DIMS.width / 2;
+  DIMS.y_offset = DIMS.height / 2;
+  DIMS.range = {
+    min: sep + pdim,
+    max: DIMS.height - (sep + (pdim / 2))
+  };
+  DIMS.motion = (DIMS.range.max - DIMS.range.min) / 2;
+  const canvas_ctx = document.getElementById(ELEMENT_ID).getContext(
+    '2d',
+    { alpha: false }
+  );
+  canvas_ctx.lineWidth = DIMS.stroke;
+  canvas_ctx.globalCompositeOperation = COLOR_MODE;
+  canvas_ctx.fillStyle = WHITE;
+  canvas_ctx.save();
+  raf = window.requestAnimationFrame(draw);
+}
+
+export { start as default };
