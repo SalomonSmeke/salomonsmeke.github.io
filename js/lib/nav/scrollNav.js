@@ -12,7 +12,6 @@ const DIMS = {
   height: 420,
   width: 140,
 };
-let raf;
 
 function draw(ts) {
   ts /= 10;
@@ -48,7 +47,7 @@ function draw(ts) {
     canvas_ctx.stroke();
   });
   canvas_ctx.save();
-  raf = window.requestAnimationFrame(draw);
+  window.requestAnimationFrame(draw);
 }
 
 function start() {
@@ -71,7 +70,7 @@ function start() {
   canvas_ctx.globalCompositeOperation = COLOR_MODE;
   canvas_ctx.fillStyle = WHITE;
   canvas_ctx.save();
-  raf = window.requestAnimationFrame(draw);
+  window.requestAnimationFrame(draw);
 }
 
 export { start as default };

@@ -13,6 +13,14 @@ function getVertices(radius, pos, n) {
   return vertices;
 }
 
+function ngon_svg_type (n) {
+  switch (n) {
+    case 1: return 'circle';
+    case 2: return 'polyline';
+    default: return 'polygon';
+  }
+}
+
 function vtos(vertices) {
   return vertices.join(', ');
 }
@@ -20,7 +28,7 @@ function vtos(vertices) {
 function build (n, parent_id) {
   const xmlns = 'http://www.w3.org/2000/svg';
   const boxDim = 70;
-  const type = n === 1 ? 'circle' : n === 2 ? 'polyline' : 'polygon';
+  const type = ngon_svg_type(n);
   const strokeWidth = n === 1 ? 4 : 3.4;
   [
     ['top', '#ff3232', 0.88],

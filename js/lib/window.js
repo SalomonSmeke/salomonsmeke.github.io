@@ -1,4 +1,4 @@
-import { context as ctx } from './globals';
+import ctx from './globals';
 import * as _ from './minidash';
 
 let exposureRegistrar = ctx.exposureRegistrar;

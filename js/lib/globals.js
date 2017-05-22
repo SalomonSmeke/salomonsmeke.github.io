@@ -3,4 +3,4 @@ const context = {
   listeners: {},
 };
 
-export { context };
+export { context as default };

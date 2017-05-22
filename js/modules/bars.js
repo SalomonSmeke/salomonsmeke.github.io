@@ -120,7 +120,9 @@ function set(type, val) {
 }
 function get(type) {
   if (type === 'generated') return ctx.generated;
-  if (ctx.bar_vals.hasOwnProperty(type)) return ctx.bar_vals[type];
+  if (Object.prototype.hasOwnProperty.call(ctx.bar_vals, type)) {
+    return ctx.bar_vals[type];
+  }
   console.error(`Invalid type: ${type}.`);
   return false;
 }
