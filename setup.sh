@@ -18,7 +18,7 @@ EXTRA='\033[1;37m';
   fi
   [ -z $NVM_DIR ] && {
     echo "${INFO}Exporting NVM_DIR...${NC}";
-    export NVM_DIR="$HOME/.nvm";
+    export NVM_DIR="/usr/local/opt/nvm";
   };
   [ -s "$NVM_DIR/nvm.sh" ] && {
     echo "${INFO}Activating NVM...${NC}";
@@ -40,7 +40,22 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
   npm install -g gulp-cli;
 };
 yarn install;
-echo "${SUCCESS}SUCCESS!${EXTRA}
+
+SOURCE='export NVM_DIR="/usr/local/opt/nvm"; . "/usr/local/opt/nvm/nvm.sh";'
+
+[ -s "$HOME/.zshrc" ] && {
+  if ! grep -q "${SOURCE}" "$HOME/.zshrc"; then
+    echo "${INFO}Adding NVM activation to .zshrc${NC}";
+    echo "${SOURCE}" >> "$HOME/.zshrc";
+  fi
+};
+[ ! -s "$HOME/.zshrc" ] && {
+  if ! grep -q "${SOURCE}" "$HOME/.bash_profile"; then
+    echo "${INFO}Adding NVM activation to .bash_profile${NC}";
+    echo "${SOURCE}" >> "$HOME/.bash_profile";
+  fi
+};
+echo "${SUCCESS}SUCCESS! You might need to reopen your terminal session.${EXTRA}
   'nvm use --delete-prefix stable' to activate.
   './setup_editor.sh' to setup atom. // TODO
   'gulp' to build.
