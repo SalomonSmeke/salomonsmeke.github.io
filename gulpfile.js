@@ -9,7 +9,8 @@ const concat = require('gulp-concat');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const browserify = require('browserify');
-const babel = require('babelify');
+const babelify = require('babelify');
+const babel = require('gulp-babel');
 
 /* build-dev:
   * Build task for development.
@@ -173,7 +174,7 @@ gulp.task('produce-styles',
 */
 gulp.task('compile-source', () => {
   browserify('js/main.js', { debug: true })
-  .transform(babel.configure({
+  .transform(babelify.configure({
     presets: ['es2015']
   }))
   .bundle()
@@ -190,7 +191,7 @@ gulp.task('compile-source', () => {
 */
 gulp.task('produce-source', () => {
   browserify('js/main.js')
-  .transform(babel.configure({
+  .transform(babelify.configure({
     presets: ['es2015']
   }))
   .bundle()
@@ -199,6 +200,9 @@ gulp.task('produce-source', () => {
   .pipe(uglify())
   .pipe(gulp.dest('build/js'));
   gulp.src('js/plugins.js')
+  .pipe(babel({
+    presets: ['es2015']
+  }))
   .pipe(buffer())
   .pipe(uglify())
   .pipe(gulp.dest('build/js'));
