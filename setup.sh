@@ -1,11 +1,11 @@
 # Minimal environment setup. DO NOT USE IF YOU HAVE NODE INSTALLED VIA NOT NVM.
 
 NC='\033[0m';
+FAIL='\033[1;31m';
 WARN='\033[1;33m';
 INFO='\033[1;35m';
 SUCCESS='\033[1;32m';
 EXTRA='\033[1;37m';
-
 
 [ ! -f "`which brew`" ] && {
   echo "${WARN}Homebrew not found, installing...${NC}";
@@ -18,11 +18,15 @@ EXTRA='\033[1;37m';
   fi
   [ -z $NVM_DIR ] && {
     echo "${INFO}Exporting NVM_DIR...${NC}";
-    export NVM_DIR="$(brew --prefix nvm)";
+    export NVM_DIR="$HOME/.nvm";
   };
   [ -s "$NVM_DIR/nvm.sh" ] && {
     echo "${INFO}Activating NVM...${NC}";
-    . "$NVM_DIR/nvm.sh";
+    . "${NVM_DIR}/nvm.sh"
+  };
+  [ ! -s "$NVM_DIR/nvm.sh" ] && {
+    echo "${FAIL}NVM not found in NVM_DIR, aborting...${NC}";
+    exit;
   };
 };
 echo "${INFO}Installing stable node branch inoccuous if you have it.${NC}" && nvm install stable;
