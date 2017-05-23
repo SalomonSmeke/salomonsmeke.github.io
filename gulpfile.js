@@ -11,6 +11,8 @@ const buffer = require('vinyl-buffer');
 const browserify = require('browserify');
 const babelify = require('babelify');
 const babel = require('gulp-babel');
+const replace = require('gulp-replace');
+const insert = require('gulp-insert');
 
 /* build-dev:
   * Build task for development.
@@ -179,6 +181,9 @@ gulp.task('compile-source', () => {
   }))
   .bundle()
   .pipe(source('bundle.js'))
+  .pipe(buffer())
+  .pipe(replace('"use strict";', ''))
+  .pipe(insert.prepend('"use strict";\n\n'))
   .pipe(gulp.dest('build/js'));
   gulp.src('js/plugins.js')
   .pipe(gulp.dest('build/js'));
@@ -198,6 +203,9 @@ gulp.task('produce-source', () => {
   .pipe(source('bundle.js'))
   .pipe(buffer())
   .pipe(uglify())
+  .pipe(replace('"use strict";', ''))
+  .pipe(insert.prepend('"use strict";'))
+  // I dont know why babelify doesnt default to scoping the whole thing as strict.
   .pipe(gulp.dest('build/js'));
   gulp.src('js/plugins.js')
   .pipe(babel({
