@@ -30,19 +30,13 @@ function obscure(id) { window.obscureObject(id); }
 function load(module_def) {
   subRoutines(module_def.LOAD, module_def.id);
   addListeners(module_def.LISTENERS, module_def.id);
-  if (Object.keys(module_def.WINDOW_EXPOSE).length) {
-    expose(module_def.WINDOW_EXPOSE, module_def.id);
-  }
+  if (Object.keys(module_def.WINDOW_EXPOSE).length) expose(module_def.WINDOW_EXPOSE, module_def.id);
 }
 
 function unload(module_def) {
   subRoutines(module_def.UNLOAD, module_def.id);
-  if (module_def.LISTENERS.length) {
-    removeListeners(module_def.id);
-  }
-  if (Object.keys(module_def.WINDOW_EXPOSE).length) {
-    obscure(module_def.id);
-  }
+  if (module_def.LISTENERS.length) removeListeners(module_def.id);
+  if (Object.keys(module_def.WINDOW_EXPOSE).length) obscure(module_def.id);
 }
 
 export { spawn_module, load, unload };

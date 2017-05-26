@@ -22,8 +22,7 @@ function hatchListeners(listeners, owner) {
     const node = document.getElementById(id);
     if (node === null) { // Undefined nodes are null. Not undefined.
       delete ctx.listeners[id];
-      return _.err(`Attempted listener registration on invalid node Id:
-        ${id}.`, -1);
+      return _.err(`Attempted listener registration on invalid node Id:${id}.`, -1);
     }
     ctx.listeners[id][type] = f;
     node.addEventListener(type, f, false);
@@ -50,9 +49,8 @@ function removeListener(id, type) {
   if (ctx.listeners[id]) {
     if (ctx.listeners[id][type]) {
       const node = document.getElementById(id);
-      if (node === null) {
-        console.warn(`Discarding listener on dead node Id: ${id}.`);
-      } else node.removeEventListener(type, ctx.listeners[id][type], false);
+      if (node === null) console.warn(`Discarding listener on dead node Id: ${id}.`);
+      else node.removeEventListener(type, ctx.listeners[id][type], false);
       delete ctx.listeners[id][type];
       return true;
     }
@@ -68,16 +66,13 @@ function removeNodeListeners(id) {
   const BASEKEYS = ['id', 'owner', 'props'];
   if (ctx.listeners[id]) {
     const node = document.getElementById(id);
-    if (node === null) {
-      console.warn(`Discarding listener on dead node Id: ${id}.`);
-    } else {
+    if (node === null) console.warn(`Discarding listener on dead node Id: ${id}.`);
+    else {
       const keys = [];
       Object.keys(ctx.listeners[id]).forEach((k) => {
         if (!_.contains(BASEKEYS, k)) keys.push(k);
       });
-      keys.forEach((k) => {
-        node.removeEventListener(k, ctx.listeners[id][k], false);
-      });
+      keys.forEach((k) => { node.removeEventListener(k, ctx.listeners[id][k], false); });
     }
     delete ctx.listeners[id];
     return;
@@ -91,11 +86,8 @@ function removeNodeListeners(id) {
  */
 function removeOwnerListeners(owner) {
   const unwrapped_listeners = [];
-  Object.keys(ctx.listeners).forEach((k) => {
-    unwrapped_listeners.push(ctx.listeners[k]);
-  });
-  const listeners = _.find(unwrapped_listeners,
-    ul => (() => ul.owner === owner)(owner));
+  Object.keys(ctx.listeners).forEach((k) => { unwrapped_listeners.push(ctx.listeners[k]); });
+  const listeners = _.find(unwrapped_listeners, ul => (() => ul.owner === owner)(owner));
   if (listeners.length) {
     listeners.forEach(l => removeNodeListeners(l.id));
     return true;

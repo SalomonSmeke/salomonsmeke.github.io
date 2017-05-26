@@ -43,7 +43,8 @@ function draw(ts) {
       Math.floor((DIMS.motion * Math.cos(ts * props.magnitude)) + DIMS.y_offset),
       DIMS.radius,
       0,
-      Math.PI * 2);
+      Math.PI * 2
+    );
     canvas_ctx.stroke();
   });
   canvas_ctx.save();

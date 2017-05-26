@@ -6,7 +6,6 @@ import root from './modules/root';
 loadModule(root);
 
 // No-js banner removal. After module loading.
-document
-.getElementById('loader-wrapper')
-.parentNode
-.removeChild(document.getElementById('loader-wrapper'));
+document.getElementById('loader-wrapper').parentNode.removeChild(
+  document.getElementById('loader-wrapper')
+);

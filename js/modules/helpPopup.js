@@ -14,8 +14,7 @@ const module_def = spawn_module({
       f: (_ctx) => {
         const toggle = _ctx.props.toggle;
         const node = document.getElementById('help-popup');
-        if (toggle) _.addNodeClass(node, 'hidden');
-        else _.removeNodeClass(node, 'hidden');
+        if (toggle) _.addNodeClass(node, 'hidden'); else _.removeNodeClass(node, 'hidden');
         _ctx.props.toggle = !toggle;
       },
       type: 'click'
@@ -25,8 +24,7 @@ const module_def = spawn_module({
       f: (_ctx, ctx) => {
         const toggle = ctx.listeners['help-nav'].props.toggle;
         const node = document.getElementById(_ctx.id);
-        if (toggle) _.addNodeClass(node, 'hidden');
-        else _.removeNodeClass(node, 'hidden');
+        if (toggle) _.addNodeClass(node, 'hidden'); else _.removeNodeClass(node, 'hidden');
         ctx.listeners['help-nav'].props.toggle = !toggle;
       },
       type: 'click'

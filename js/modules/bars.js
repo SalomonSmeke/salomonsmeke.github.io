@@ -85,13 +85,9 @@ function reload() {
 function set(type, val) {
   switch (type) {
     case 'base':
-      if (typeof val !== 'string') {
-        return _.err(`Invalid value: ${val} for type: not a string`);
-      }
+      if (typeof val !== 'string') return _.err(`Invalid value: ${val} for type: not a string`);
       val.replace('#', '');
-      if (val.length !== 6) {
-        return _.err(`Invalid value: ${val} for type: not 6 long`);
-      }
+      if (val.length !== 6) return _.err(`Invalid value: ${val} for type: not 6 long`);
       if (!/^[0-9A-Fa-f]{6}$/i.test(val)) {
         return _.err(`Invalid value: ${val} for type: not hexadecimal`);
       }
@@ -104,9 +100,7 @@ function set(type, val) {
       ctx.bar_vals.p = val;
       break;
     case 'strength':
-      if (val < 0 || val > 1) {
-        return _.err(`Invalid value: ${val} for type: not 0 <= val <= 1`);
-      }
+      if (val < 0 || val > 1) return _.err(`Invalid value: ${val} for type: not 0 <= val <= 1`);
       ctx.bar_vals.s = val;
       break;
     case 'intervals':
@@ -120,9 +114,7 @@ function set(type, val) {
 }
 function get(type) {
   if (type === 'generated') return ctx.generated;
-  if (Object.prototype.hasOwnProperty.call(ctx.bar_vals, type)) {
-    return ctx.bar_vals[type];
-  }
+  if (Object.prototype.hasOwnProperty.call(ctx.bar_vals, type)) return ctx.bar_vals[type];
   console.error(`Invalid type: ${type}.`);
   return false;
 }
@@ -140,9 +132,7 @@ function rngesus() {
     x_ratios.push(s);
   }
   const x_values = x_ratios.map((r, i) => {
-    const v = Math.floor(
-      Math.min((r / x_total) * x_max, MAX_C)
-    );
+    const v = Math.floor(Math.min((r / x_total) * x_max, MAX_C));
     if (v > largest) { ctx.bar_vals.p = i; largest = v; }
     const str = v.toString(16);
     return str.length === 1 ? `0${str}` : str;
