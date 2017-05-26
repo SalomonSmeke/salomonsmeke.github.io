@@ -56,7 +56,7 @@ SOURCE='export NVM_DIR="/usr/local/opt/nvm"; . "/usr/local/opt/nvm/nvm.sh";'
   fi
 };
 echo "${SUCCESS}SUCCESS! You might need to reopen your terminal session.${EXTRA}
-  'nvm use --delete-prefix stable' to activate.
-  './setup_editor.sh' to setup atom. // TODO
+  'source activate' to activate
+  './setup_atom.sh' to setup atom.
   'gulp' to build.
   'open build/index.html' to open.${NC}";
