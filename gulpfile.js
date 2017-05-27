@@ -13,6 +13,7 @@ const babelify = require('babelify');
 const babel = require('gulp-babel');
 const replace = require('gulp-replace');
 const insert = require('gulp-insert');
+// const prepack = require('gulp-prepack');
 
 /* build-dev:
   * Build task for development.
@@ -202,10 +203,11 @@ gulp.task('produce-source', () => {
   .bundle()
   .pipe(source('bundle.js'))
   .pipe(buffer())
-  .pipe(uglify())
+  //  .pipe(prepack()) this does not yet work: 05/27/2017
   .pipe(replace('"use strict";', ''))
   .pipe(insert.prepend('"use strict";'))
   // I dont know why babelify doesnt default to scoping the whole thing as strict.
+  .pipe(uglify())
   .pipe(gulp.dest('build/js'));
   gulp.src('js/plugins.js')
   .pipe(babel({

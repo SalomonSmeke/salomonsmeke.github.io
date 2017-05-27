@@ -32,6 +32,7 @@
     "gulp-htmlmin": "^3.0.0",
     "gulp-imagemin": "^3.2.0",
     "gulp-insert": "^0.5.0",
+    "gulp-prepack": "0.0.2",
     "gulp-replace": "^0.5.4",
     "gulp-uglify": "^2.1.2",
     "gulp-uncss": "^1.0.6",
