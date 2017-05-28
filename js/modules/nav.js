@@ -1,7 +1,7 @@
 import { spawn_module } from './_module';
 import { common as libListeners } from '../lib/listeners';
 import buildngon from '../lib/nav/ngon';
-import start_scroll_nav from '../lib/nav/scrollNav';
+import { start as scrollNavStart, scrollListener } from '../lib/nav/scrollNav';
 
 /*
  * nav.js
@@ -13,7 +13,7 @@ const module_def = spawn_module({
   LOAD: [
     () => { buildngon(1, 'previous'); },
     () => { buildngon(3, 'next'); },
-    start_scroll_nav
+    scrollNavStart
   ],
   LISTENERS: [
     {
@@ -25,6 +25,14 @@ const module_def = spawn_module({
       id: 'next',
       f: libListeners.navHover,
       type: 'mouseover'
+    },
+    {
+      id: 'scroll-nav',
+      f: scrollListener,
+      type: 'click',
+      props: {
+        duration: 500
+      }
     }
   ]
 });

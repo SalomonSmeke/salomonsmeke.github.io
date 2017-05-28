@@ -6,10 +6,7 @@ import * as _ from './minidash';
  * Applying a listener to a node.
  */
 function hatchListeners(listeners, owner) {
-  listeners.forEach((egg) => {
-    const id = egg.id;
-    const f = egg.f;
-    const type = egg.type;
+  listeners.forEach(({ id, f, type, props }) => {
     if ((id === undefined || f === undefined) || type === undefined) {
       return _.err(`Incomplete listener data. Id: ${id} Owner: ${owner}.`, -1);
     }
@@ -18,7 +15,7 @@ function hatchListeners(listeners, owner) {
         console.warn(`Replaced outdated ${type} listener on Id: ${id} Owner:
           ${owner}. Please ensure listeners are properly unloaded.`);
       }
-    } else ctx.listeners[id] = { id, owner, props: {} };
+    } else ctx.listeners[id] = { id, owner, props };
     const node = document.getElementById(id);
     if (node === null) { // Undefined nodes are null. Not undefined.
       delete ctx.listeners[id];
@@ -36,9 +33,9 @@ function hatchListeners(listeners, owner) {
  * Helper for formatting a function into a clojure that our listener structure
  * accepts.
  */
-function incubateListener(id, f, type) {
+function incubateListener(id, f, type, props) {
   const _f = (() => () => f(ctx.listeners[id], ctx))(id, f, type);
-  return { id, f: _f, type };
+  return { id, f: _f, type, props };
 }
 
 /*

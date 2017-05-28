@@ -20,7 +20,10 @@ function spawn_module(init) {
 
 function subRoutines(sr, caller) { sr.forEach(r => r(caller)); }
 function addListeners(e, id) {
-  const eggs = e.map(l => incubateListener(l.id, l.f, l.type));
+  const eggs = e.map((l) => {
+    if (!Object.prototype.hasOwnProperty.call(l, 'props')) l.props = {};
+    return incubateListener(l.id, l.f, l.type, l.props);
+  });
   hatchListeners(eggs, id);
 }
 function removeListeners(id) { removeOwnerListeners(id); }
