@@ -8,7 +8,7 @@ import * as _ from '../lib/minidash';
  * Module exposing/building navigation interactors.
  */
 
-const nav_hover = (_ctx) => {
+function nav_hover (_ctx) {
   if (_ctx.props.hovered) return;
   _ctx.props.hovered = true;
   const keys = ['middle', 'bottom'];
@@ -30,7 +30,7 @@ const nav_hover = (_ctx) => {
     });
     _ctx.props.hovered = false;
   }, 48 * 1000); // Coalescence: ∆t = 12 * elems
-};
+}
 
 const module_def = spawn_module({
   id: 'nav',

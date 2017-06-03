@@ -33,11 +33,16 @@ const ctx = {
   time_interval: false
 };
 
+function pivot_to_color(p) {
+  return ['red', 'green', 'blue'][p];
+}
+
 function clear_time_interval() {
   ctx.date = null;
   if (ctx.time_interval) clearInterval(ctx.time_interval);
   ctx.time_interval = false;
 }
+
 function makeColors() {
   // Named these just to make the code less obscure.
   // Its pretty obscure.
@@ -121,8 +126,8 @@ function get(type) {
 function pprint() {
   console.log(`Current bars:
     base -> ${ctx.bar_vals.x}
-    pivot -> ${ctx.bar_vals.p}
-    strength -> ${ctx.bar_vals.s}
+    pivot -> ${pivot_to_color(ctx.bar_vals.p)}, (${ctx.bar_vals.p})
+    strength -> ${ctx.bar_vals.s * 100}%
     intervals -> ${ctx.bar_vals.c}
 
   Generated colors:
