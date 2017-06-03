@@ -92,40 +92,7 @@ function removeOwnerListeners(owner) {
   return _.err(`No listeners to remove for owner: ${owner}.`, -1);
 }
 
-const common = {
-  // TODO: this has no business here, put them in the fucking module.
-  /*
-   * Listener for the navigational elements for pagination.
-   * Intended as an 'onHover'.
-   * Animates the ngons.
-   */
-  navHover: function navHover(_ctx) {
-    if (_ctx.props.hovered) return;
-    _ctx.props.hovered = true;
-    const keys = ['middle', 'bottom'];
-    const id = _ctx.id;
-    let speed = 12 * 2; // 12 is the base speed.
-    const nodes = keys.map((v) => {
-      const node = document.getElementById(_.dasherize(['rotation-hack', id, v]));
-      node.style.animation = `${speed}s rotateLeft linear`;
-      speed *= 2;
-      return node;
-    });
-    setTimeout(() => {
-      nodes.forEach((n) => {
-        n.style.animation = '';
-        // This is a hack. But we need it to reset the animation.
-        /* eslint-disable */
-        void n.offsetWidth;
-        /* eslint-enable */
-      });
-      _ctx.props.hovered = false;
-    }, 48 * 1000); // Coalescence: ∆t = 12 * elems
-  }
-};
-
 export {
-  common,
   hatchListeners,
   incubateListener,
   removeListener,
