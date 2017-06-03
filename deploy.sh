@@ -12,7 +12,7 @@ git reset --hard origin/master;
 
 cd ..;
 
-source activate && gulp build-deploy; # Create built site.
+. "/usr/local/opt/nvm/nvm.sh" && source activate && gulp build-deploy; # Create built site.
 
 cp -R git_staging/.git build/; # Copy the git state to build.
 
