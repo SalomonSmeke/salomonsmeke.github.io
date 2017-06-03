@@ -113,13 +113,20 @@ function set(type, val) {
   return reload();
 }
 function get(type) {
-  if (type === 'generated') return ctx.generated;
+  if (type === 'generated') return ctx.colors;
   if (Object.prototype.hasOwnProperty.call(ctx.bar_vals, type)) return ctx.bar_vals[type];
   console.error(`Invalid type: ${type}.`);
   return false;
 }
 function pprint() {
-  // TODO: this. So close to being done with das bars.
+  console.log(`Current bars:
+    base -> ${ctx.bar_vals.x}
+    pivot -> ${ctx.bar_vals.p}
+    strength -> ${ctx.bar_vals.s}
+    intervals -> ${ctx.bar_vals.c}
+
+  Generated colors:
+    ${ctx.colors}`);
 }
 function rngesus() {
   let largest = 0;
