@@ -8,11 +8,6 @@
     box-sizing: border-box;
 }
 
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
 ::selection {
     background: #b3d4fc;
     text-shadow: none;
@@ -320,15 +315,15 @@ textarea {
         max-width: 100% !important;
     }
 
-    p,
-    h2,
-    h3 {
+    p {
         orphans: 3;
         widows: 3;
     }
 
     h2,
     h3 {
+        orphans: 3;
+        widows: 3;
         page-break-after: avoid;
     }
 }

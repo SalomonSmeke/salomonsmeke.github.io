@@ -10,7 +10,6 @@ const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const browserify = require('browserify');
 const babelify = require('babelify');
-const babel = require('gulp-babel');
 const replace = require('gulp-replace');
 const insert = require('gulp-insert');
 // const prepack = require('gulp-prepack');
@@ -186,8 +185,6 @@ gulp.task('compile-source', () => {
   .pipe(replace('"use strict";', ''))
   .pipe(insert.prepend('"use strict";\n\n'))
   .pipe(gulp.dest('build/js'));
-  gulp.src('js/plugins.js')
-  .pipe(gulp.dest('build/js'));
   console.log('Source compiled.');
   return 0;
 });
@@ -207,13 +204,6 @@ gulp.task('produce-source', () => {
   .pipe(replace('"use strict";', ''))
   .pipe(insert.prepend('"use strict";'))
   // I dont know why babelify doesnt default to scoping the whole thing as strict.
-  .pipe(uglify())
-  .pipe(gulp.dest('build/js'));
-  gulp.src('js/plugins.js')
-  .pipe(babel({
-    presets: ['es2015']
-  }))
-  .pipe(buffer())
   .pipe(uglify())
   .pipe(gulp.dest('build/js'));
   console.log('Source composed.');

@@ -1,5 +1,9 @@
+import stub from './stub';
 import { load as loadModule } from './modules/_module';
 import root from './modules/root';
+
+// Deals with methods that dont exist. This MUST be the first line.
+stub();
 
 // Execution. Nothing here is final.
 loadModule(root);

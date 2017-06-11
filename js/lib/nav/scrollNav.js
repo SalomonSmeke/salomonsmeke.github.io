@@ -74,6 +74,7 @@ function start() {
   window.requestAnimationFrame(draw);
 }
 
+// TODO: Move this to the module.
 function scrollListener(local_ctx) {
   if (local_ctx.props.running) return;
   local_ctx.props.running = true;
