@@ -11,21 +11,21 @@ const module_def = spawn_module({
   LISTENERS: [
     {
       id: 'help-nav',
-      f: (_ctx) => {
-        const toggle = _ctx.props.toggle;
+      f: (local_ctx) => {
+        const toggle = local_ctx.props.toggle;
         const node = document.getElementById('help-popup');
         if (toggle) _.addNodeClass(node, 'hidden'); else _.removeNodeClass(node, 'hidden');
-        _ctx.props.toggle = !toggle;
+        local_ctx.props.toggle = !toggle;
       },
       type: 'click'
     },
     {
       id: 'help-popup',
-      f: (_ctx, ctx) => {
-        const toggle = ctx.listeners['help-nav'].props.toggle;
-        const node = document.getElementById(_ctx.id);
+      f: (local_ctx, sibling_ctx) => {
+        const toggle = sibling_ctx['help-nav'].props.toggle;
+        const node = document.getElementById(local_ctx.id);
         if (toggle) _.addNodeClass(node, 'hidden'); else _.removeNodeClass(node, 'hidden');
-        ctx.listeners['help-nav'].props.toggle = !toggle;
+        sibling_ctx['help-nav'].props.toggle = !toggle;
       },
       type: 'click'
     }

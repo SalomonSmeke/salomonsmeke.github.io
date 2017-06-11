@@ -74,11 +74,11 @@ function start() {
   window.requestAnimationFrame(draw);
 }
 
-function scrollListener(_ctx) {
-  if (_ctx.props.running) return;
-  _ctx.props.running = true;
+function scrollListener(local_ctx) {
+  if (local_ctx.props.running) return;
+  local_ctx.props.running = true;
   function scrollFrame(time) {
-    const props = _ctx.props;
+    const props = local_ctx.props;
     const timeElapsed = time - props.timeStart;
     scrollTo(0, easing(timeElapsed, props.start, props.distance, props.duration));
     if (timeElapsed < props.duration) {
@@ -88,13 +88,13 @@ function scrollListener(_ctx) {
       props.running = false;
     }
   }
-  _ctx.props.start = window.pageYOffset;
-  _ctx.props.distance = window.innerHeight / 2 > _ctx.props.start ?
+  local_ctx.props.start = window.pageYOffset;
+  local_ctx.props.distance = window.innerHeight / 2 > local_ctx.props.start ?
   document.getElementById('content-wrapper').getBoundingClientRect().top :
   document.getElementById('spread').getBoundingClientRect().top;
 
   window.requestAnimationFrame((time) => {
-    _ctx.props.timeStart = time;
+    local_ctx.props.timeStart = time;
     scrollFrame(time);
   });
 }

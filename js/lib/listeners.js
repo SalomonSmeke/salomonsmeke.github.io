@@ -34,7 +34,7 @@ function hatchListeners(listeners, owner) {
  * accepts.
  */
 function incubateListener(id, f, type, props) {
-  const _f = (() => () => f(ctx.listeners[id], ctx))(id, f, type);
+  const _f = (() => () => f(ctx.listeners[id], ctx.listeners, ctx))(id, f, type);
   return { id, f: _f, type, props };
 }
 
