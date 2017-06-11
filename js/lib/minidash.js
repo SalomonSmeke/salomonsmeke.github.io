@@ -20,28 +20,6 @@ function addNodeClass(node, c) {
   node.className += c;
 }
 
-function contains(arr, tv) {
-  for (const v of arr) if (v === tv) return true;
-  return false;
-}
-
-function findOne(arr, f) {
-  for (const v of arr) if (f(v)) return v;
-  return null;
-}
-
-function find(arr, f) {
-  const acc = [];
-  arr.forEach((v) => { if (f(v)) acc.push(v); });
-  return acc;
-}
-
-function filter(arr, f) {
-  const acc = [];
-  arr.forEach((v) => { if (!f(v)) acc.push(v); });
-  return acc;
-}
-
 function intInRange(min, max) {
   return Math.floor(Math.random() * ((max - min) + 1)) + min;
 }
@@ -51,9 +29,5 @@ export {
   dasherize,
   removeNodeClass,
   addNodeClass,
-  contains,
-  findOne,
-  find,
-  filter,
   intInRange
 };

@@ -99,7 +99,7 @@ function set(type, val) {
       ctx.bar_vals.x = val;
       break;
     case 'pivot':
-      if (!_.contains([0, 1, 2], parseInt(val, 10))) {
+      if (![0, 1, 2].includes(parseInt(val, 10))) {
         return _.err(`Invalid value: ${val} for type: not in range [0|1|2]`);
       }
       ctx.bar_vals.p = val;

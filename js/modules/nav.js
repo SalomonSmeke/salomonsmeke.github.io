@@ -11,11 +11,9 @@ import * as _ from '../lib/minidash';
 function nav_hover (_ctx) {
   if (_ctx.props.hovered) return;
   _ctx.props.hovered = true;
-  const keys = ['middle', 'bottom'];
-  const id = _ctx.id;
   let speed = 12 * 2; // 12 is the base speed.
-  const nodes = keys.map((v) => {
-    const node = document.getElementById(_.dasherize(['rotation-hack', id, v]));
+  const nodes = ['middle', 'bottom'].map((v) => {
+    const node = document.getElementById(_.dasherize(['rotation-hack', _ctx.id, v]));
     node.style.animation = `${speed}s rotateLeft linear`;
     speed *= 2;
     return node;

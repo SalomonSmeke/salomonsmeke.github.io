@@ -63,18 +63,18 @@ function removeNodeListeners(id) {
   const BASEKEYS = ['id', 'owner', 'props'];
   if (ctx.listeners[id]) {
     const node = document.getElementById(id);
-    if (node === null) console.warn(`Discarding listener on dead node Id: ${id}.`);
+    if (node === null) console.warn(`Discarding listeners on dead node Id: ${id}.`);
     else {
       const keys = [];
       Object.keys(ctx.listeners[id]).forEach((k) => {
-        if (!_.contains(BASEKEYS, k)) keys.push(k);
+        if (!BASEKEYS.includes(k)) keys.push(k);
       });
       keys.forEach((k) => { node.removeEventListener(k, ctx.listeners[id][k], false); });
     }
     delete ctx.listeners[id];
-    return;
+    return true;
   }
-  _.err(`Attempted to discard non-existent listener Id: ${id}.`, -1);
+  return _.err(`Attempted to discard non-existent listener Id: ${id}.`, -1);
 }
 
 /*
@@ -82,9 +82,14 @@ function removeNodeListeners(id) {
  * Removes all listeners attributed to an owner.
  */
 function removeOwnerListeners(owner) {
-  const unwrapped_listeners = [];
-  Object.keys(ctx.listeners).forEach((k) => { unwrapped_listeners.push(ctx.listeners[k]); });
-  const listeners = _.find(unwrapped_listeners, ul => (() => ul.owner === owner)(owner));
+  const listeners = Object.keys(ctx.listeners).reduce(
+    (acc, k) => {
+      const l = ctx.listeners[k];
+      if (l.owner === owner) acc.push(l);
+      return acc;
+    },
+    []
+  );
   if (listeners.length) {
     listeners.forEach(l => removeNodeListeners(l.id));
     return true;
