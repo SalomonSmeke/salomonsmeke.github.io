@@ -13,6 +13,7 @@ TO-DOs:
 
 Guidelines:
 
-* No images
-* Modules
-* VanillaJS, regular CSS.
+* No images outside of favicon.
+* Modules.
+* ES6.
+* Clean CSS.
