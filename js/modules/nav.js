@@ -8,12 +8,12 @@ import * as _ from '../lib/minidash';
  * Module exposing/building navigation interactors.
  */
 
-function nav_hover (listener_ctx) {
-  if (listener_ctx.props.hovered) return;
-  listener_ctx.props.hovered = true;
+function nav_hover (local_ctx) {
+  if (local_ctx.props.hovered) return;
+  local_ctx.props.hovered = true;
   let speed = 12 * 2; // 12 is the base speed.
   const nodes = ['middle', 'bottom'].map((v) => {
-    const node = document.getElementById(_.dasherize(['rotation-hack', listener_ctx.id, v]));
+    const node = document.getElementById(_.dasherize(['rotation-hack', local_ctx.id, v]));
     node.style.animation = `${speed}s rotateLeft linear`;
     speed *= 2;
     return node;
@@ -26,7 +26,7 @@ function nav_hover (listener_ctx) {
       void n.offsetWidth;
       /* eslint-enable */
     });
-    listener_ctx.props.hovered = false;
+    local_ctx.props.hovered = false;
   }, 48 * 1000); // Coalescence: ∆t = 12 * elems
 }
 
