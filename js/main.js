@@ -1,4 +1,4 @@
-import stub from './stub';
+import { stub, analytics } from './stub';
 import { load as loadModule } from './modules/_module';
 import root from './modules/root';
 
@@ -12,3 +12,6 @@ loadModule(root);
 document.getElementById('loader-wrapper').parentNode.removeChild(
   document.getElementById('loader-wrapper')
 );
+
+// Adds analytics.
+analytics();
