@@ -1,4 +1,4 @@
-import { stub, analytics } from './vendor/supplement';
+import { stub, analytics } from './supplement';
 import { load as loadModule } from './modules/_module';
 import root from './modules/root';
 
