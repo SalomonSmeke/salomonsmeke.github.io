@@ -1,5 +1,5 @@
 import { spawn_module } from './_module';
-import buildngon from '../lib/nav/ngon';
+import { build as buildngon } from '../lib/nav/ngon';
 import { start as scrollNavStart, scrollListener } from '../lib/nav/scrollNav';
 import * as _ from '../lib/minidash';
 

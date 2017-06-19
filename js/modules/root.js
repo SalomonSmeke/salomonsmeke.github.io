@@ -5,6 +5,7 @@ import {
 import helpPopup from './helpPopup';
 import nav from './nav';
 import bars from './bars';
+import pagination from './pagination';
 
 /*
  * root.js
@@ -17,7 +18,8 @@ const module_def = spawn_module({
   LOAD: [
     () => { load(helpPopup); },
     () => { load(nav); },
-    () => { load(bars); }
+    () => { load(bars); },
+    () => { load(pagination); }
   ]
 });
 

@@ -9,7 +9,7 @@ Currently under construction. Once this is done, my old website will be availabl
 TO-DOs:
 
 * Figure out the standalone pages structure.
-* Optimize for mobile (though i've kept this in the back of my head).
+* Optimize for mobile (though i've kept this in the back of my head which hopefully helps make that less of a PITA, mobile first eh :/).
 
 Guidelines:
 

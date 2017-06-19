@@ -9,8 +9,8 @@ const COLORS = [
 const COLOR_MODE = 'difference';
 const ELEMENT_ID = 'scroll-nav';
 const DIMS = {
-  height: 420,
-  width: 140,
+  height: 390,
+  width: 130,
 };
 
 function draw(ts) {
