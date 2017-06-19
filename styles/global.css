@@ -119,7 +119,10 @@ textarea {
   height: 70px;
   width: 70px;
 }
-.nav-pagination-wrapper { align-items: center; }
+.nav-pagination-wrapper {
+  align-items: center;
+  overflow: hidden;
+}
 .nav-pagination {
   background-color: #fff;
   position: relative;
