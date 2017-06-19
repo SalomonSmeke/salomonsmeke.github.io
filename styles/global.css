@@ -73,6 +73,7 @@ textarea {
   width: 70px;
   height: 210px;
   background-color: #fff;
+  cursor: pointer;
 }
 
 #content { margin-top: 20px; }
@@ -118,6 +119,7 @@ textarea {
   left: 0;
   height: 70px;
   width: 70px;
+  cursor: pointer;
 }
 .nav-pagination-wrapper { align-items: center; }
 .nav-pagination {
