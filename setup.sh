@@ -18,30 +18,30 @@ EXTRA='\033[1;37m';
   fi
   [ -z $NVM_DIR ] && {
     echo "${INFO}Exporting NVM_DIR...${NC}";
-    export NVM_DIR="/usr/local/opt/nvm";
+    export NVM_DIR="${HOME}/.nvm";
   };
-  [ -s "$NVM_DIR/nvm.sh" ] && {
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && {
     echo "${INFO}Activating NVM...${NC}";
-    . "${NVM_DIR}/nvm.sh"
+    . "/usr/local/opt/nvm/nvm.sh"
   };
-  [ ! -s "$NVM_DIR/nvm.sh" ] && {
+  [ ! -s "/usr/local/opt/nvm/nvm.sh" ] && {
     echo "${FAIL}NVM not found in NVM_DIR, aborting...${NC}";
     exit;
   };
 };
 echo "${INFO}Installing stable node branch inoccuous if you have it.${NC}" && nvm install stable;
 echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /dev/null;
-[ ! -f "`which yarn`" ] && {
-  echo "${WARN}No global yarn found, installing...${NC}";
-  npm install -g yarn;
+[ ! -f "`which ncu`" ] && {
+  echo "${WARN}No global ncu found, installing...${NC}";
+  npm install -g npm-check-updates;
 };
 [ ! -f "`which gulp`" ] && {
   echo "${WARN}No global gulp found, installing...${NC}";
   npm install -g gulp-cli;
 };
-yarn install;
+npm install;
 
-SOURCE='export NVM_DIR="/usr/local/opt/nvm"; . "/usr/local/opt/nvm/nvm.sh";'
+SOURCE='export NVM_DIR="${HOME}/.nvm"; . "/usr/local/opt/nvm/nvm.sh";'
 
 [ -s "$HOME/.zshrc" ] && {
   if ! grep -q "${SOURCE}" "$HOME/.zshrc"; then
