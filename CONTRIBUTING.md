@@ -10,9 +10,9 @@ This project and everyone participating in it is governed by the [Code of Conduc
 
 ## How Can I Contribute?
 
-There isnt really a complex procedure, this is a tiny personal project. There really is only one ask:
+There isn't really a complex procedure, this is a tiny personal project. There really is only one ask:
 
-* Please submit a github issue.
+*   Please submit a github issue.
 
 By this I mean: avoid sending a pull request that is not linked to an issue.
 
@@ -20,7 +20,7 @@ By this I mean: avoid sending a pull request that is not linked to an issue.
 
 I wish I was consistent enough to demand a certain style from a contributor. Please simply go by the rule:
 
-* When in Rome, do as the Romans.
+*   When in Rome, do as the Romans.
 
 And keep eslint happy.
 

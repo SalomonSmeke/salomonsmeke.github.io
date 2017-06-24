@@ -31,7 +31,7 @@ echo "${INFO}Installing atom plugins, inoccuous if you have them.${NC}" && {
   # Base linter stuff
   apm install intentions busy-signal linter linter-ui-default;
   # Linter packages
-  apm install linter-csslint linter-eslint linter-tidy;
+  apm install linter-csslint linter-eslint linter-tidy linter-markdown;
   # Autocompletes
   apm install autocomplete-json autocomplete-modules;
 };
