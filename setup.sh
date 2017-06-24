@@ -84,10 +84,10 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 npm install;
 
 # What to add to the user's login scripts.
-SOURCE="export NVM_DIR='${HOME}/.nvm'; . '/usr/local/opt/nvm/nvm.sh';";
+SOURCE="export NVM_DIR='${HOME}/.nvm'; . '/usr/local/opt/nvm/nvm.sh'; # Added by ssmeke.io setup.";
 
 # The SED parameters to match with the above, used for the uninstall script.
-SED_SOURCE="/export NVM_DIR='${HOME//\//\\/}\/.nvm'; . '\/usr\/local\/opt\/nvm\/nvm.sh';/d";
+SED_SOURCE="/${SOURCE//\//\\/}/d";
 
 # Add NVM stuff to the user's login scripts. Add the rollback to uninstall.sh.
 [ -s "$HOME/.zshrc" ] && {
