@@ -95,7 +95,7 @@ SED_SOURCE="/export NVM_DIR='${HOME//\//\\/}\/.nvm'; . '\/usr\/local\/opt\/nvm\/
     echo "${INFO}Adding NVM activation to .zshrc${NC}";
     echo "# Remove the NVM activation stuff from your .zshrc
     sed -i.old \"${SED_SOURCE}\" \"$HOME/.zshrc\";" >> uninstall.sh;
-    echo "echo 'Backed up .zshrc at: ${HOME}/.zshrc.old';" >> uninstall.sh;
+    echo "    echo '${INFO}Backed up .zshrc at: ${HOME}/.zshrc.old${NC}';" >> uninstall.sh;
     echo "${SOURCE}" >> "$HOME/.zshrc";
   fi
 };
@@ -105,13 +105,19 @@ SED_SOURCE="/export NVM_DIR='${HOME//\//\\/}\/.nvm'; . '\/usr\/local\/opt\/nvm\/
     echo "${INFO}Adding NVM activation to .bash_profile${NC}";
     echo "# Remove the NVM activation stuff from your .bash_profile
     sed -i.old \"${SED_SOURCE}\" \"$HOME/.bash_profile\";" >> uninstall.sh;
-    echo "echo 'Backed up .bash_profile at: ${HOME}/.bash_profile.old';" >> uninstall.sh;
+    echo "    echo '${INFO}Backed up .bash_profile at: ${HOME}/.bash_profile.old${NC}';" >> uninstall.sh;
     echo "${SOURCE}" >> "$HOME/.bash_profile";
   fi
 };
 
-# Make uninstall executable if we built it.
+# Make uninstall executable if we built it. No typo.
 [ -s "./uninstall.sh" ] && {
+  echo "# Back this script up.
+    cat ./uninstall.sh >> uninstall.sh.consumed;
+# Meta levels increasing.
+    echo '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
+# Delet this.
+    rm ./uninstall.sh;" >> uninstall.sh;
   chmod +x uninstall.sh;
 }
 
