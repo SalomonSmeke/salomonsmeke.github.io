@@ -11,7 +11,8 @@ const context = {
     context: {
       index: {},
       about: {}
-    }
+    },
+    blocked: false
   }
 };
 
