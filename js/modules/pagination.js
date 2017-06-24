@@ -16,11 +16,11 @@ function loadPage(key) {
       document.getElementById('content').innerHTML = this.responseText;
       // Eventually, this instead should turn into the series of functions that the page wants.
       // Unloading the previous module, and loading this one.
-      // Where the module_def is part of components.
+      // Where the module_def is part of pages.
       global_context.pages.blocked = false;
     }
   };
-  xhttp.open('GET', `./components/${key}/fill.html`, true);
+  xhttp.open('GET', `./js/modules/pages/${key}/fill.html`, true);
   xhttp.send();
 }
 

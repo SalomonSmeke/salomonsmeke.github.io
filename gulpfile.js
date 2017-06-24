@@ -216,8 +216,8 @@ gulp.task('produce-source', () => {
   * Page copy task.
 */
 gulp.task('copy-pages', () => {
-  gulp.src('components/**')
-  .pipe(gulp.dest('build/components'));
+  gulp.src('js/modules/pages/**')
+  .pipe(gulp.dest('build/js/modules/pages'));
   console.log('Pages copied.');
   return 0;
 });
@@ -226,11 +226,11 @@ gulp.task('copy-pages', () => {
   * Page produce task.
 */
 gulp.task('produce-pages', () => {
-  gulp.src('components/**')
+  gulp.src('js/modules/pages/**')
   .pipe(htmlmin({
     collapseWhitespace: true
   }))
-  .pipe(gulp.dest('build/components'));
+  .pipe(gulp.dest('build/js/modules/pages'));
   console.log('Pages produced.');
   return 0;
 });
