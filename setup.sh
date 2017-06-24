@@ -81,6 +81,7 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 };
 
 # Install local packages.
+echo "${INFO}Installing local NPM packages${NC}";
 npm install;
 
 # What to add to the user's login scripts.
@@ -117,7 +118,8 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
 # Meta levels increasing.
     echo '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
 # Delet this.
-    rm ./uninstall.sh;" >> uninstall.sh;
+    rm ./uninstall.sh;
+###INSTALLED ON: `date`###" >> uninstall.sh;
   chmod +x uninstall.sh;
 }
 
