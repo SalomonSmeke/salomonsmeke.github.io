@@ -49,7 +49,7 @@ function gFactory(type, n, vertices, strokeWidth, color) {
   return g;
 }
 
-function build (n, parent_id) {
+function build (n, parent_id, go_to_exists) {
   const boxDim = 70;
   const type = ngon_svg_type(n);
   const strokeWidth = n === 1 ? 4 : 3.4;
@@ -60,7 +60,7 @@ function build (n, parent_id) {
   ].forEach(([_id, color, opacity]) => {
     const id = _.dasherize([parent_id, _id]);
     const svgElem = svgFactory(boxDim);
-    const vertices = getVertices((boxDim / 3) - strokeWidth, boxDim / 2, n);
+    const vertices = n > 0 ? getVertices((boxDim / 3) - strokeWidth, boxDim / 2, n) : [];
 
     svgElem.appendChild(gFactory(type, n, vertices, strokeWidth, color));
 
@@ -68,12 +68,12 @@ function build (n, parent_id) {
     const svgContainer = node.cloneNode(false);
     svgContainer.appendChild(svgElem);
     svgContainer.style.opacity = opacity;
-    node.parentNode.parentNode.title = `Go-to page: ${n}`;
+    node.parentNode.parentNode.title = go_to_exists ? `Go-to page: ${n}` : `No page ${n}`;
     node.parentNode.replaceChild(svgContainer, node);
   });
 }
 
-function setPage (n) {
+function setPageNav (n) {
   const boxDim = 70;
   const type = ngon_svg_type(n);
   const strokeWidth = n === 1 ? 4 : 3.4;
@@ -88,4 +88,4 @@ function setPage (n) {
   node.parentNode.replaceChild(svgContainer, node);
 }
 
-export { build, setPage };
+export { build, setPageNav };

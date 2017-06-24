@@ -1,7 +1,8 @@
 module.exports = {
   'env': {
     'es6': true,
-    'commonjs': true
+    'commonjs': true,
+    'browser': true
   },
   'extends': 'airbnb',
   'parserOptions': {
@@ -25,9 +26,5 @@ module.exports = {
     'comma-dangle': 0,
     'no-underscore-dangle': 0,
     'no-restricted-syntax': 0
-  },
-  'globals': {
-    window: true,
-    document: true
   }
 };

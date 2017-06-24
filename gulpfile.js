@@ -23,7 +23,8 @@ gulp.task('build-dev',
     'copy-images',
     'copy-vendor',
     'copy-styles',
-    'compile-source'
+    'compile-source',
+    'copy-pages'
   ],
   () => {
     console.log('Built for development.');
@@ -40,7 +41,8 @@ gulp.task('build-deploy',
     'produce-images',
     'produce-vendor',
     'produce-styles',
-    'produce-source'
+    'produce-source',
+    'produce-pages'
   ],
   () => {
     console.log('Built for deployment.');
@@ -207,6 +209,29 @@ gulp.task('produce-source', () => {
   .pipe(uglify())
   .pipe(gulp.dest('build/js'));
   console.log('Source composed.');
+  return 0;
+});
+
+/* copy-pages:
+  * Page copy task.
+*/
+gulp.task('copy-pages', () => {
+  gulp.src('components/**')
+  .pipe(gulp.dest('build/components'));
+  console.log('Pages copied.');
+  return 0;
+});
+
+/* produce-pages:
+  * Page produce task.
+*/
+gulp.task('produce-pages', () => {
+  gulp.src('components/**')
+  .pipe(htmlmin({
+    collapseWhitespace: true
+  }))
+  .pipe(gulp.dest('build/components'));
+  console.log('Pages produced.');
   return 0;
 });
 
