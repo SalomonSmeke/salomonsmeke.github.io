@@ -43,14 +43,14 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 [ ! -f "`which ncu`" ] && {
   echo "${WARN}No global ncu found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo 'source activate && nvm use --delete-prefix stable && npm uninstall -g npm-check-updates;' >> ./uninstall.sh;
+    echo '. /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g npm-check-updates;' >> ./uninstall.sh;
   fi
   npm install -g npm-check-updates;
 };
 [ ! -f "`which gulp`" ] && {
   echo "${WARN}No global gulp found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo 'source activate && nvm use --delete-prefix stable && npm uninstall -g gulp-cli;' >> ./uninstall.sh;
+    echo '. /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g gulp-cli;' >> ./uninstall.sh;
   fi
   npm install -g gulp-cli;
 };
