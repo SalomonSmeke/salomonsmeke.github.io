@@ -80,6 +80,16 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
   npm install -g gulp-cli;
 };
 
+# Install http-server globally if it isnt already. Add the rollback to uninstall.sh.
+[ ! -f "`which http-server`" ] && {
+  echo "${WARN}No global http-server found, installing...${NC}";
+  if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
+    echo '# Uninstall http-server
+    . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g http-server;' >> ./uninstall.sh;
+  fi
+  npm install -g http-server;
+};
+
 # Install local packages.
 echo "${INFO}Installing local NPM packages${NC}";
 npm install;

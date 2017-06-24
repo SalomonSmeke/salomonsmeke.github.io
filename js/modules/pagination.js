@@ -7,8 +7,6 @@ import global_context from '../lib/globals';
  * Stub module for controlling the blog aspect.
  */
 
-// Unfortunately this does not work in the local browser because the path resolves to a local file.
-// To test different pages, insert their HTML into the index and the rest works as normal.
 function loadPage(key) {
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -25,7 +23,6 @@ function loadPage(key) {
 }
 
 function paginateTo(v) {
-  // global_context.pages.blocked = true; This line helps run this locally.
   if (!global_context.pages.blocked) {
     global_context.pages.blocked = true;
     global_context.pages.current = v;
