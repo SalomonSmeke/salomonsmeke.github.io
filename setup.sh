@@ -1,3 +1,4 @@
+#!/bin/bash
 # Minimal environment setup. DO NOT USE IF YOU HAVE NODE INSTALLED VIA NOT NVM.
 
 # Colors used for user feedback. NC = no color.
@@ -22,14 +23,14 @@ EXTRA='\033[1;37m';
 touch 'uninstall.sh';
 
 # Install brew if it isnt already. Add the rollback steps to uninstall.
-[ ! -f "`which brew`" ] && {
+[ ! -f "$(which brew)" ] && {
   echo "${WARN}Homebrew not found, installing...${NC}";
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
   echo '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)";' >> ./uninstall.sh;
 };
 
 # If nvm does not evaluate, it could mean a ton of things...
-[ -z "`which nvm`" ] && {
+[ -z "$(which nvm)" ] && {
   # NVM might not be installed. Do that and add rollback.
   if ! (brew ls nvm > /dev/null;) then
     echo "${WARN}NVM not found, installing...${NC}";
@@ -61,7 +62,7 @@ echo "${INFO}Installing stable node branch inoccuous if you have it.${NC}" && nv
 echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /dev/null;
 
 # Install NCU globally if it isnt already, which we use to keep packages fre$h. Add the rollback to uninstall.sh.
-[ ! -f "`which ncu`" ] && {
+[ ! -f "$(which ncu)" ] && {
   echo "${WARN}No global ncu found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
     echo '# Uninstall NCU
@@ -71,7 +72,7 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 };
 
 # Install gulp globally if it isnt already, which we use to build. Add the rollback to uninstall.sh.
-[ ! -f "`which gulp`" ] && {
+[ ! -f "$(which gulp)" ] && {
   echo "${WARN}No global gulp found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
     echo '# Uninstall gulp-cli
@@ -81,7 +82,7 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 };
 
 # Install http-server globally if it isnt already. Add the rollback to uninstall.sh.
-[ ! -f "`which http-server`" ] && {
+[ ! -f "$(which http-server)" ] && {
   echo "${WARN}No global http-server found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
     echo '# Uninstall http-server
@@ -129,7 +130,7 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
     echo '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
 # Delet this.
     rm ./uninstall.sh;
-###INSTALLED ON: `date`###" >> uninstall.sh;
+###INSTALLED ON: $(date)###" >> uninstall.sh;
   chmod +x uninstall.sh;
 }
 

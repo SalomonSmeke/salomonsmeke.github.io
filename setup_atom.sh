@@ -1,3 +1,4 @@
+#!/bin/bash
 # Minimal atom setup. Enables proper linters.
 
 # Colors used for user feedback. NC = no color.
@@ -8,9 +9,9 @@ INFO='\033[1;35m';
 SUCCESS='\033[1;32m';
 
 # Install atom from brew if it isnt installed.
-[ ! -f "`which atom`" ] && {
+[ ! -f "$(which atom)" ] && {
   # Install brew if it isnt installed.
-  [ ! -f "`which brew`" ] && {
+  [ ! -f "$(which brew)" ] && {
     echo "${WARN}Homebrew not found, installing...${NC}";
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
   };
@@ -18,11 +19,11 @@ SUCCESS='\033[1;32m';
 };
 
 # Atom is installed at this point, but might not be linked yet.
-[ ! -f "`which atom`" ] && {
+[ ! -f "$(which atom)" ] && {
   echo "${FAIL}FAIL! Please open atom and restart your terminal session before retrying.${NC}";
   exit;
 };
-[ ! -f "`which apm`" ] && {
+[ ! -f "$(which apm)" ] && {
   echo "${FAIL}FAIL! Please open atom and restart your terminal session before retrying.${NC}";
   exit;
 };

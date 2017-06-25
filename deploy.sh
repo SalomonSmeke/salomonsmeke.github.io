@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Simple deploy script.
 
 rm -rf ./git_staging && rm -rf ./build; # Just in case.
@@ -18,8 +20,8 @@ gulp build-deploy; # Create built site.
 
 cp -R git_staging/.git build/; # Copy the git state to build.
 
-version=`cat ver.txt`;
-date=`date`;
+version=$(cat ver.txt);
+date=$(date);
 
 cd build && git add -A; # Stage files.
 
