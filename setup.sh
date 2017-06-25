@@ -26,7 +26,7 @@ touch 'uninstall.sh';
 [ ! -f "$(which brew)" ] && {
   echo "${WARN}Homebrew not found, installing...${NC}";
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-  echo '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)";' >> ./uninstall.sh;
+  echo "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)\";" >> ./uninstall.sh;
 };
 
 # If nvm does not evaluate, it could mean a ton of things...
