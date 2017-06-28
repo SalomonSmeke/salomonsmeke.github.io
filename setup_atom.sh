@@ -12,7 +12,7 @@ SUCCESS='\033[1;32m';
 [ ! -f "$(which atom)" ] && {
   # Install brew if it isnt installed.
   [ ! -f "$(which brew)" ] && {
-    echo "${WARN}Homebrew not found, installing...${NC}";
+    echo -e "${WARN}Homebrew not found, installing...${NC}";
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
   };
   "${WARN}Atom not found, installing from cask...${NC}" && brew cask install atom;
@@ -20,15 +20,15 @@ SUCCESS='\033[1;32m';
 
 # Atom is installed at this point, but might not be linked yet.
 [ ! -f "$(which atom)" ] && {
-  echo "${FAIL}FAIL! Please open atom and restart your terminal session before retrying.${NC}";
+  echo -e "${FAIL}FAIL! Please open atom and restart your terminal session before retrying.${NC}";
   exit;
 };
 [ ! -f "$(which apm)" ] && {
-  echo "${FAIL}FAIL! Please open atom and restart your terminal session before retrying.${NC}";
+  echo -e "${FAIL}FAIL! Please open atom and restart your terminal session before retrying.${NC}";
   exit;
 };
 
-echo "${INFO}Installing atom plugins, inoccuous if you have them.${NC}" && {
+echo -e "${INFO}Installing atom plugins, inoccuous if you have them.${NC}" && {
   # Base linter stuff
   apm install intentions busy-signal linter linter-ui-default;
   # Linter packages
@@ -36,8 +36,8 @@ echo "${INFO}Installing atom plugins, inoccuous if you have them.${NC}" && {
   # Autocompletes
   apm install autocomplete-json autocomplete-modules;
 };
-echo "${INFO}Cleaning up atom plugins. Not a big deal if it fails.${NC}" && {
+echo -e "${INFO}Cleaning up atom plugins. Not a big deal if it fails.${NC}" && {
   apm dedupe && DEDUPE_OK=1;
   [ -z $DEDUPE_OK ] && rm npm-debug.log;
 };
-echo "${SUCCESS}SUCCESS! Here ya go: opening atom...${NC}" && atom .;
+echo -e "${SUCCESS}SUCCESS! Here ya go: opening atom...${NC}" && atom .;

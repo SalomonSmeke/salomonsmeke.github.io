@@ -11,11 +11,11 @@ EXTRA='\033[1;37m';
 
 # Do not run if there is a pending uninstall, we dont want to mess up the rollback.
 [ -s "./uninstall.sh" ] && {
-  echo "${FAIL}Found abandoned uninstall script.";
-  echo "${INFO}If you dont care about rollback: 'rm ./uninstall.sh;'";
-  echo "If you do care about rollback, but dont have any other projects depending on the items listed in: ./uninstall.sh, do:
+  echo -e "${FAIL}Found abandoned uninstall script.";
+  echo -e "${INFO}If you dont care about rollback: 'rm ./uninstall.sh;'";
+  echo -e "If you do care about rollback, but dont have any other projects depending on the items listed in: ./uninstall.sh, do:
       './uninstall.sh; rm ./uninstall.sh;'";
-  echo "${FAIL}Aborting...${NC}";
+  echo -e "${FAIL}Aborting...${NC}";
   exit;
 };
 
@@ -24,48 +24,48 @@ touch 'uninstall.sh';
 
 # Install brew if it isnt already. Add the rollback steps to uninstall.
 [ ! -f "$(which brew)" ] && {
-  echo "${WARN}Homebrew not found, installing...${NC}";
+  echo -e "${WARN}Homebrew not found, installing...${NC}";
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-  echo "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)\";" >> ./uninstall.sh;
+  echo -e "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)\";" >> ./uninstall.sh;
 };
 
 # If nvm does not evaluate, it could mean a ton of things...
 [ -z "$(which nvm)" ] && {
   # NVM might not be installed. Do that and add rollback.
   if ! (brew ls nvm > /dev/null;) then
-    echo "${WARN}NVM not found, installing...${NC}";
+    echo -e "${WARN}NVM not found, installing...${NC}";
     brew install nvm;
-    echo '# Uninstall NVM.
+    echo -e '# Uninstall NVM.
     brew uninstall nvm;' >> ./uninstall.sh;
   fi
   # NVM might be installed but not configured on the user's login scripts.
   [ -z $NVM_DIR ] && {
-    echo "${INFO}Exporting NVM_DIR...${NC}";
+    echo -e "${INFO}Exporting NVM_DIR...${NC}";
     export NVM_DIR="${HOME}/.nvm";
   };
   # NVM might be installed fine but not activated in the user's login scripts.
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && {
-    echo "${INFO}Activating NVM...${NC}";
+    echo -e "${INFO}Activating NVM...${NC}";
     . "/usr/local/opt/nvm/nvm.sh";
   };
   # NVM might be installed inproperly.
   [ ! -s "/usr/local/opt/nvm/nvm.sh" ] && {
-    echo "${FAIL}NVM not found in NVM_DIR, aborting...${NC}";
+    echo -e "${FAIL}NVM not found in NVM_DIR, aborting...${NC}";
     exit;
   };
 };
 
 # Install stable node: makes uninstalling rougher here without a set version. But we want bleeding edge.
-echo "${INFO}Installing stable node branch inoccuous if you have it.${NC}" && nvm install stable;
+echo -e "${INFO}Installing stable node branch inoccuous if you have it.${NC}" && nvm install stable;
 
 # Activate node using nvm.
-echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /dev/null;
+echo -e "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /dev/null;
 
 # Install NCU globally if it isnt already, which we use to keep packages fre$h. Add the rollback to uninstall.sh.
 [ ! -f "$(which ncu)" ] && {
-  echo "${WARN}No global ncu found, installing...${NC}";
+  echo -e "${WARN}No global ncu found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo '# Uninstall NCU
+    echo -e '# Uninstall NCU
     . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g npm-check-updates;' >> ./uninstall.sh;
   fi
   npm install -g npm-check-updates;
@@ -73,9 +73,9 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 
 # Install gulp globally if it isnt already, which we use to build. Add the rollback to uninstall.sh.
 [ ! -f "$(which gulp)" ] && {
-  echo "${WARN}No global gulp found, installing...${NC}";
+  echo -e "${WARN}No global gulp found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo '# Uninstall gulp-cli
+    echo -e '# Uninstall gulp-cli
     . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g gulp-cli;' >> ./uninstall.sh;
   fi
   npm install -g gulp-cli;
@@ -83,16 +83,16 @@ echo "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /
 
 # Install http-server globally if it isnt already. Add the rollback to uninstall.sh.
 [ ! -f "$(which http-server)" ] && {
-  echo "${WARN}No global http-server found, installing...${NC}";
+  echo -e "${WARN}No global http-server found, installing...${NC}";
   if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo '# Uninstall http-server
+    echo -e '# Uninstall http-server
     . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g http-server;' >> ./uninstall.sh;
   fi
   npm install -g http-server;
 };
 
 # Install local packages.
-echo "${INFO}Installing local NPM packages${NC}";
+echo -e "${INFO}Installing local NPM packages${NC}";
 npm install;
 
 # What to add to the user's login scripts.
@@ -104,30 +104,30 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
 # Add NVM stuff to the user's login scripts. Add the rollback to uninstall.sh.
 [ -s "$HOME/.zshrc" ] && {
   if ! grep -q "${SOURCE}" "$HOME/.zshrc"; then
-    echo "${INFO}Adding NVM activation to .zshrc${NC}";
-    echo "# Remove the NVM activation stuff from your .zshrc
+    echo -e "${INFO}Adding NVM activation to .zshrc${NC}";
+    echo -e "# Remove the NVM activation stuff from your .zshrc
     sed -i.old \"${SED_SOURCE}\" \"$HOME/.zshrc\";" >> uninstall.sh;
-    echo "    echo '${INFO}Backed up .zshrc at: ${HOME}/.zshrc.old${NC}';" >> uninstall.sh;
-    echo "${SOURCE}" >> "$HOME/.zshrc";
+    echo -e "    echo -e '${INFO}Backed up .zshrc at: ${HOME}/.zshrc.old${NC}';" >> uninstall.sh;
+    echo -e "${SOURCE}" >> "$HOME/.zshrc";
   fi
 };
 # Fallback if theyre not on zsh (ew).
 [ ! -s "$HOME/.zshrc" ] && {
   if ! grep -q "${SOURCE}" "$HOME/.bash_profile"; then
-    echo "${INFO}Adding NVM activation to .bash_profile${NC}";
-    echo "# Remove the NVM activation stuff from your .bash_profile
+    echo -e "${INFO}Adding NVM activation to .bash_profile${NC}";
+    echo -e "# Remove the NVM activation stuff from your .bash_profile
     sed -i.old \"${SED_SOURCE}\" \"$HOME/.bash_profile\";" >> uninstall.sh;
-    echo "    echo '${INFO}Backed up .bash_profile at: ${HOME}/.bash_profile.old${NC}';" >> uninstall.sh;
-    echo "${SOURCE}" >> "$HOME/.bash_profile";
+    echo -e "    echo -e '${INFO}Backed up .bash_profile at: ${HOME}/.bash_profile.old${NC}';" >> uninstall.sh;
+    echo -e "${SOURCE}" >> "$HOME/.bash_profile";
   fi
 };
 
 # Make uninstall executable if we built it. No typo.
 [ -s "./uninstall.sh" ] && {
-  echo "# Back this script up.
+  echo -e "# Back this script up.
     cat ./uninstall.sh >> uninstall.sh.consumed;
 # Meta levels increasing.
-    echo '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
+    echo -e '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
 # Delet this.
     rm ./uninstall.sh;
 ###INSTALLED ON: $(date)###" >> uninstall.sh;
@@ -140,7 +140,7 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
 }
 
 # Give feedback.
-echo "${SUCCESS}SUCCESS! You might need to reopen your terminal session.${EXTRA}
+echo -e "${SUCCESS}SUCCESS! You might need to reopen your terminal session.${EXTRA}
   'added an uninstall.sh file which can undo the changes done here. LOOK BEFORE RUNNING.'
   'source activate' to activate.
   './setup_atom.sh' to setup atom.
