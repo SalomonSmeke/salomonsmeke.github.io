@@ -163,7 +163,6 @@ function update_time(should_pivot) {
     date.getMinutes() * 4.25,
     date.getSeconds() * 4.25
   ].map((v, i) => {
-    // TODO: something is wrong in the pivoting.
     if (should_pivot && v >= largest) { ctx.bar_vals.p = i; largest = v; }
     v = Math.round(v).toString(16);
     return v.length === 1 ? `0${v}` : v;
@@ -173,6 +172,7 @@ function update_time(should_pivot) {
 function time() {
   if (ctx.time_interval) return _.err('Time already active.');
   update_time(true);
+  // Do not update the pivot past the first time to prevent eye pain.
   ctx.time_interval = setInterval(() => update_time(), 1000);
   return true;
 }
