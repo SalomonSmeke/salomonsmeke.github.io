@@ -1,5 +1,7 @@
-import ctx from './globals';
+import { obtain } from './window_store';
 import * as _ from './minidash';
+
+const ctx = obtain();
 
 /*
  * hatchListeners(listener, str)
@@ -33,6 +35,7 @@ function hatchListeners(listeners, owner) {
  * Helper for formatting a function into a clojure that our listener structure
  * accepts.
  */
+ // TODO: Accept a dom node in addition to an ID if we would rather not find it ourselves.
 function incubateListener(id, f, type, props) {
   const _f = (() => () => f(ctx.listeners[id], ctx.listeners, ctx))(id, f, type);
   return { id, f: _f, type, props };

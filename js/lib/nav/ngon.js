@@ -2,6 +2,8 @@ import * as _ from '../minidash';
 
 const xmlns = 'http://www.w3.org/2000/svg';
 
+// TODO: reset rotation when page changes.
+
 function getVertices(radius, pos, n) {
   const TWO_PI = Math.PI * 2;
   const PI_N = Math.PI / n;

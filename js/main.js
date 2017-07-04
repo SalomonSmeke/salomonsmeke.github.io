@@ -1,3 +1,4 @@
+import './init';
 import { stub, analytics } from './supplement';
 import { load as loadModule } from './modules/_module';
 import root from './modules/root';
@@ -9,9 +10,7 @@ stub();
 loadModule(root);
 
 // No-js banner removal. After module loading.
-document.getElementById('loader-wrapper').parentNode.removeChild(
-  document.getElementById('loader-wrapper')
-);
+document.getElementById('loader-wrapper').parentNode.removeChild(document.getElementById('loader-wrapper'));
 
 // Adds analytics.
 analytics();

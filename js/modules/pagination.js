@@ -1,37 +1,13 @@
 import { spawn_module } from './_module';
-import { build as buildngon, setPageNav } from '../lib/nav/ngon';
-import global_context from '../lib/globals';
+import paginateTo from '../lib/pagination';
+import { obtain } from '../lib/window_store';
+
+const global_context = obtain();
 
 /*
  * pagination.js
- * Stub module for controlling the blog aspect.
+ * Module for controlling the blog aspect.
  */
-
-function loadPage(key) {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState === 4 && this.status === 200) {
-      document.getElementById('content').innerHTML = this.responseText;
-      // Eventually, this instead should turn into the series of functions that the page wants.
-      // Unloading the previous module, and loading this one.
-      // Where the module_def is part of pages.
-      global_context.pages.blocked = false;
-    }
-  };
-  xhttp.open('GET', `./js/modules/pages/${key}/fill.html`, true);
-  xhttp.send();
-}
-
-function paginateTo(v) {
-  if (!global_context.pages.blocked) {
-    global_context.pages.blocked = true;
-    global_context.pages.current = v;
-    setPageNav(v);
-    loadPage(global_context.pages.list[v]);
-    buildngon(v - 1, 'previous', global_context.pages.list[v - 1]);
-    buildngon(v + 1, 'next', global_context.pages.list[v + 1]);
-  }
-}
 
 function nextPage() {
   if (global_context.pages.list[global_context.pages.current + 1]) {

@@ -1,7 +1,7 @@
-import ctx from './globals';
+import { obtain } from './window_store';
 import * as _ from './minidash';
 
-let exposureRegistrar = ctx.exposureRegistrar;
+let exposureRegistrar = obtain().exposureRegistrar;
 
 function exposeObject(object, id) {
   if (id === undefined || object === undefined) {
