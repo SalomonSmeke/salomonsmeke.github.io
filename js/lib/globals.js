@@ -8,10 +8,7 @@ const context = {
       1: 'index',
       2: 'about'
     },
-    context: {
-      index: {},
-      about: {}
-    },
+    module_def: null,
     blocked: false
   }
 };
