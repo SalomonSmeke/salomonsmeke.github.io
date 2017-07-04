@@ -1,4 +1,4 @@
-import { spawn_module } from './_module';
+import { spawn_module, load, unload } from './_module';
 import { build as buildngon, setPageNav } from '../lib/nav/ngon';
 import global_context from '../lib/globals';
 
@@ -7,19 +7,52 @@ import global_context from '../lib/globals';
  * Stub module for controlling the blog aspect.
  */
 
+function loadHtml(key, _timeout) {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        document.getElementById('content').innerHTML = this.responseText;
+        resolve(key);
+      }
+    };
+    xhttp.open('GET', `./js/modules/pages/${key}/fill.html`, true);
+    xhttp.send();
+    setTimeout(() => reject(), _timeout);
+  });
+}
+
+function fetchModuleDef(key, _timeout) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.onreadystatechange = function () {
+      if (this.readyState === 'complete') resolve(key);
+    };
+    script.onload = () => resolve(key);
+    script.src = `./js/modules/pages/${key}/script.js`;
+    document.getElementsByTagName('head')[0].appendChild(script);
+    setTimeout(() => reject(), _timeout);
+  });
+}
+
+function applyJS(key) {
+  global_context.pages.module_def = spawn_module(window[`${key}_module`]);
+  load(global_context.pages.module_def);
+  global_context.pages.blocked = false;
+  delete window[`${key}_module`];
+}
+
+function unloadCurrent() {
+  if (global_context.pages.module_def) unload(global_context.pages.module_def);
+}
+
 function loadPage(key) {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState === 4 && this.status === 200) {
-      document.getElementById('content').innerHTML = this.responseText;
-      // Eventually, this instead should turn into the series of functions that the page wants.
-      // Unloading the previous module, and loading this one.
-      // Where the module_def is part of pages.
-      global_context.pages.blocked = false;
-    }
-  };
-  xhttp.open('GET', `./js/modules/pages/${key}/fill.html`, true);
-  xhttp.send();
+  function unblock() { global_context.pages.blocked = false; }
+  unloadCurrent();
+  loadHtml(key, 500)
+  .then(() => fetchModuleDef(key, 500), unblock)
+  .then(() => applyJS(key), unblock);
 }
 
 function paginateTo(v) {
