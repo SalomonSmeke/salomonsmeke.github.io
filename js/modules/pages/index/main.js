@@ -1,18 +1,16 @@
-function test() {
-  alert('yes');
-}
+import paginateTo from '../../../lib/pagination';
 
 window.index_module = {
   id: 'index',
   LISTENERS: [
     {
       id: 'index-nav-index',
-      f: test,
+      f: () => paginateTo(1),
       type: 'click'
     },
     {
       id: 'index-nav-about',
-      f: test,
+      f: () => paginateTo(2),
       type: 'click'
     }
   ]

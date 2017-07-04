@@ -14,19 +14,75 @@ const replace = require('gulp-replace');
 const header = require('gulp-header');
 // const prepack = require('gulp-prepack');
 
+const pages_files = [
+  'about',
+  'index'
+];
+const pages_dest = 'build/js/modules/pages';
+const img_src = 'img/**/*.{png,jpg}';
+const img_dest = 'build/img/';
+const vendor_src = 'js/vendor/**/*.js';
+const vendor_dest = 'build/js/vendor/';
+
+function browserifyHelper(entry, kwargs, prod) {
+  const res = browserify(`${entry}main.js`, kwargs)
+  .transform(babelify.configure({
+    presets: ['es2015']
+  }))
+  .bundle()
+  .pipe(source('bundle.js'));
+  if (prod) {
+    res.pipe(buffer())
+    .pipe(replace('"use strict";', ''))
+    .pipe(header('"use strict";'))
+    // I dont know why babelify doesnt default to scoping the whole thing as strict.
+    .pipe(uglify())
+    .pipe(gulp.dest(`build/${entry}`));
+  } else {
+    res.pipe(gulp.dest(`build/${entry}`));
+  }
+}
+
+function directCopy(src, dest, message) {
+  gulp.src(src)
+  .pipe(gulp.dest(dest));
+  if (message) {
+    console.log(message);
+  }
+}
+
 /* build-dev:
   * Build task for development.
 */
 gulp.task('build-dev',
-  [
-    'copy-root',
-    'copy-images',
-    'copy-vendor',
-    'copy-styles',
-    'compile-source',
-    'copy-pages'
-  ],
   () => {
+    [
+      [
+        ['robots.txt', 'README.md', 'LICENSE', 'index.html', 'humans.txt', 'CNAME', '.gitignore'],
+        'build/',
+        'Copied root files.'
+      ],
+      [img_src, img_dest, 'Images copied.'],
+      [vendor_src, vendor_dest, 'Vendor js copied.']
+    ].forEach(([src, dest, msg]) => directCopy(src, dest, msg));
+
+    browserifyHelper('js/', { debug: true }, false);
+    console.log('Source compiled.');
+
+    pages_files.forEach((k) => {
+      directCopy(`js/modules/pages/${k}/fill.html`, `${pages_dest}/${k}`);
+      browserifyHelper(`js/modules/pages/${k}/`, { debug: true }, false);
+    });
+    console.log('Pages compiled.');
+
+    gulp.src(['styles/normalize.css', 'styles/global.css'])
+    .pipe(concat('bundle.css'))
+    .pipe(unCSS({
+      html: ['./build/index.html']
+    }))
+    .pipe(gulp.dest('build/styles/'));
+    console.log('CSS copied.');
+
     console.log('Built for development.');
     return 0;
   }
@@ -36,131 +92,47 @@ gulp.task('build-dev',
   * Build task for deployment.
 */
 gulp.task('build-deploy',
-  [
-    'produce-root',
-    'produce-images',
-    'produce-vendor',
-    'produce-styles',
-    'produce-source',
-    'produce-pages'
-  ],
   () => {
-    console.log('Built for deployment.');
-    return 0;
-  }
-);
-
-/* copy-root:
-  * Root copy task.
-*/
-gulp.task('copy-root', () => {
-  gulp.src([
-    'robots.txt',
-    'README.md',
-    'LICENSE',
-    'index.html',
-    'humans.txt',
-    'CNAME',
-    '.gitignore'
-  ]).pipe(gulp.dest('build/'));
-  console.log('Copied root files.');
-  return 0;
-});
-
-/* produce-root:
-  * Root production task.
-*/
-gulp.task('produce-root', () => {
-  gulp.src([
-    'robots.txt',
-    'README.md',
-    'LICENSE',
-    'humans.txt',
-    'CNAME',
-    '.gitignore'
-  ]).pipe(gulp.dest('build/'));
-  gulp.src('index.html')
-  .pipe(htmlmin({
-    collapseWhitespace: true
-  }))
-  .pipe(gulp.dest('build/'));
-  console.log('Produced root files.');
-  return 0;
-});
-
-/* copy-images:
-  * Root copy task.
-*/
-gulp.task('copy-images', () => {
-  gulp.src('img/**/*.{png,jpg}')
-  .pipe(gulp.dest('build/img/'));
-  console.log('Images copied.');
-  return 0;
-});
-
-/* produce-images:
-  * Image optimization task.
-*/
-gulp.task('produce-images', () => {
-  gulp.src('img/**/*.{png,jpg}')
-  .pipe(imagemin({
-    use: [zopfli()]
-  }))
-  .pipe(gulp.dest('build/img/'));
-  console.log('Images compressed.');
-  return 0;
-});
-
-/* copy-vendor:
-  * Vendor copy task.
-*/
-gulp.task('copy-vendor', () => {
-  gulp.src('js/vendor/**/*.js')
-  .pipe(gulp.dest('build/js/vendor/'));
-  console.log('Vendor js copied.');
-  return 0;
-});
-
-/* produce-vendor:
-  * Vendor production task.
-*/
-gulp.task('produce-vendor', () => {
-  gulp.src('js/vendor/**/*.js')
-  .pipe(uglify())
-  .pipe(gulp.dest('build/js/vendor/'));
-  console.log('Vendor js produced.');
-  return 0;
-});
-
-/* copy-styles:
-  * CSS copy task.
-*/
-gulp.task('copy-styles',
-  [
-    'copy-root',
-    'compile-source'
-  ],
-  () => {
-    gulp.src(['styles/normalize.css', 'styles/global.css'])
-    .pipe(concat('bundle.css'))
-    .pipe(unCSS({
-      html: ['./build/index.html']
+    gulp.src([
+      'robots.txt',
+      'README.md',
+      'LICENSE',
+      'humans.txt',
+      'CNAME',
+      '.gitignore'
+    ]).pipe(gulp.dest('build/'));
+    gulp.src('index.html')
+    .pipe(htmlmin({
+      collapseWhitespace: true
     }))
-    .pipe(gulp.dest('build/styles/'));
-    console.log('CSS copied.');
-    return 0;
-  }
-);
+    .pipe(gulp.dest('build/'));
+    console.log('Produced root files.');
 
-/* produce-styles:
-  * CSS production task.
-*/
-gulp.task('produce-styles',
-  [
-    'produce-root',
-    'produce-source'
-  ],
-  () => {
+    gulp.src(img_src)
+    .pipe(imagemin({
+      use: [zopfli()]
+    }))
+    .pipe(gulp.dest(img_dest));
+    console.log('Images compressed.');
+
+    gulp.src(vendor_src)
+    .pipe(uglify())
+    .pipe(gulp.dest(vendor_dest));
+    console.log('Vendor js produced.');
+
+    browserifyHelper('js/', {}, true);
+    console.log('Source produced.');
+
+    pages_files.forEach((k) => {
+      gulp.src(`js/modules/pages/${k}/fill.html`)
+      .pipe(htmlmin({
+        collapseWhitespace: true
+      }))
+      .pipe(gulp.dest(`${pages_dest}/${k}`));
+      browserifyHelper(`js/modules/pages/${k}/`, {}, true);
+    });
+    console.log('Pages produced.');
+
     gulp.src(['styles/normalize.css', 'styles/global.css'])
     .pipe(concat('bundle.css'))
     .pipe(unCSS({
@@ -168,69 +140,11 @@ gulp.task('produce-styles',
     }))
     .pipe(cleanCSS({ level: 2 }))
     .pipe(gulp.dest('build/styles/'));
-    console.log('CSS composed.');
+
+    console.log('Built for deployment.');
     return 0;
   }
 );
-
-/* compile-source:
-  * Source compilation task.
-*/
-gulp.task('compile-source', () => {
-  browserify('js/main.js', { debug: true })
-  .transform(babelify.configure({
-    presets: ['es2015']
-  }))
-  .bundle()
-  .pipe(source('bundle.js'))
-  .pipe(gulp.dest('build/js'));
-  console.log('Source compiled.');
-  return 0;
-});
-
-/* produce-source:
-  * Source production task.
-*/
-gulp.task('produce-source', () => {
-  browserify('js/main.js')
-  .transform(babelify.configure({
-    presets: ['es2015']
-  }))
-  .bundle()
-  .pipe(source('bundle.js'))
-  .pipe(buffer())
-  //  .pipe(prepack()) this does not yet work: 05/27/2017
-  .pipe(replace('"use strict";', ''))
-  .pipe(header('"use strict";'))
-  // I dont know why babelify doesnt default to scoping the whole thing as strict.
-  .pipe(uglify())
-  .pipe(gulp.dest('build/js'));
-  console.log('Source composed.');
-  return 0;
-});
-
-/* copy-pages:
-  * Page copy task.
-*/
-gulp.task('copy-pages', () => {
-  gulp.src('js/modules/pages/**')
-  .pipe(gulp.dest('build/js/modules/pages'));
-  console.log('Pages copied.');
-  return 0;
-});
-
-/* produce-pages:
-  * Page produce task.
-*/
-gulp.task('produce-pages', () => {
-  gulp.src('js/modules/pages/**')
-  .pipe(htmlmin({
-    collapseWhitespace: true
-  }))
-  .pipe(gulp.dest('build/js/modules/pages'));
-  console.log('Pages produced.');
-  return 0;
-});
 
 gulp.task('default', ['build-dev'], () => {
   // gulp.watch('!build/**', ['build-dev']);

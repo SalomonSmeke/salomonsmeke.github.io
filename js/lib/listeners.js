@@ -1,5 +1,7 @@
-import ctx from './globals';
+import { obtain } from './window_store';
 import * as _ from './minidash';
+
+const ctx = obtain();
 
 /*
  * hatchListeners(listener, str)
