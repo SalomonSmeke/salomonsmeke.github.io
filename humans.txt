@@ -5,11 +5,6 @@
 
     Salomon Smeke -- GH: SalomonSmeke
 
-# THANKS
-
-    <name>
-
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
-    Modernizr
+    HTML5, VanillaJS, Webpack, SCSS, Node.js

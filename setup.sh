@@ -21,6 +21,7 @@ EXTRA='\033[1;37m';
 
 # Create the uninstall script file.
 touch 'uninstall.sh';
+echo '#!/bin/bash' >> ./uninstall.sh;
 
 # Install brew if it isnt already. Add the rollback steps to uninstall.
 [ ! -f "$(which brew)" ] && {
@@ -36,7 +37,7 @@ touch 'uninstall.sh';
     echo -e "${WARN}NVM not found, installing...${NC}";
     brew install nvm;
     echo -e '# Uninstall NVM.
-    brew uninstall nvm;' >> ./uninstall.sh;
+brew uninstall nvm;' >> ./uninstall.sh;
   fi
   # NVM might be installed but not configured on the user's login scripts.
   [ -z $NVM_DIR ] && {
@@ -58,38 +59,16 @@ touch 'uninstall.sh';
 # Install stable node: makes uninstalling rougher here without a set version. But we want bleeding edge.
 echo -e "${INFO}Installing stable node branch inoccuous if you have it.${NC}" && nvm install stable;
 
+# If libpng is not installed, install it. For webpack image loader.
+[ -z "$(which libpng)" ] && {
+    echo -e "${WARN}libpng not found, installing...${NC}";
+    brew install libpng;
+    echo -e '# Uninstall libpng.
+brew uninstall libpng;' >> ./uninstall.sh;
+};
+
 # Activate node using nvm.
 echo -e "${INFO}Activating stable node.${NC}" && nvm use --delete-prefix stable > /dev/null;
-
-# Install NCU globally if it isnt already, which we use to keep packages fre$h. Add the rollback to uninstall.sh.
-[ ! -f "$(which ncu)" ] && {
-  echo -e "${WARN}No global ncu found, installing...${NC}";
-  if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo -e '# Uninstall NCU
-    . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g npm-check-updates;' >> ./uninstall.sh;
-  fi
-  npm install -g npm-check-updates;
-};
-
-# Install gulp globally if it isnt already, which we use to build. Add the rollback to uninstall.sh.
-[ ! -f "$(which gulp)" ] && {
-  echo -e "${WARN}No global gulp found, installing...${NC}";
-  if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo -e '# Uninstall gulp-cli
-    . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g gulp-cli;' >> ./uninstall.sh;
-  fi
-  npm install -g gulp-cli;
-};
-
-# Install http-server globally if it isnt already. Add the rollback to uninstall.sh.
-[ ! -f "$(which http-server)" ] && {
-  echo -e "${WARN}No global http-server found, installing...${NC}";
-  if ! grep -q "brew uninstall nvm;" "./uninstall.sh"; then
-    echo -e '# Uninstall http-server
-    . /usr/local/opt/nvm/nvm.sh && nvm use --delete-prefix stable && npm uninstall -g http-server;' >> ./uninstall.sh;
-  fi
-  npm install -g http-server;
-};
 
 # Install local packages.
 echo -e "${INFO}Installing local NPM packages${NC}";
@@ -106,7 +85,7 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
   if ! grep -q "${SOURCE}" "$HOME/.zshrc"; then
     echo -e "${INFO}Adding NVM activation to .zshrc${NC}";
     echo -e "# Remove the NVM activation stuff from your .zshrc
-    sed -i.old \"${SED_SOURCE}\" \"$HOME/.zshrc\";" >> uninstall.sh;
+sed -i.old \"${SED_SOURCE}\" \"$HOME/.zshrc\";" >> uninstall.sh;
     echo -e "    echo -e '${INFO}Backed up .zshrc at: ${HOME}/.zshrc.old${NC}';" >> uninstall.sh;
     echo -e "${SOURCE}" >> "$HOME/.zshrc";
   fi
@@ -116,7 +95,7 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
   if ! grep -q "${SOURCE}" "$HOME/.bash_profile"; then
     echo -e "${INFO}Adding NVM activation to .bash_profile${NC}";
     echo -e "# Remove the NVM activation stuff from your .bash_profile
-    sed -i.old \"${SED_SOURCE}\" \"$HOME/.bash_profile\";" >> uninstall.sh;
+sed -i.old \"${SED_SOURCE}\" \"$HOME/.bash_profile\";" >> uninstall.sh;
     echo -e "    echo -e '${INFO}Backed up .bash_profile at: ${HOME}/.bash_profile.old${NC}';" >> uninstall.sh;
     echo -e "${SOURCE}" >> "$HOME/.bash_profile";
   fi
@@ -125,12 +104,13 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
 # Make uninstall executable if we built it. No typo.
 [ -s "./uninstall.sh" ] && {
   echo -e "# Back this script up.
-    cat ./uninstall.sh >> uninstall.sh.consumed;
+cat ./uninstall.sh >> uninstall.sh.consumed;
 # Meta levels increasing.
-    echo -e '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
+echo -e '${INFO}Made a copy of the uninstall script so you can see side-effects: uninstall.sh.consumed.${NC}';
 # Delet this.
-    rm ./uninstall.sh;
-###INSTALLED ON: $(date)###" >> uninstall.sh;
+rm ./uninstall.sh;
+
+#####INSTALLED ON: $(date)#####" >> uninstall.sh;
   chmod +x uninstall.sh;
 }
 
@@ -143,6 +123,4 @@ SED_SOURCE="/${SOURCE//\//\\/}/d";
 echo -e "${SUCCESS}SUCCESS! You might need to reopen your terminal session.${EXTRA}
   'added an uninstall.sh file which can undo the changes done here. LOOK BEFORE RUNNING.'
   'source activate' to activate.
-  './setup_atom.sh' to setup atom.
-  'gulp' to build.
   'open build/index.html' to open.${NC}";

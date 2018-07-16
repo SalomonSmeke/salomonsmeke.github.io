@@ -10,7 +10,7 @@ This project and everyone participating in it is governed by the [Code of Conduc
 
 ## How Can I Contribute?
 
-There isn't really a complex procedure, this is a tiny personal project. There really is only one ask:
+There isn't really a complex procedure, this is a tiny personal project without much of anything. There really is only one ask:
 
 *   Please submit a github issue.
 
