@@ -6,9 +6,8 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  min-width: 720px;
-  min-height: 820px;
-  font-size: 16px;
+  min-height: 768px;
+  font-size: 13px;
   display: flex;
   flex-direction: column;
   background-color: #FFFFFA;
@@ -25,12 +24,10 @@ body {
 }
 header {
   width: 100%;
-  min-width: 720px;
   text-align: center;
 }
 nav {
   width: 100%;
-  min-width: 720px;
   text-align: center;
 }
 .snellen-container {
@@ -54,41 +51,40 @@ nav {
   }
   :nth-child(1) { :first-child {
     font-size: 8em;
-    line-height: 127px;
+    line-height: 1em;
   }}
   :nth-child(2) { :first-child {
     font-size: 7em;
-    line-height: 110px;
+    line-height: 1.1em;
   }}
   :nth-child(3) { :first-child {
     font-size: 6em;
-    line-height: 98px;
+    line-height: 1.2em;
   }}
   :nth-child(4) { :first-child {
     font-size: 5.5em;
-    line-height: 95px;
+    line-height: 1.1em;
   }}
   :nth-child(5) { :first-child {
     font-size: 4em;
-    line-height: 75px;
+    line-height: 1.1em;
   }}
   :nth-child(6) { :first-child {
     font-size: 2.78em;
-    line-height: 60px;
+    line-height: 1.2em;
   }}
   :nth-child(7) { :first-child {
     font-size: 1.75em;
-    line-height: 43px;
+    line-height: 1.8em;
   }}
   :nth-child(8) {
     :first-child {
       font-size: 1.05em;
-      line-height: 41px;
+      line-height: 2em;
   }}
 }
 aside {
   width: 100%;
-  min-width: 720px;
   text-align: center;
   font-size: .7em;
   color: rgba(0, 0, 0, .7);
@@ -114,8 +110,7 @@ button {
   top: 0px;
   width: 100vw;
   height: 100vh;
-  min-width: 720px;
-  min-height: 820px;
+  min-height: 768px;
   display: flex;
   flex-direction: row;
   div {
@@ -130,10 +125,38 @@ button {
     flex-grow: 1;
   }
   .skewed-duochrome-containers {
-    min-width: 720px;
     height: 100%;
     display: flex;
     .large-duochrome { width: 71%; }
     .small-duochrome { width: 29%; }
+  }
+}
+@media (max-width: 720px) and (min-width: 375px){
+  body {
+    font-size: 10px;
+    min-height: 600px;
+  }
+  .snellen-container {
+    div {
+      min-width: 375px;
+    }
+  }
+  .duochrome-container {
+    min-height: 600px;
+  }
+}
+@media (max-width: 375px){
+  body {
+    font-size: 8px;
+    min-height: 500px;
+    min-width: 300px;
+  }
+  .snellen-container {
+    div {
+      min-width: 290px;
+    }
+  }
+  .duochrome-container {
+    min-height: 500px;
   }
 }
