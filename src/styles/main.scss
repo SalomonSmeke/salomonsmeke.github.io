@@ -7,7 +7,7 @@ body {
   width: 100vw;
   height: 100vh;
   min-height: 768px;
-  font-size: 13px;
+  font-size: 1.5vmin;
   display: flex;
   flex-direction: column;
   background-color: #FFFFFA;
@@ -128,12 +128,18 @@ button {
   }
   .skewed-duochrome-containers {
     height: 100%;
+    min-width: 375px;
     display: flex;
     .large-duochrome { width: 71%; }
     .small-duochrome { width: 29%; }
   }
 }
-@media (max-width: 740px) and (min-width: 375px){
+@media (min-width: 741px) and (max-height: 600px){
+  body {
+    font-size: 13px;
+  }
+}
+@media (max-width: 740px) and (min-width: 375px) {
   body {
     font-size: 10px;
     min-height: 600px;
@@ -145,6 +151,9 @@ button {
   }
   .duochrome-container {
     min-height: 600px;
+    .skewed-duochrome-containers {
+      min-width: 282px;
+    }
   }
 }
 @media (max-width: 375px){
@@ -160,5 +169,8 @@ button {
   }
   .duochrome-container {
     min-height: 500px;
+    .skewed-duochrome-containers {
+      min-width: 220px;
+    }
   }
 }
