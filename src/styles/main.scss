@@ -42,6 +42,8 @@ nav {
     text-align: center;
     :first-child {
       flex-grow: 1;
+      padding-left: 10px;
+      font-weight: bold;
     }
     :last-child {
       font-style: oblique;
@@ -131,7 +133,7 @@ button {
     .small-duochrome { width: 29%; }
   }
 }
-@media (max-width: 720px) and (min-width: 375px){
+@media (max-width: 740px) and (min-width: 375px){
   body {
     font-size: 10px;
     min-height: 600px;
