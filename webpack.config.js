@@ -15,7 +15,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|dist)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -61,7 +61,7 @@ module.exports = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin('dist', {} ),
+        new CleanWebpackPlugin(['dist']),
         new MiniCssExtractPlugin({
             filename: 'style.[chunkhash].css',
         }),

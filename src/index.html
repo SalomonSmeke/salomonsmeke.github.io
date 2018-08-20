@@ -6,12 +6,52 @@
     <meta name="description" content="Salomon`s web presence">
 
     <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:300,500,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500">
 
-    <title>Salomon Smeke</title>
+    <title>salomon smeke</title>
   </head>
   <body>
-    Hello World!
+    <div class="duochrome-container">
+      <span class="left-duochrome"></span>
+      <span class="skewed-duochrome-containers">
+        <span class="left-duochrome large-duochrome"></span>
+        <span class="right-duochrome small-duochrome"></span>
+      </span>
+      <span class="right-duochrome"></span>
+    </div>
+    <div class="top">
+      <header>salomon smeke cohen</header>
+      <nav>resume - github - linkedin - contact</nav>
+    </div>
+    <article aria-hidden="true" class="snellen-container">
+      <div><span>I</span><span>1</span></div>
+      <div><span>AM A</span><span>3</span></div>
+      <div><span>SENIOR</span><span>6</span></div>
+      <div><span>SOFTWARE</span><span>8</span></div>
+      <div><span>ENGINEER IN</span><span>10</span></div>
+      <div><span>CHICAGO AT 4C IN</span><span>13</span></div>
+      <div><span>SIGHTS. PRIOR TO WHICH, I</span><span>15</span></div>
+      <div><span>STUDIED SWE AT LOYOLA UNIVERSITY CHICAGO.</span><span>18</span></div>
+    </article>
+    <aside aria-hidden="true">
+      <i>*this isnt a vision test, by the by, go see an eye doctor.</i>
+    </aside>
+    <summary aria-hidden="false">
+      I AM A SENIOR SOFTWARE ENGINEER IN CHICAGO AT 4C IN SIGHTS. PRIOR TO WHICH, I STUDIED SWE AT LOYOLA UNIVERSITY CHICAGO.
+    </summary>
+    <div class="bottom">
+      <nav aria-hidden="true">
+        duochromes <button title="Red / Green">
+          Rd/Gr
+        </button> <button title="Coral / Cyan">
+          Co/Cy
+        </button> <button title="Yellow / Purple">
+          Yw/Pr
+        </button> <button title="Time-based duochromes.">
+          Time
+        </button> JS required.
+      </nav>
+    </div>
   </body>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </html>
