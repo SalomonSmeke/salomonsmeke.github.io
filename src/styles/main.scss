@@ -1,6 +1,11 @@
 * {
   font-family: 'IBM Plex Mono', monospace;
   box-sizing: border-box;
+  color: rgba(20, 20, 20, 1);
+}
+a {
+  color: inherit;
+  text-decoration: none; /* no underline */
 }
 body {
   margin: 0;
