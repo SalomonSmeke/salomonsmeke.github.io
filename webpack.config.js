@@ -3,6 +3,11 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const FILES_DIRS_TO_COPY = [
+    'robots.txt', 'README.md', 'LICENSE.txt', 'humans.txt', 'CNAME',
+];
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -71,5 +76,8 @@ module.exports = {
             template: './src/index.html',
             filename: 'index.html',
         }),
+        new CopyWebpackPlugin(
+            FILES_DIRS_TO_COPY
+        ),
     ],
 };
