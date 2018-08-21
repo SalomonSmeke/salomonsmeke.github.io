@@ -3,13 +3,8 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
+    Salomon Smeke -- GH: SalomonSmeke
 
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
-    jQuery, Modernizr
+    HTML5, VanillaJS, Webpack, SCSS, Node.js
