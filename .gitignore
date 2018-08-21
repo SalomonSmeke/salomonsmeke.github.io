@@ -3,3 +3,4 @@ node_modules
 dist
 uninstall.sh
 uninstall.sh.consumed
+git_staging

@@ -2,7 +2,7 @@
 
 # Simple deploy script.
 
-rm -rf ./git_staging && rm -rf ./build; # Just in case.
+rm -rf ./git_staging && rm -rf ./dist; # Just in case.
 
 mkdir git_staging && cp -R .git git_staging/; # Set up staging folder.
 
@@ -14,6 +14,7 @@ git reset --hard origin/master;
 
 cd ..;
 
+. "/usr/local/opt/nvm/nvm.sh";
 nvm use stable;
 npm run build;
 
@@ -22,7 +23,7 @@ cp -R git_staging/.git dist/; # Copy the git state to build.
 version=$(cat ver.txt);
 date=$(date);
 
-cd build && git add -A; # Stage files.
+cd dist && git add -A; # Stage files.
 
 git commit -m "Deployed: ${version} ON ${date}." && git push origin master; # Commit and deploy.
 
