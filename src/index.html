@@ -66,14 +66,16 @@
   <!-- Deferred font loading. -->
   <script>
     (function() {
-      const font = document.createElement('link');
-      Object.assign(font, {
-        'rel': 'stylesheet',
-        'href': <%= JSON.stringify(htmlWebpackPlugin.options.fontURI) %>,
-      });
-      document.head.appendChild(font);
+      new Promise(() => {
+        const font = document.createElement('link');
+        Object.assign(font, {
+          'rel': 'stylesheet',
+          'href': <%= JSON.stringify(htmlWebpackPlugin.options.fontURI) %>,
+        });
+        document.head.appendChild(font);
+      })
     })()
   </script>
   <!-- END: Deferred font loading. -->
-  <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
+  <script defer async src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </html>
