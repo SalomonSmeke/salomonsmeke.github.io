@@ -15,6 +15,7 @@ const GLYPHS = [
     ...'0123456789',
     ...'-/*., ',
 ];
+const FAVICON_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQIHWP4//8XAAX5AvnvHiluAAAAAElFTkSuQmCC';
 
 module.exports = (_, {mode}) => {
     process.env.NODE_ENV = mode;
@@ -35,6 +36,8 @@ module.exports = (_, {mode}) => {
                         options: {
                             presets: ['@babel/preset-env'],
                             plugins: [require('@babel/plugin-proposal-object-rest-spread')],
+                            minified: mode === 'production',
+                            sourceMaps: mode !== 'production',
                         },
                     },
                 },
@@ -94,6 +97,7 @@ module.exports = (_, {mode}) => {
                 template: './src/index.html',
                 filename: 'index.html',
                 fontURI: `${FONT_BASE}&text=${encodeURIComponent(GLYPHS.join(''))}`,
+                faviconBase64: FAVICON_BASE64,
             }),
             new CopyWebpackPlugin(
                 FILES_DIRS_TO_COPY

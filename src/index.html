@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Salomon`s web presence">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="salomon smeke" />
 
-    <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
+    <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.files.chunks.main.css %>" />
+    <link rel="icon" type="image/png" href=<%= JSON.stringify(htmlWebpackPlugin.options.faviconBase64) %> />
 
     <noscript>
       <link
         rel="stylesheet"
         href=<%= JSON.stringify(htmlWebpackPlugin.options.fontURI) %>
-      >
+      />
     </noscript>
 
     <title>salomon smeke</title>
