@@ -8,7 +8,10 @@
     <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
 
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500">
+      <link
+        rel="stylesheet"
+        href=<%= JSON.stringify(htmlWebpackPlugin.options.fontURI) %>
+      >
     </noscript>
 
     <title>salomon smeke</title>
@@ -64,7 +67,10 @@
   <script>
     (function() {
       const font = document.createElement('link');
-      Object.assign(font, { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500', });
+      Object.assign(font, {
+        'rel': 'stylesheet',
+        'href': <%= JSON.stringify(htmlWebpackPlugin.options.fontURI) %>,
+      });
       document.head.appendChild(font);
     })()
   </script>

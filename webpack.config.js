@@ -8,6 +8,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FILES_DIRS_TO_COPY = [
     'robots.txt', 'README.md', 'LICENSE.txt', 'humans.txt', 'CNAME', 'src/files/',
 ];
+const FONT_BASE = 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500';
+const GLYPHS = [
+    ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    ...'abcdefghijklmnopqrstuvwxyz',
+    ...'0123456789',
+    ...'-/*., ',
+];
 
 module.exports = (_, {mode}) => {
     process.env.NODE_ENV = mode;
@@ -86,6 +93,7 @@ module.exports = (_, {mode}) => {
                 }, {}) : false,
                 template: './src/index.html',
                 filename: 'index.html',
+                fontURI: `${FONT_BASE}&text=${encodeURIComponent(GLYPHS.join(''))}`,
             }),
             new CopyWebpackPlugin(
                 FILES_DIRS_TO_COPY
