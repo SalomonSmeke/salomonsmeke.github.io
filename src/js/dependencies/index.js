@@ -1,2 +1,2 @@
-import './styles';
-import './img';
+// Styles
+import '../../styles/main.scss';

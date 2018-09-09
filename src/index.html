@@ -6,7 +6,10 @@
     <meta name="description" content="Salomon`s web presence">
 
     <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500">
+
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500">
+    </noscript>
 
     <title>salomon smeke</title>
   </head>
@@ -57,5 +60,16 @@
       </nav>
     </div>
   </body>
+  <!-- Deferred font loading. -->
+  <script>
+    (function() {
+      'use strict';
+      const attributes = { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500', }
+      const font = document.createElement('link');
+      Object.keys(attributes).forEach(k => font[k] = attributes[k]);
+      document.getElementsByTagName('head')[0].appendChild(font);
+    })()
+  </script>
+  <!-- END: Deferred font loading. -->
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </html>
