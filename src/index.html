@@ -63,11 +63,9 @@
   <!-- Deferred font loading. -->
   <script>
     (function() {
-      'use strict';
-      const attributes = { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500', }
       const font = document.createElement('link');
-      Object.keys(attributes).forEach(k => font[k] = attributes[k]);
-      document.getElementsByTagName('head')[0].appendChild(font);
+      Object.assign(font, { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono:500', });
+      document.head.appendChild(font);
     })()
   </script>
   <!-- END: Deferred font loading. -->
