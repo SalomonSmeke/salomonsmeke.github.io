@@ -4,10 +4,9 @@
 [![dependencies Status](https://david-dm.org/SalomonSmeke/salomonsmeke.github.io/dev/status.svg)](https://david-dm.org/SalomonSmeke/salomonsmeke.github.io/dev)
 [![devDependencies Status](https://david-dm.org/SalomonSmeke/salomonsmeke.github.io/dev/dev-status.svg)](https://david-dm.org/SalomonSmeke/salomonsmeke.github.io/dev?type=dev)
 
-Just a personal website.
+Just a personal website, nothing to see here. Make sure to check the `dev` branch for any readable code as `master` is used to host the gh-pages build.
 
-Currently under construction. Once this is done, my old site will be available at:
-[ssmeke.io/old-site](http://ssmeke.io/old-site)
+Old site available at: [ssmeke.io/old-site](https://ssmeke.io/old-site)
 
 This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code.
