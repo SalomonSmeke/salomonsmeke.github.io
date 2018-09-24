@@ -4,3 +4,4 @@ dist
 uninstall.sh
 uninstall.sh.consumed
 git_staging
+deploy_log.txt
