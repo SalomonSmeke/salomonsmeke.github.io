@@ -128,7 +128,17 @@ printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
 printf "${INFO}Pushing...${NC}";
 
-git commit -m "Deployed: ${version} ON ${date}." && git push origin master >> "${LOGPATH}" 2>&1 || {
+git commit -m "Deployed: ${version} ON ${date}." >> "${LOGPATH}" 2>&1 || {
+  printf "${FAIL} \xE2\x9C\x98\n\t${NC}";
+
+  clean_up 1;
+
+  printf "${FAIL}Could not commit build.${NC}\n";
+
+  exit 1;
+}; # Commit.
+
+git push origin master >> "${LOGPATH}" 2>&1 || {
   printf "${FAIL} \xE2\x9C\x98\n\t${NC}";
 
   clean_up 1;
@@ -136,7 +146,7 @@ git commit -m "Deployed: ${version} ON ${date}." && git push origin master >> "$
   printf "${FAIL}Could not push build, check your network connection.${NC}\n";
 
   exit 1;
-}; # Commit and deploy.
+}; # Deploy.
 
 printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
