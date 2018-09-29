@@ -93,7 +93,7 @@ nvm use stable || {
   exit 1;
 };
 
-npm run build || {
+npm run prod:build || {
   printf "${FAIL} \xE2\x9C\x98\n\t${NC}";
 
   clean_up 0;
