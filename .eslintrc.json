@@ -34,5 +34,8 @@
         "max-len": [
             "error", 163
         ]
+    },
+    "globals": {
+        "process": false
     }
 }

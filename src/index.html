@@ -18,14 +18,6 @@
     <title>salomon smeke</title>
   </head>
   <body>
-    <div class="duochrome-container">
-      <span class="left-duochrome"></span>
-      <span class="skewed-duochrome-containers">
-        <span class="left-duochrome large-duochrome"></span>
-        <span class="right-duochrome small-duochrome"></span>
-      </span>
-      <span class="right-duochrome"></span>
-    </div>
     <div class="top">
       <header>salomon smeke cohen</header>
       <nav><a href="https://ssmeke.io/slmnsmk_resume_aug_2018.pdf">resume
@@ -43,40 +35,31 @@
       <div><span>CHICAGO AT 4C IN</span><span>13</span></div>
       <div><span>SIGHTS. PRIOR TO WHICH, I</span><span>15</span></div>
       <div><span>STUDIED SWE AT LOYOLA UNIVERSITY CHICAGO.</span><span>18</span></div>
+      <aside>
+        <i>*this isnt a vision test, by the by, go see an eye doctor.</i>
+      </aside>
     </article>
-    <aside aria-hidden="true">
-      <i>*this isnt a vision test, by the by, go see an eye doctor.</i>
-    </aside>
     <summary aria-hidden="false">
       I AM A SENIOR SOFTWARE ENGINEER IN CHICAGO AT 4C IN SIGHTS. PRIOR TO WHICH, I STUDIED SWE AT LOYOLA UNIVERSITY CHICAGO.
     </summary>
     <div class="bottom">
       <nav aria-hidden="true">
-        duochromes <button title="Red / Green" id="Rd/Gr">
+        <span>duochromes</span>
+        <button title="Red / Green" id="Rd/Gr">
           Rd/Gr
-        </button> <button title="Coral / Cyan" id="Vi/Cy">
+        </button>
+        <button title="Coral / Cyan" id="Vi/Cy">
           Vi/Cy
-        </button> <button title="Yellow / Purple" id="Pr/Yw">
+        </button>
+        <button title="Yellow / Purple" id="Pr/Yw">
           Yw/Pr
-        </button> <button title="Secret duochromes." id="Secret">
+        </button>
+        <button title="Secret duochromes." id="Secret">
           Secret
-        </button> JS required.
+        </button>
+        <span>JS required.</span>
       </nav>
     </div>
+    <script defer async src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   </body>
-  <!-- Deferred font loading. -->
-  <script>
-    (function() {
-      new Promise(() => {
-        const font = document.createElement('link');
-        Object.assign(font, {
-          'rel': 'stylesheet',
-          'href': <%= JSON.stringify(htmlWebpackPlugin.options.fontURI) %>,
-        });
-        document.head.appendChild(font);
-      })
-    })()
-  </script>
-  <!-- END: Deferred font loading. -->
-  <script defer async src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </html>
