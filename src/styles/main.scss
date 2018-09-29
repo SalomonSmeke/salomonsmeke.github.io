@@ -120,7 +120,7 @@ body {
     font-size: 24px;
     min-height: 1750px;
 
-    .top { padding-top: 82px; }
+    .top { padding-top: 42px; }
 
     .snellen-container {
       div {
@@ -139,7 +139,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 90px;
+      padding-bottom: 50px;
 
       span {
         margin-left: 6px;
@@ -155,7 +155,7 @@ body {
     min-height: 1300px;
 
 
-    .top { padding-top: 52px; }
+    .top { padding-top: 32px; }
 
     .snellen-container {
       div {
@@ -174,7 +174,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 60px;
+      padding-bottom: 40px;
 
       span {
         margin-left: 5px;
@@ -189,7 +189,7 @@ body {
     font-size: 11px;
     min-height: 680px;
 
-    .top { padding-top: 42px; }
+    .top { padding-top: 15px; }
 
     .snellen-container {
       div {
@@ -208,7 +208,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 50px;
+      padding-bottom: 25px;
 
       span {
         margin-left: 4px;
@@ -220,9 +220,10 @@ body {
 
 @media (min-width: 500px) and (max-width: 999px) {
   body {
-    font-size: 8px;
+    font-size: 10px;
+    min-height: 500px;
 
-    .top { padding-top: 35px; }
+    .top { padding-top: 20px; }
 
     .snellen-container {
       div {
@@ -241,7 +242,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 43px;
+      padding-bottom: 15px;
 
       span {
         margin-left: 3px;
@@ -253,10 +254,10 @@ body {
 
 @media (min-width: 330px) and (max-width: 499px) {
   body {
-    font-size: 7px;
-    min-height: 600px;
+    font-size: 8px;
+    min-height: 610px;
 
-    .top { padding-top: 55px; }
+    .top { padding-top: 30px; }
 
     .snellen-container {
       div {
@@ -269,14 +270,14 @@ body {
       }
 
       aside {
-        font-size: 1em;
+        font-size: .9em;
         padding-bottom: 7px;
-        padding-top: 25px;
+        padding-top: 20px;
       }
     }
 
     .bottom {
-      padding-bottom: 53px;
+      padding-bottom: 30px;
 
       span {
         margin-left: 2px;
@@ -288,11 +289,11 @@ body {
 
 @media (max-width: 329px) {
   body {
-    font-size: 6px;
+    font-size: 7px;
     min-height: 490px;
     min-width: 300px;
 
-    .top { padding-top: 40px; }
+    .top { padding-top: 25px; }
 
     .snellen-container {
       div {
@@ -311,7 +312,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 38px;
+      padding-bottom: 22px;
 
       span {
         margin-left: 2px;
