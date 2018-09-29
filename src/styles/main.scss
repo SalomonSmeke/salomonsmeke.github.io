@@ -1,3 +1,15 @@
+// font-size, line-height
+$snellen-typeset: (
+  (8em, 1em),
+  (7em, 1.1em),
+  (6em, 1.2em),
+  (5.5em, 1.1em),
+  (4em, 1.15em),
+  (2.78em, 1.2em),
+  (1.75em, 1.8em),
+  (1em, 2em)
+);
+
 /* global styles */
 
 * {
@@ -53,39 +65,13 @@ body {
       }
 
     }
-    :nth-child(1) { :first-child {
-      font-size: 8em;
-      line-height: 1em;
-    }}
-    :nth-child(2) { :first-child {
-      font-size: 7em;
-      line-height: 1.1em;
-    }}
-    :nth-child(3) { :first-child {
-      font-size: 6em;
-      line-height: 1.2em;
-    }}
-    :nth-child(4) { :first-child {
-      font-size: 5.5em;
-      line-height: 1.1em;
-    }}
-    :nth-child(5) { :first-child {
-      font-size: 4em;
-      line-height: 1.1em;
-    }}
-    :nth-child(6) { :first-child {
-      font-size: 2.78em;
-      line-height: 1.2em;
-    }}
-    :nth-child(7) { :first-child {
-      font-size: 1.75em;
-      line-height: 1.8em;
-    }}
-    :nth-child(8) {
-      :first-child {
-        font-size: 1.0em;
-        line-height: 2em;
-    }}
+
+    @for $i from 1 through length($snellen-typeset) {
+      :nth-child(#{$i}) { :first-child {
+        font-size: nth(nth($snellen-typeset, $i), 1);
+        line-height: nth(nth($snellen-typeset, $i), 2);
+      }}
+    }
 
     aside {
       width: 100%;
@@ -106,7 +92,7 @@ body {
     button {
       background: none;
       color: inherit;
-      border: .2em solid rgba(255, 0, 0, .7);
+      border: .2em solid rgb(255, 50, 50);
       border-radius: .5em;
       padding-top: .1em;
       padding-bottom: .15em;
@@ -157,40 +143,5 @@ body {
 // @media (min-width: 741px) and (max-height: 600px){
 //   body {
 //     font-size: 13px;
-//   }
-// }
-// @media (max-width: 740px) and (min-width: 375px) {
-//   body {
-//     font-size: 10px;
-//     min-height: 600px;
-//   }
-//   .snellen-container {
-//     div {
-//       min-width: 375px;
-//     }
-//   }
-//   .duochrome-container {
-//     min-height: 600px;
-//     .skewed-duochrome-containers {
-//       min-width: 282px;
-//     }
-//   }
-// }
-// @media (max-width: 375px){
-//   body {
-//     font-size: 8px;
-//     min-height: 500px;
-//     min-width: 300px;
-//   }
-//   .snellen-container {
-//     div {
-//       min-width: 290px;
-//     }
-//   }
-//   .duochrome-container {
-//     min-height: 500px;
-//     .skewed-duochrome-containers {
-//       min-width: 220px;
-//     }
 //   }
 // }
