@@ -1,4 +1,5 @@
 // font-size, line-height
+
 $snellen-typeset: (
   (8em, 1em),
   (7em, 1.1em),
@@ -10,46 +11,52 @@ $snellen-typeset: (
   (1em, 2em)
 );
 
-/* global styles */
+$font-color: rgb(20, 20, 20);
+$nude-background: rgb(255, 255, 250);
+$aside-font-color: rgba(20, 20, 20, .7);
+$contrast-color: rgb(255, 50, 50);
+
+// global styles
 
 * {
-  font-family: 'IBM Plex Mono', monospace;
   box-sizing: border-box;
-  color: rgb(20, 20, 20);
+  color: $font-color;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 a {
   color: inherit;
-  text-decoration: none; /* no underline */
+  text-decoration: none; // no underline
 }
 
-/* global layout styles */
+// global layout styles
 
 body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
+  background: $nude-background;
   display: flex;
   flex-direction: column;
-  background: #FFFFFA;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
 
   header {
-    width: 100%;
     text-align: center;
+    width: 100%;
   }
 
   nav {
-    width: 100%;
     text-align: center;
+    width: 100%;
   }
 
   .top { flex-grow: 1; }
 
   .snellen-container {
-    width: 100%;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 100%;
+
     div {
       display: flex;
       text-align: center;
@@ -68,16 +75,17 @@ body {
 
     @for $i from 1 through length($snellen-typeset) {
       :nth-child(#{$i}) { :first-child {
-        font-size: nth(nth($snellen-typeset, $i), 1);
-        line-height: nth(nth($snellen-typeset, $i), 2);
-      }}
+          font-size: nth(nth($snellen-typeset, $i), 1);
+          line-height: nth(nth($snellen-typeset, $i), 2);
+        }
+      }
     }
 
     aside {
-      width: 100%;
-      text-align: center;
+      color: $aside-font-color;
       font-size: .7em;
-      color: rgba(0, 0, 0, .7);
+      text-align: center;
+      width: 100%;
     }
 
   }
@@ -85,39 +93,39 @@ body {
   summary { display: none; }
 
   .bottom {
-    flex-grow: 1;
     display: flex;
     flex-direction: column-reverse;
+    flex-grow: 1;
 
     button {
       background: none;
-      color: inherit;
-      border: .2em solid rgb(255, 50, 50);
+      border: .2em solid $contrast-color;
       border-radius: .5em;
-      padding-top: .1em;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      outline: inherit;
       padding-bottom: .15em;
       padding-left: .4em;
       padding-right: .4em;
-      font: inherit;
-      cursor: pointer;
-      outline: inherit;
+      padding-top: .1em;
     }
   }
 }
 
-/* media query dimensions */
+// media query dimensions
 
 @media (min-width: 3000px) {
   body {
-    min-height: 1750px;
     font-size: 24px;
+    min-height: 1750px;
 
     .top { padding-top: 82px; }
 
     .snellen-container {
       div {
-        width: 60%;
         max-width: 2100px;
+        width: 60%;
 
         :first-child { padding-left: 40px; }
 
@@ -125,8 +133,8 @@ body {
       }
 
       aside {
-        padding-top: 35px;
         padding-bottom: 20px;
+        padding-top: 35px;
       }
     }
 
@@ -143,15 +151,16 @@ body {
 
 @media (min-width: 2000px) and (max-width: 2999px) {
   body {
-    min-height: 1300px;
     font-size: 20px;
+    min-height: 1300px;
+
 
     .top { padding-top: 52px; }
 
     .snellen-container {
       div {
-        width: 60%;
         max-width: 1550px;
+        width: 60%;
 
         :first-child { padding-left: 30px; }
 
@@ -159,8 +168,8 @@ body {
       }
 
       aside {
-        padding-top: 25px;
         padding-bottom: 15px;
+        padding-top: 25px;
       }
     }
 
@@ -177,15 +186,15 @@ body {
 
 @media (min-width: 1000px) and (max-width: 1999px) {
   body {
-    min-height: 680px;
     font-size: 11px;
+    min-height: 680px;
 
     .top { padding-top: 42px; }
 
     .snellen-container {
       div {
-        width: 60%;
         max-width: 800px;
+        width: 60%;
 
         :first-child { padding-left: 20px; }
 
@@ -193,8 +202,8 @@ body {
       }
 
       aside {
-        padding-top: 20px;
         padding-bottom: 15px;
+        padding-top: 20px;
       }
     }
 
@@ -217,8 +226,8 @@ body {
 
     .snellen-container {
       div {
-        width: 60%;
         max-width: 470px;
+        width: 60%;
 
         :first-child { padding-left: 10px; }
 
@@ -226,8 +235,8 @@ body {
       }
 
       aside {
-        padding-top: 10px;
         padding-bottom: 7px;
+        padding-top: 10px;
       }
     }
 
@@ -244,15 +253,15 @@ body {
 
 @media (min-width: 330px) and (max-width: 499px) {
   body {
-    min-height: 600px;
     font-size: 7px;
+    min-height: 600px;
 
     .top { padding-top: 55px; }
 
     .snellen-container {
       div {
-        width: 70%;
         min-width: 290px;
+        width: 70%;
 
         :first-child { padding-left: 5px; }
 
@@ -261,8 +270,8 @@ body {
 
       aside {
         font-size: 1em;
-        padding-top: 25px;
         padding-bottom: 7px;
+        padding-top: 25px;
       }
     }
 
@@ -277,11 +286,11 @@ body {
   }
 }
 
-@media (max-width: 329px){
+@media (max-width: 329px) {
   body {
-    min-height: 490px !important;
-    min-width: 300px !important;
     font-size: 6px;
+    min-height: 490px;
+    min-width: 300px;
 
     .top { padding-top: 40px; }
 
@@ -296,8 +305,8 @@ body {
 
       aside {
         font-size: 1em;
-        padding-top: 25px;
         padding-bottom: 7px;
+        padding-top: 25px;
       }
     }
 
