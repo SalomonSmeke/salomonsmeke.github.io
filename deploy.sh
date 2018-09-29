@@ -113,7 +113,7 @@ printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
 printf "${INFO}Retrieving site version and build date...${NC}";
 
-version=$(cat ver.txt);
+version=${${${$(grep -m 1 -h "version" "package.json")#*:}#*\"}%\"*}
 date=$(date);
 
 printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
