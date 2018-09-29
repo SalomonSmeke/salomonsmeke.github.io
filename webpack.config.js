@@ -51,7 +51,15 @@ module.exports = (_, {mode}) => {
                         'css-loader',
                         {
                             loader: 'postcss-loader',
-                            options: {autoprefixer: {browsers: BROWSERLIST_QUERY}},
+                            options: {
+                                autoprefixer: {
+                                    browsers: BROWSERLIST_QUERY,
+                                },
+                                plugins: [
+                                    require('cssnano'),
+                                    require('autoprefixer'),
+                                ],
+                            },
                         },
                         'sass-loader',
                     ],
