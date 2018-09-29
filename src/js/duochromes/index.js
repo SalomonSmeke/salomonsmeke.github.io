@@ -33,13 +33,10 @@ function setDuochromeByKey(key) {
         return;
     }
 
-    const colors = COLOR_BY_KEYS[key];
-
-    Object.keys(colors).forEach((_class) => {
-        [...document.getElementsByClassName(_class)].forEach((element) => {
-            element.style.backgroundColor = `rgba(${colors[_class].join(',')})`;
-        });
-    });
+    document.body.style.background = `linear-gradient(90deg, ${COLOR_BY_KEYS[key].reduce(
+        (acc, [[r, g, b], percentage]) => [...acc, `rgb(${r}, ${g}, ${b}) ${percentage}%`]
+        , []
+    ).join(', ')})`;
 
     state.lock = false;
     state.setKey = key;
