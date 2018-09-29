@@ -80,7 +80,7 @@ printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
 popd >> "${LOGPATH}" 2>&1 || exit 1; # Pop directory.
 
-printf "${INFO}Building site...${NC}";
+printf "${INFO}Building site...${NC}\n";
 
 source "/usr/local/opt/nvm/nvm.sh";
 nvm use stable || {
@@ -103,15 +103,13 @@ npm run prod:build || {
   exit 1;
 };
 
-printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
-
-printf "${INFO}More git-fu...${NC}";
+printf "${EXTRA}More git-fu...${NC}";
 
 cp -R "${STAGING_FOLDER}/.git" "${BUILD_FOLDER}/"; # Copy the git state to build.
 
 printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
-printf "${INFO}Retrieving site version and build date...${NC}";
+printf "${EXTRA}Retrieving site version and build date...${NC}";
 
 version=$(awk '/version/ {print $2; exit;}' package.json | sed s/[\",\s]//g)
 date=$(date);
@@ -126,7 +124,7 @@ cd dist && git add -A >> "${LOGPATH}" 2>&1; # Stage files.
 
 printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
-printf "${INFO}Pushing...${NC}";
+printf "${EXTRA}Pushing...${NC}";
 
 git commit -m "Deployed: ${version} ON ${date}." >> "${LOGPATH}" 2>&1 || {
   printf "${FAIL} \xE2\x9C\x98\n\t${NC}";
@@ -154,4 +152,4 @@ popd >> "${LOGPATH}" 2>&1 || exit 1;
 
 clean_up 0;
 
-printf "${SUCCESS}Done!${NC}";
+printf "${SUCCESS}Done!${NC}\n";
