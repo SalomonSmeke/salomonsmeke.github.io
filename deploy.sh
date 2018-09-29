@@ -113,7 +113,7 @@ printf "${SUCCESS} \xE2\x9C\x94\n${NC}";
 
 printf "${INFO}Retrieving site version and build date...${NC}";
 
-version=${${${$(grep -m 1 -h "version" "package.json")#*:}#*\"}%\"*}
+version=$(awk '/version/ {print $2; exit;}' package.json | sed s/[\",\s]//g)
 date=$(date);
 
 printf "${SUCCESS} \xE2\x9C\x94\n${NC}";

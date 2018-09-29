@@ -26,7 +26,7 @@ module.exports = (_, {mode}) => {
         devtool: 'eval-source-map',
         entry: {main: './src/index.js'},
         output: {
-            filename: '[name].[chunkhash].js',
+            filename: '[hash].js',
             path: path.resolve(__dirname, 'dist'),
         },
         module: {
@@ -95,7 +95,7 @@ module.exports = (_, {mode}) => {
             new webpack.DefinePlugin({'process.env.FONT_URI': JSON.stringify(FONT_URI)}),
             new CleanWebpackPlugin(['dist']),
             new MiniCssExtractPlugin({
-                filename: 'style.[chunkhash].css',
+                filename: 'style.[hash].css',
             }),
             new HtmlWebpackPlugin({
                 inject: false,
