@@ -18,7 +18,11 @@ const GLYPHS = [
 ];
 const FAVICON_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQIHWP4//8XAAX5AvnvHiluAAAAAElFTkSuQmCC';
 const FONT_URI = `${FONT_BASE}&text=${encodeURIComponent(GLYPHS.join(''))}`;
-const BROWSERLIST_QUERY = '> 3%, last 2 edge versions, last 3 chrome versions, last 2 safari versions, last 2 firefox versions';
+
+const browserlistQuery = (mode) => {
+    if (mode == 'production') return '> 3%, last 2 edge versions, last 3 chrome versions, last 2 safari versions, last 2 firefox versions';
+    return 'last 1 safari version, last 1 chrome version';
+};
 
 module.exports = (_, {mode}) => {
     process.env.NODE_ENV = mode;
@@ -37,7 +41,7 @@ module.exports = (_, {mode}) => {
                     use: {
                         loader: 'babel-loader',
                         options: {
-                            presets: [['@babel/preset-env', {'targets': BROWSERLIST_QUERY}]],
+                            presets: [['@babel/preset-env', {'targets': browserlistQuery(mode)}]],
                             plugins: [require('@babel/plugin-proposal-object-rest-spread')],
                             minified: mode === 'production',
                             sourceMaps: mode !== 'production',
@@ -53,7 +57,7 @@ module.exports = (_, {mode}) => {
                             loader: 'postcss-loader',
                             options: {
                                 autoprefixer: {
-                                    browsers: BROWSERLIST_QUERY,
+                                    browsers: browserlistQuery(mode),
                                 },
                                 plugins: [
                                     require('cssnano'),

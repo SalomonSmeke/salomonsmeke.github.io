@@ -221,9 +221,9 @@ body {
 @media (min-width: 500px) and (max-width: 999px) {
   body {
     font-size: 10px;
-    min-height: 500px;
+    min-height: 620px;
 
-    .top { padding-top: 20px; }
+    .top { padding-top: 60px; }
 
     .snellen-container {
       div {
@@ -242,7 +242,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 15px;
+      padding-bottom: 52px;
 
       span {
         margin-left: 3px;
@@ -255,9 +255,9 @@ body {
 @media (min-width: 330px) and (max-width: 499px) {
   body {
     font-size: 8px;
-    min-height: 610px;
+    min-height: 590px;
 
-    .top { padding-top: 30px; }
+    .top { padding-top: 60px; }
 
     .snellen-container {
       div {
@@ -277,7 +277,7 @@ body {
     }
 
     .bottom {
-      padding-bottom: 30px;
+      padding-bottom: 52px;
 
       span {
         margin-left: 2px;
@@ -290,10 +290,10 @@ body {
 @media (max-width: 329px) {
   body {
     font-size: 7px;
-    min-height: 490px;
-    min-width: 300px;
+    min-height: 500px;
+    min-width: 320px;
 
-    .top { padding-top: 25px; }
+    .top { padding-top: 60px; }
 
     .snellen-container {
       div {
@@ -307,12 +307,12 @@ body {
       aside {
         font-size: 1em;
         padding-bottom: 7px;
-        padding-top: 25px;
+        padding-top: 15px;
       }
     }
 
     .bottom {
-      padding-bottom: 22px;
+      padding-bottom: 52px;
 
       span {
         margin-left: 2px;
