@@ -2,7 +2,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
@@ -20,12 +20,14 @@ const FAVICON_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCA
 const FONT_URI = `${FONT_BASE}&text=${encodeURIComponent(GLYPHS.join(''))}`;
 
 const browserlistQuery = (mode) => {
-    if (mode == 'production') return '> 3%, last 2 edge versions, last 3 chrome versions, last 2 safari versions, last 2 firefox versions';
-    return 'last 1 safari version, last 1 chrome version';
+    if (mode === 'production') return '> 2%, last 1 edge versions, last 3 chrome versions, last 2 safari versions, last 2 firefox versions';
+    return 'last 1 safari version, last 1 firefox version';
 };
 
 module.exports = (_, {mode}) => {
     process.env.NODE_ENV = mode;
+    isProduction = mode === 'production';
+
     return {
         devtool: 'eval-source-map',
         entry: {main: './src/index.js'},
@@ -41,10 +43,12 @@ module.exports = (_, {mode}) => {
                     use: {
                         loader: 'babel-loader',
                         options: {
-                            presets: [['@babel/preset-env', {'targets': browserlistQuery(mode)}]],
-                            plugins: [require('@babel/plugin-proposal-object-rest-spread')],
-                            minified: mode === 'production',
-                            sourceMaps: mode !== 'production',
+                            presets: [
+                                ['@babel/preset-env', {'targets': browserlistQuery(mode)}],
+                            ].concat(isProduction ? ['minify'] : []),
+                            plugins: ['@babel/plugin-proposal-object-rest-spread'],
+                            minified: isProduction,
+                            sourceMaps: !isProduction,
                         },
                     },
                 },
@@ -97,14 +101,14 @@ module.exports = (_, {mode}) => {
         },
         plugins: [
             new webpack.DefinePlugin({'process.env.FONT_URI': JSON.stringify(FONT_URI)}),
-            new CleanWebpackPlugin(['dist']),
+            new CleanWebpackPlugin({path: path.resolve(__dirname, 'dist')}),
             new MiniCssExtractPlugin({
                 filename: 'style.[hash].css',
             }),
             new HtmlWebpackPlugin({
                 inject: false,
                 hash: true,
-                minify: mode === 'production' ? [
+                minify: isProduction ? [
                     'collapseWhitespace',
                     'minifyJS',
                     'removeComments',
