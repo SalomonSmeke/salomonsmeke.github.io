@@ -23,7 +23,7 @@
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "acorn": "^6.2.1",
+    "acorn": "^6.4.1",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "babel-preset-minify": "^0.5.0",
